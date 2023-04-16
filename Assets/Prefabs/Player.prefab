@@ -569,11 +569,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b6ad9702a33c6f4883b0f2cdb558190, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxAirLevel: 0
-  breatheSpeed: 0
+  breatheSpeed: 70
   airLevel: 0
-  fireBallPrefab: {fileID: 5407857973171370929, guid: c1fb907b14ad4544995a3b2a43a31f54, type: 3}
+  projectileCost: 20
+  minBreatheScaleFactor: 1
+  maxBreatheScaleFactor: 1.4
+  fireCoolDownTime: 0.1
   mouthPosition: {fileID: 7155520917048932953}
+  gasesAreas: {fileID: 0}
+  bodyMaterial: {fileID: 2100000, guid: 4d59fbc22563c6c4c8e7bb54ed750043, type: 2}
 --- !u!1 &4804489290846130670
 GameObject:
   m_ObjectHideFlags: 0

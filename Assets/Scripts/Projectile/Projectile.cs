@@ -1,3 +1,4 @@
+using System;
 using Enemy;
 using UnityEngine;
 
@@ -8,6 +9,7 @@ namespace Projectile
         [SerializeField] private Color dragonColor;
         [SerializeField] private float speed;
         [SerializeField] private float range;
+        [SerializeField] protected float damage;
         
         public Color DragonColor => dragonColor;
         
@@ -23,6 +25,12 @@ namespace Projectile
                 Destroy(gameObject);
         }
 
-        public abstract void Hit();
+        private void OnCollisionEnter(Collision other)
+        {
+            Enemy.Enemy hitEnemy = other.gameObject.GetComponent<Enemy.Enemy>();
+            Hit(hitEnemy);
+        }
+
+        public abstract void Hit(Enemy.Enemy hitEnemy);
     }
 }
