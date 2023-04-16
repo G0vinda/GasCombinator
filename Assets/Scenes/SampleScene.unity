@@ -385,6 +385,10 @@ PrefabInstance:
       value: 70
       objectReference: {fileID: 0}
     - target: {fileID: 4646494374501593672, guid: d62a75fd6651385499ddf247ca767816, type: 3}
+      propertyPath: fireBallPrefab
+      value: 
+      objectReference: {fileID: 5320000084703758945, guid: 3267aa0ecbeeb614c8f9e2741a28d718, type: 3}
+    - target: {fileID: 4646494374501593672, guid: d62a75fd6651385499ddf247ca767816, type: 3}
       propertyPath: fireBallAirCost
       value: 20
       objectReference: {fileID: 0}

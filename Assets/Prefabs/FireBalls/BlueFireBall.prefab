@@ -9,7 +9,19 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5407857973171370929, guid: c1fb907b14ad4544995a3b2a43a31f54, type: 3}
       propertyPath: m_Name
-      value: Fireball
+      value: BlueFireBall
+      objectReference: {fileID: 0}
+    - target: {fileID: 5407857973171370956, guid: c1fb907b14ad4544995a3b2a43a31f54, type: 3}
+      propertyPath: dragonColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5407857973171370956, guid: c1fb907b14ad4544995a3b2a43a31f54, type: 3}
+      propertyPath: dragonColor.g
+      value: 0.18431373
+      objectReference: {fileID: 0}
+    - target: {fileID: 5407857973171370956, guid: c1fb907b14ad4544995a3b2a43a31f54, type: 3}
+      propertyPath: dragonColor.r
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5407857973171370957, guid: c1fb907b14ad4544995a3b2a43a31f54, type: 3}
       propertyPath: m_RootOrder

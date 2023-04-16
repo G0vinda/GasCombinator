@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2579262284633798402}
   - component: {fileID: 2579262284633798403}
   - component: {fileID: 1846637853268050579}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Ground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -110,6 +110,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8fa76fc2092241dfb77a2b13abf846d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  floorColor: {r: 0, g: 0, b: 0, a: 0}
-  dragonColor: {r: 0, g: 0, b: 0, a: 0}
   fireBallPrefab: {fileID: 0}
