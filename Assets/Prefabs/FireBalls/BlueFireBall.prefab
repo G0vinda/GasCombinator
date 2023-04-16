@@ -12,12 +12,16 @@ PrefabInstance:
       value: BlueFireBall
       objectReference: {fileID: 0}
     - target: {fileID: 5407857973171370956, guid: c1fb907b14ad4544995a3b2a43a31f54, type: 3}
+      propertyPath: type
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5407857973171370956, guid: c1fb907b14ad4544995a3b2a43a31f54, type: 3}
       propertyPath: dragonColor.b
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5407857973171370956, guid: c1fb907b14ad4544995a3b2a43a31f54, type: 3}
       propertyPath: dragonColor.g
-      value: 0.18431373
+      value: 0.6765175
       objectReference: {fileID: 0}
     - target: {fileID: 5407857973171370956, guid: c1fb907b14ad4544995a3b2a43a31f54, type: 3}
       propertyPath: dragonColor.r

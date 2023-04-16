@@ -110,6 +110,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c316f936571666d4286d0b7d38e251a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dragonColor: {r: 1, g: 0, b: 0, a: 1}
   speed: 8.5
   type: 0
-  range: 600
+  range: 1000

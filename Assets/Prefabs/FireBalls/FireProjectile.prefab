@@ -21,11 +21,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5407857973171370956, guid: c1fb907b14ad4544995a3b2a43a31f54, type: 3}
       propertyPath: dragonColor.g
-      value: 0.29803923
+      value: 0.13912456
       objectReference: {fileID: 0}
     - target: {fileID: 5407857973171370956, guid: c1fb907b14ad4544995a3b2a43a31f54, type: 3}
       propertyPath: dragonColor.r
-      value: 1
+      value: 0.990566
       objectReference: {fileID: 0}
     - target: {fileID: 5407857973171370957, guid: c1fb907b14ad4544995a3b2a43a31f54, type: 3}
       propertyPath: m_RootOrder

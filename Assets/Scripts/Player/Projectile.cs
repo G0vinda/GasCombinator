@@ -16,17 +16,14 @@ namespace Player
             ICE
         }
 
-        [SerializeField] private Color dragonColor = Color.red; 
-        public Color DragonColor => dragonColor;
-        [SerializeField] private float speed = 8.5f;
-        [SerializeField] private Type type = Type.NONE;
-        [SerializeField] private float range = 600.0f;
-        private float m_traveledDistance = 0.0f;
+        [SerializeField] private Color dragonColor;
+        [SerializeField] private float speed;
+        [SerializeField] private Type type;
+        [SerializeField] private float range;
         
-        private void Awake()
-        {
-            Destroy(gameObject, 10f);
-        }
+        public Color DragonColor => dragonColor;
+        
+        private float m_traveledDistance;
 
         void Update()
         {

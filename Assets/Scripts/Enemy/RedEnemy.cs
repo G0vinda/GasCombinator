@@ -4,8 +4,6 @@ namespace Enemy
 {
     public class RedEnemy : MonoBehaviour, IEnemy
     {
-        
-        
         public void Move()
         {
             throw new System.NotImplementedException();

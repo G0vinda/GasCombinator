@@ -8,18 +8,18 @@ namespace Player
         [SerializeField] private float speed;
         [SerializeField] private float rotationSpeed;
 
-        private Vector3 _movement;
-        private Quaternion _moveRotation;
+        private Vector3 m_movement;
+        private Quaternion m_moveRotation;
     
         // Gets called from Player Input Component
         public void OnMove(InputAction.CallbackContext context)
         {
             var move = context.ReadValue<Vector2>();
             Debug.Log($"MoveValue is: {move}");
-            _movement = new Vector3(move.x, 0f, move.y);
+            m_movement = new Vector3(move.x, 0f, move.y);
 
             if(move != Vector2.zero)
-                _moveRotation = Quaternion.LookRotation(_movement);
+                m_moveRotation = Quaternion.LookRotation(m_movement);
         }
 
         void Update()
@@ -29,8 +29,8 @@ namespace Player
 
         public void MovePlayer()
         {
-            transform.rotation = Quaternion.Slerp(transform.rotation, _moveRotation, rotationSpeed);
-            transform.Translate(_movement * speed * Time.deltaTime, Space.World);
+            transform.rotation = Quaternion.Slerp(transform.rotation, m_moveRotation, rotationSpeed);
+            transform.Translate(m_movement * speed * Time.deltaTime, Space.World);
         }
     }
 }

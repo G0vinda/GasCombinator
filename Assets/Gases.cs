@@ -6,7 +6,7 @@ using UnityEngine.Assertions;
 
 public class Gases : MonoBehaviour
 {
-    public List<Gas> gasList;
+    [SerializeField] private List<Gas> gasList;
     
     /*private void Awake()
     {
