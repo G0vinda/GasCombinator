@@ -23,6 +23,6 @@ namespace Projectile
                 Destroy(gameObject);
         }
 
-        public abstract void Hit(IEnemy enemy);
+        public abstract void Hit();
     }
 }

@@ -9,7 +9,7 @@ namespace Projectile
             Move();
         }
 
-        public override void Hit(IEnemy enemy)
+        public override void Hit()
         {
             throw new System.NotImplementedException();
         }
