@@ -18,11 +18,10 @@ namespace Player
         [SerializeField] private Transform mouthPosition;
 
         [Header("References")]
-        [SerializeField] private Gases gasesAreas;
         [SerializeField] private Material bodyMaterial;
         
         private float m_fireCooldown;
-        private Stack<GameObject> m_storedProjectiles;
+        private Stack<Projectile.Projectile> m_storedProjectiles;
         private int m_maxProjectiles = 5;
 
         private float m_breatheAmount;
@@ -32,7 +31,7 @@ namespace Player
         
         private void Awake()
         {
-            m_storedProjectiles = new Stack<GameObject>();
+            m_storedProjectiles = new Stack<Projectile.Projectile>();
             m_minBreatheSize = Vector3.one * minBreatheScaleFactor;
             m_maxBreatheSize = Vector3.one * maxBreatheScaleFactor;
             transform.localScale = m_minBreatheSize;
@@ -103,7 +102,7 @@ namespace Player
 
         private void AddProjectile()
         {
-            var newProjectile = gasesAreas.GetProjectile(transform.position.x, transform.position.z);
+            var newProjectile = GasArea.GetProjectileFromArea(transform.position.x, transform.position.z);
             bodyMaterial.color = newProjectile.GetComponent<Projectile.Projectile>().DragonColor;
             m_storedProjectiles.Push(newProjectile);
         }
