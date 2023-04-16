@@ -1,8 +1,8 @@
-﻿using Enemy;
+﻿using UnityEngine;
 
 namespace Projectile
 {
-    public class FireProjectile : Projectile
+    public class PoisonProjectile : Projectile
     {
         private void Update()
         {

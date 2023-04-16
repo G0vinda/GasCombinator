@@ -68,10 +68,6 @@ namespace Enemy
             m_currentSpeed /= newSpeedFactor;
         }
 
-        private void Die()
-        {
-            // Maybe we want to do something else here
-            Destroy(gameObject);
-        }
+        protected abstract void Die();
     }
 }
