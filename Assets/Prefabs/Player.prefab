@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1499375328559756186}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.039, z: 0.837}
+  m_LocalPosition: {x: 0, y: 1.77, z: 0.9}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -63,7 +63,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7155520917048932953}
-  - {fileID: 6915005503978000170}
+  - {fileID: 7192342771201496351}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -171,16 +171,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b6ad9702a33c6f4883b0f2cdb558190, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  breatheSpeed: 0
+  breatheSpeed: 70
   airLevel: 0
-  projectileCost: 0
-  minBreatheScaleFactor: 0
-  maxBreatheScaleFactor: 0
-  fireCoolDownTime: 0
+  projectileCost: 20
+  minBreatheScaleFactor: 1
+  maxBreatheScaleFactor: 1.4
+  fireCoolDownTime: 0.1
   mouthPosition: {fileID: 7155520917048932953}
-  gasesAreas: {fileID: 0}
-  bodyMaterial: {fileID: 0}
---- !u!1001 &6376447961647786177
+  bodyMaterial: {fileID: 2100000, guid: 4d59fbc22563c6c4c8e7bb54ed750043, type: 2}
+--- !u!1001 &7231352571450700532
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -190,6 +189,18 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 89f24a2b209a0344c8e6994157f84abc, type: 3}
       propertyPath: m_RootOrder
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 89f24a2b209a0344c8e6994157f84abc, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.5227
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 89f24a2b209a0344c8e6994157f84abc, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.5227
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 89f24a2b209a0344c8e6994157f84abc, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.5227
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 89f24a2b209a0344c8e6994157f84abc, type: 3}
       propertyPath: m_LocalPosition.x
@@ -237,8 +248,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 89f24a2b209a0344c8e6994157f84abc, type: 3}
---- !u!4 &6915005503978000170 stripped
+--- !u!4 &7192342771201496351 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 89f24a2b209a0344c8e6994157f84abc, type: 3}
-  m_PrefabInstance: {fileID: 6376447961647786177}
+  m_PrefabInstance: {fileID: 7231352571450700532}
   m_PrefabAsset: {fileID: 0}
