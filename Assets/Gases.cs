@@ -8,15 +8,16 @@ public class Gases : MonoBehaviour
 {
     [SerializeField] private List<Gas> gasList;
     
-    /*private void Awake()
-    {
-        foreach (var gas in GetComponentsInChildren<Gas>())
-        {
-            if (gas == null)
-                print("AAA");
-            gasList.Add(gas);
-        }
-    }*/
+    // private void Awake()
+    // {
+    //     var test = GetComponentsInChildren<Gas>();
+    //     foreach (var gas in test)
+    //     {
+    //         if (gas == null)
+    //             print("AAA");
+    //         gasList.Add(gas);
+    //     }
+    // }
 
     public GameObject GetProjectile(float positionX, float positionZ)
     {

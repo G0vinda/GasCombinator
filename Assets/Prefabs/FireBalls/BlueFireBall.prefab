@@ -71,5 +71,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5407857973171370956, guid: c1fb907b14ad4544995a3b2a43a31f54, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: c1fb907b14ad4544995a3b2a43a31f54, type: 3}
+--- !u!1 &4556734404885083841 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5407857973171370929, guid: c1fb907b14ad4544995a3b2a43a31f54, type: 3}
+  m_PrefabInstance: {fileID: 8372288330563145072}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1588045222797624566
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4556734404885083841}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2fbd66c975d442ecb2ddba8293d7681a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dragonColor: {r: 0.042452812, g: 0.30991808, b: 1, a: 1}
+  speed: 10
+  range: 10

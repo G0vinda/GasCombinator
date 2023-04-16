@@ -58,7 +58,7 @@ namespace Player
             Instantiate( m_storedProjectiles.Pop(), mouthPosition.position, mouthPosition.rotation);
             if (m_storedProjectiles.Count > 0)
             {
-                bodyMaterial.color = m_storedProjectiles.Peek().GetComponent<Projectile>().DragonColor;
+                bodyMaterial.color = m_storedProjectiles.Peek().GetComponent<Projectile.Projectile>().DragonColor;
             } 
             else
             {
@@ -104,7 +104,7 @@ namespace Player
         private void AddProjectile()
         {
             var newProjectile = gasesAreas.GetProjectile(transform.position.x, transform.position.z);
-            bodyMaterial.color = newProjectile.GetComponent<Projectile>().DragonColor;
+            bodyMaterial.color = newProjectile.GetComponent<Projectile.Projectile>().DragonColor;
             m_storedProjectiles.Push(newProjectile);
         }
 
