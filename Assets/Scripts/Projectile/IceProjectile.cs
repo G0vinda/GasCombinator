@@ -4,6 +4,8 @@ namespace Projectile
 {
     public class IceProjectile : Projectile
     {
+        [SerializeField] private float slowFactor;
+        
         private void Update()
         {
             Move();
@@ -14,6 +16,7 @@ namespace Projectile
             if (hitEnemy != null)
             {
                 hitEnemy.TakeDamage(damage);
+                hitEnemy.TakeSlow(slowFactor);
             }
 
             Destroy(gameObject);
