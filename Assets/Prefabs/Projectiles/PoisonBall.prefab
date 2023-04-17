@@ -112,7 +112,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dragonColor: {r: 0.25249934, g: 0.9056604, b: 0.17515129, a: 1}
-  speed: 10
+  speed: 20
   range: 10
   damage: 20
 --- !u!54 &7120106158415747252
