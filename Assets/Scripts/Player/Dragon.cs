@@ -19,6 +19,7 @@ namespace Player
 
         [Header("References")]
         [SerializeField] private Material bodyMaterial;
+        [SerializeField] private Vaccum vaccum;
         
         private float m_fireCooldown;
         private Stack<Projectile.Projectile> m_storedProjectiles;
@@ -43,6 +44,7 @@ namespace Player
 
         public void OnBreathe(InputAction.CallbackContext context)
         {
+            vaccum.gameObject.SetActive(context.ReadValueAsButton());
             m_breatheAmount = context.ReadValueAsButton() ? breatheSpeed : 0;
         }
 
