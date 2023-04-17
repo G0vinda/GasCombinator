@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: GreenGasArea
   m_EditorClassIdentifier: 
   projectilePrefab: {fileID: 4241779338935867338, guid: 5ff5320ff65dd2344a69c2b53c58b0f4, type: 3}
-  floorColor: {r: 0.16874333, g: 0.4528302, b: 0.20090412, a: 1}
+  floorColor: {r: 0.31479177, g: 0.509434, b: 0.3364187, a: 1}

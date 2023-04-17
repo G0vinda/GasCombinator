@@ -15,7 +15,6 @@ namespace Player
         public void OnMove(InputAction.CallbackContext context)
         {
             var move = context.ReadValue<Vector2>();
-            Debug.Log($"MoveValue is: {move}");
             m_movement = new Vector3(move.x, 0f, move.y);
 
             if(move != Vector2.zero)

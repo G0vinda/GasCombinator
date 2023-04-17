@@ -13,7 +13,7 @@ namespace Projectile
         {
             if (hitEnemy != null)
             {
-                hitEnemy.TakeDamage(damage);
+                hitEnemy.TakePoison(damage);
             }
 
             Destroy(gameObject);
