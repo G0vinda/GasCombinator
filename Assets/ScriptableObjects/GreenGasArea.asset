@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   projectilePrefab: {fileID: 4241779338935867338, guid: 5ff5320ff65dd2344a69c2b53c58b0f4, type: 3}
   floorColor: {r: 0.31479177, g: 0.509434, b: 0.3364187, a: 1}
+  gasColor: {r: 0.07929869, g: 0.764151, b: 0, a: 1}

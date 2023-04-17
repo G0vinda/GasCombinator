@@ -7,5 +7,6 @@ namespace Gas
     {
         public Projectile.Projectile projectilePrefab;
         public Color floorColor;
+        public Color gasColor;
     }
 }
