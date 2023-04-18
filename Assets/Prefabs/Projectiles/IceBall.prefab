@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6221644856416242678}
   - component: {fileID: 7339490704655966751}
   - component: {fileID: 6240641666528908506}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: IceBall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -112,9 +112,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dragonColor: {r: 0, g: 0.43586493, b: 1, a: 1}
-  speed: 10
-  range: 10
-  damage: 40
+  speed: 20
+  range: 5
+  damage: 0
   slowFactor: 0.4
 --- !u!54 &6240641666528908506
 Rigidbody:

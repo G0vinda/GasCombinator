@@ -19,6 +19,7 @@ namespace Player
 
         [Header("References")]
         [SerializeField] private Material bodyMaterial;
+        [SerializeField] private Vaccum vaccum;
         
         private float m_fireCooldown;
         private Stack<Projectile.Projectile> m_storedProjectiles;
@@ -28,6 +29,12 @@ namespace Player
         private Vector3 m_minBreatheSize;
         private Vector3 m_maxBreatheSize;
         private float m_maxAirLevel;
+
+        public bool IncreaseHealth(int amount = 1)
+        {
+            var health = GetComponent<PlayerHealth>();
+            return health != null && health.IncreaseHealth(amount);
+        }
         
         private void Awake()
         {
@@ -43,6 +50,7 @@ namespace Player
 
         public void OnBreathe(InputAction.CallbackContext context)
         {
+            vaccum.gameObject.SetActive(context.ReadValueAsButton());
             m_breatheAmount = context.ReadValueAsButton() ? breatheSpeed : 0;
         }
 
