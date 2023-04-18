@@ -17,6 +17,13 @@ namespace Player
         private WaitForSeconds m_invincibilityPause;
         private bool m_isInvincible;
 
+        public bool IncreaseHealth(int amount = 1)
+        {
+            m_currentLives += amount;
+            UpdateLiveText();
+            return true;
+        }
+        
         private void Awake()
         {
             m_currentLives = startLives;

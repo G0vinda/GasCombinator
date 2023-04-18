@@ -29,6 +29,12 @@ namespace Player
         private Vector3 m_minBreatheSize;
         private Vector3 m_maxBreatheSize;
         private float m_maxAirLevel;
+
+        public bool IncreaseHealth(int amount = 1)
+        {
+            var health = GetComponent<PlayerHealth>();
+            return health != null && health.IncreaseHealth(amount);
+        }
         
         private void Awake()
         {
