@@ -1,18 +1,12 @@
-using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Linq;
-using Gas;
 using UnityEngine;
-using Utils;
 
 public class GasArea : MonoBehaviour
 {
-    [OnChangedCall("UpdateFloorColor")]
-    [SerializeField] private GasAreaData data;
-    [SerializeField] private MeshRenderer renderer;
+    [SerializeField] private Projectile.Projectile projectile;
 
-    public Projectile.Projectile Projectile => data.projectilePrefab;
+    public Projectile.Projectile Projectile => projectile;
     
     private static List<GasArea> GasAreasInGame = new (); 
     
@@ -24,17 +18,10 @@ public class GasArea : MonoBehaviour
         return gasAreaOnPosition.Projectile;
     }
 
-    
-    // Gets called when data in inspector change
-    public void UpdateFloorColor()
-    {
-        renderer.material.color = data.floorColor;
-    }
-
     private void Awake()
     {
         m_bounds = GetComponent<BoxCollider>().bounds;
-        GasAreasInGame.Add(this);
+        GasAreasInGame.Add(this); ;
     }
 
     private bool IsInsideArea(float positionX, float positionZ)

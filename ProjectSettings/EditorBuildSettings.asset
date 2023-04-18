@@ -4,5 +4,8 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/FreddieScene.unity
+    guid: ba3d28f6754c9b849bdd144d46dc2279
   m_configObjects: {}
