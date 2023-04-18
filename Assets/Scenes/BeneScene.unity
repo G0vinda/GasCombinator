@@ -2226,7 +2226,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh24516
+  m_Name: pb_Mesh45562
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -4221,34 +4221,6 @@ PrefabInstance:
       propertyPath: m_MeshFormatVersion
       value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: 6795203558189910229, guid: a92f90df64a7cfc449ec6e8ad8b60d8c, type: 3}
-      propertyPath: baseSpeed
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 6795203558189910229, guid: a92f90df64a7cfc449ec6e8ad8b60d8c, type: 3}
-      propertyPath: speedOverDistance.m_Curve.Array.data[0].inSlope
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6795203558189910229, guid: a92f90df64a7cfc449ec6e8ad8b60d8c, type: 3}
-      propertyPath: speedOverDistance.m_Curve.Array.data[1].inSlope
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 6795203558189910229, guid: a92f90df64a7cfc449ec6e8ad8b60d8c, type: 3}
-      propertyPath: speedOverDistance.m_Curve.Array.data[0].outSlope
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6795203558189910229, guid: a92f90df64a7cfc449ec6e8ad8b60d8c, type: 3}
-      propertyPath: speedOverDistance.m_Curve.Array.data[1].inWeight
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6795203558189910229, guid: a92f90df64a7cfc449ec6e8ad8b60d8c, type: 3}
-      propertyPath: speedOverDistance.m_Curve.Array.data[1].outSlope
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 6795203558189910229, guid: a92f90df64a7cfc449ec6e8ad8b60d8c, type: 3}
-      propertyPath: speedOverDistance.m_Curve.Array.data[0].outWeight
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 7224334535445171968, guid: a92f90df64a7cfc449ec6e8ad8b60d8c, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -4323,7 +4295,7 @@ PrefabInstance:
       objectReference: {fileID: 1287900313}
     - target: {fileID: 7914587084586791072, guid: a92f90df64a7cfc449ec6e8ad8b60d8c, type: 3}
       propertyPath: m_VersionIndex
-      value: 7173
+      value: 7179
       objectReference: {fileID: 0}
     - target: {fileID: 7914587084586791072, guid: a92f90df64a7cfc449ec6e8ad8b60d8c, type: 3}
       propertyPath: m_Faces.Array.size

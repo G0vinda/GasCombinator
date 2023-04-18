@@ -1063,10 +1063,10 @@ MeshCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3236047121315490795}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 0}
 --- !u!114 &2664881535212093930
@@ -1081,29 +1081,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8b85996b7decbb4db577ff4aff24e32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseSpeed: 100
+  baseSpeed: 20
   speedOverDistance:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
-      inSlope: 0.1285207
-      outSlope: 0.1285207
-      tangentMode: 0
+      value: 0.01272583
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 34
       weightedMode: 0
       inWeight: 0
-      outWeight: 0.091755286
+      outWeight: 0
     - serializedVersion: 3
       time: 1
       value: 1
-      inSlope: 2.0352466
-      outSlope: 2.0352466
-      tangentMode: 0
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 34
       weightedMode: 0
-      inWeight: 0.040558815
+      inWeight: 0
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  targetPosition: {x: 0, y: 1.77, z: 0.9}
+  targetTransform: {fileID: 0}
