@@ -26,10 +26,10 @@ namespace Player
             MovePlayer();
         }
 
-        public void MovePlayer()
+        private void MovePlayer()
         {
             transform.rotation = Quaternion.Slerp(transform.rotation, m_moveRotation, rotationSpeed);
-            transform.Translate(m_movement * speed * Time.deltaTime, Space.World);
+            transform.Translate(m_movement * (speed * Time.deltaTime), Space.World);
         }
     }
 }

@@ -243,6 +243,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Schroom
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 33aa84e03d5c7e141a537e84f73c28bc, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 33aa84e03d5c7e141a537e84f73c28bc, type: 3}
 --- !u!4 &559931003434565396 stripped

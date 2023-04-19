@@ -30,12 +30,6 @@ namespace Player
         private Vector3 m_maxBreatheSize;
         private float m_maxAirLevel;
 
-        public bool IncreaseHealth(int amount = 1)
-        {
-            var health = GetComponent<PlayerHealth>();
-            return health != null && health.IncreaseHealth(amount);
-        }
-        
         private void Awake()
         {
             m_storedProjectiles = new Stack<Projectile.Projectile>();
@@ -44,7 +38,18 @@ namespace Player
             transform.localScale = m_minBreatheSize;
             m_maxAirLevel = m_maxProjectiles * projectileCost;
         }
+        
+        public bool IncreaseHealth(int amount = 1)
+        {
+            var health = GetComponent<PlayerHealth>();
+            return health != null && health.IncreaseHealth(amount);
+        }
 
+        public void RemoveBean(Bean.Bean bean)
+        {
+            vaccum.RemoveBean(bean);
+        }
+        
         // Gets called from Player Input Component
         #region InputEventMethods
 
@@ -58,8 +63,6 @@ namespace Player
         {
             if(!context.ReadValueAsButton())
                 return;
-            var test = m_storedProjectiles;
-            int a = m_storedProjectiles.Count;
             if(m_fireCooldown > 0 || m_storedProjectiles.Count == 0)
                 return;
             Instantiate( m_storedProjectiles.Pop(), mouthPosition.position, mouthPosition.rotation);
@@ -94,7 +97,6 @@ namespace Player
             float projectiles = (m_storedProjectiles.Count + 1.0f) / m_maxProjectiles;
             if (fillAmount >= projectiles)
             {
-                Debug.Log(fillAmount + " >= " + projectiles + ": adding Projectile!");
                 AddProjectile();
             }
 

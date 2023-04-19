@@ -13,7 +13,8 @@ namespace Bean
         {
             if (other.TryGetComponent<Player.Dragon>(out var dragon))
             {
-                ApplyEffect(other.gameObject.GetComponent<Dragon>());
+                ApplyEffect(dragon);
+                dragon.RemoveBean(this);
                 Destroy(gameObject);
             }
         }

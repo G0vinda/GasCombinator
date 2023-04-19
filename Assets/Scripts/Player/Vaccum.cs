@@ -38,21 +38,30 @@ namespace Player
             m_capturedBeans.Remove(other);
         }
 
+        public void RemoveBean(Bean.Bean bean)
+        {
+            var beanCollider = bean.gameObject.GetComponent<Collider>();
+            if (m_capturedBeans.Contains(beanCollider))
+            {
+                m_capturedBeans.Remove(beanCollider);
+            }
+        }
+        
         void Update()
         {
-            m_capturedBeans.RemoveAll(bean => bean == null);
             foreach (var capturedBean in m_capturedBeans)
             {
-                var a = Math.Abs(Vector3.Distance(capturedBean.transform.position, targetTransform.position)) / totalDistance;
-                var speedMultiplier = speedOverDistance.Evaluate(1.0f -
-                    a);
-                Debug.Log(a);
-                Debug.Log(speedMultiplier);
-                Vector3 newPos = Vector3.MoveTowards(
-                    capturedBean.transform.position, targetTransform.position, baseSpeed * 
-                                                                               speedMultiplier * Time.deltaTime);
-                capturedBean.transform.position = new Vector3(newPos.x, capturedBean.transform.position.y, newPos.z);
-
+                var beanTransform = capturedBean.transform;
+                var beanPosition = beanTransform.position;
+                var targetPosition = targetTransform.position;
+                
+                var a = Math.Abs(Vector3.Distance(beanPosition, targetPosition)) / totalDistance;
+                var speedMultiplier = speedOverDistance.Evaluate(1.0f - a);
+                
+                var newPos = Vector3.MoveTowards(
+                    beanPosition, targetPosition, baseSpeed * 
+                                                  speedMultiplier * Time.deltaTime);
+                beanTransform.position = new Vector3(newPos.x, beanPosition.y, newPos.z);
             }
         }
     }
