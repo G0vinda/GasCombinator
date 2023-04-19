@@ -184,6 +184,7 @@ namespace Player
             }
 
             m_beanCount++;
+            vaccum.RemoveBean(bean);
             Destroy(bean.gameObject);
         }
 
