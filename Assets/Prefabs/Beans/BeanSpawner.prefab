@@ -109,8 +109,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   beanPrefabs:
-  - {fileID: 4488880787622707309, guid: 9f1004ab4b8aefc47b75bca5cc422d8d, type: 3}
+  - {fileID: 286497467662576995, guid: 1c01a0e10ea537941a53c5abad44d051, type: 3}
+  - {fileID: 286497467662576995, guid: 6d936265fac4a5346872df94953251c3, type: 3}
+  - {fileID: 286497467662576995, guid: 6f6b888ea3ef12e4e9948968752b79c7, type: 3}
+  beanProbabilities: 020000000100000001000000
   minSpawnDelay: 2
-  maxSpawnDelay: 10
+  maxSpawnDelay: 5
   lowerLimit: {fileID: 5040130453909694684}
   upperLimit: {fileID: 1638106586334804147}

@@ -1,4 +1,7 @@
+using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -16,6 +19,7 @@ namespace Player
         [Header("FireValues")]
         [SerializeField] private float fireCoolDownTime;
         [SerializeField] private Transform mouthPosition;
+        [SerializeField] private float multipleShotDelayTime;
 
         [Header("References")]
         [SerializeField] private Material bodyMaterial;
@@ -24,19 +28,31 @@ namespace Player
         private float m_fireCooldown;
         private Stack<Projectile.Projectile> m_storedProjectiles;
         private int m_maxProjectiles = 5;
+        private WaitForSeconds m_multipleShotDelay;
 
         private float m_breatheAmount;
         private Vector3 m_minBreatheSize;
         private Vector3 m_maxBreatheSize;
         private float m_maxAirLevel;
 
+        private DragonAttributes m_dragonAttributes;
+        private PlayerController m_playerController;
+        private PlayerHealth m_playerHealth;
+        private int m_beanCount;
+
         private void Awake()
         {
             m_storedProjectiles = new Stack<Projectile.Projectile>();
+            m_multipleShotDelay = new WaitForSeconds(multipleShotDelayTime);
+            
             m_minBreatheSize = Vector3.one * minBreatheScaleFactor;
             m_maxBreatheSize = Vector3.one * maxBreatheScaleFactor;
             transform.localScale = m_minBreatheSize;
             m_maxAirLevel = m_maxProjectiles * projectileCost;
+            
+            m_dragonAttributes.ToDefault();
+            m_playerController = GetComponent<PlayerController>();
+            m_playerHealth = GetComponent<PlayerHealth>();
         }
         
         public bool IncreaseHealth(int amount = 1)
@@ -63,28 +79,52 @@ namespace Player
         {
             if(!context.ReadValueAsButton())
                 return;
+
             if(m_fireCooldown > 0 || m_storedProjectiles.Count == 0)
                 return;
-            Instantiate( m_storedProjectiles.Pop(), mouthPosition.position, mouthPosition.rotation);
+
+            StartCoroutine(Shoot(1 + m_dragonAttributes.ExtraShots));
             if (m_storedProjectiles.Count > 0)
             {
                 bodyMaterial.color = m_storedProjectiles.Peek().GetComponent<Projectile.Projectile>().DragonColor;
             } 
             else
             {
-                bodyMaterial.color = bodyMaterial.color = new Color(0.3146138f, 0.6603774f, 0.378644f);
+                bodyMaterial.color = new Color(0.3146138f, 0.6603774f, 0.378644f);
             }
+            
             BreatheOut(projectileCost);
             m_fireCooldown = fireCoolDownTime;
         }
 
+        public void OnFart(InputAction.CallbackContext context)
+        {
+            if(!context.performed || m_beanCount == 0)
+                return;
+            
+            m_dragonAttributes.ToDefault();
+            m_playerController.bonusSpeed = m_dragonAttributes.WalkSpeedBonus;
+            m_playerHealth.IncreaseHealth(m_beanCount);
+            m_beanCount = 0;
+        }
+
         #endregion
-        
 
         private void Update()
         {
             BreatheIn();
             m_fireCooldown = Mathf.Max(m_fireCooldown - Time.deltaTime, 0);
+        }
+
+        private IEnumerator Shoot(int numberOfProjectiles)
+        {
+            var projectile = m_storedProjectiles.Pop();
+            for (var i = 0; i < numberOfProjectiles; i++)
+            {
+                var newProjectile = Instantiate( projectile, mouthPosition.position, mouthPosition.rotation);
+                newProjectile.slowEffect = m_dragonAttributes.ShotSlowEffect;
+                yield return m_multipleShotDelay;
+            }
         }
 
         private void BreatheIn()
@@ -120,6 +160,47 @@ namespace Player
         private void OnApplicationQuit()
         {
             bodyMaterial.color = new Color(0.3146138f, 0.6603774f, 0.378644f);
+        }
+
+        public void ConsumeBean(Bean.Bean bean)
+        {
+            switch (bean.BeanType)
+            {
+                case Bean.Bean.Type.EXTRA_SHOTS:
+                    m_dragonAttributes.ExtraShots++;
+                    break;
+                case Bean.Bean.Type.BONUS_WALKING_SPEED:
+                    m_dragonAttributes.WalkSpeedBonus += bean.WalkingSpeedBonus;
+                    m_playerController.bonusSpeed = m_dragonAttributes.WalkSpeedBonus;
+                    break;
+                case Bean.Bean.Type.SHOT_SLOW:
+                    m_dragonAttributes.ShotSlowEffect += bean.ShotSlow;
+                    break;
+                case Bean.Bean.Type.SHOT_SPREAD:
+                    m_dragonAttributes.ShotSpreadAmount++;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+
+            m_beanCount++;
+            Destroy(bean.gameObject);
+        }
+
+        private struct DragonAttributes
+        {
+            public int ExtraShots;
+            public float WalkSpeedBonus;
+            public float ShotSlowEffect;
+            public int ShotSpreadAmount;
+
+            public void ToDefault()
+            {
+                ExtraShots = 0;
+                WalkSpeedBonus = 0;
+                ShotSlowEffect = 0;
+                ShotSpreadAmount = 0;
+            }
         }
     }
 }

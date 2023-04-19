@@ -5,9 +5,12 @@ namespace Player
 {
     public class PlayerController : MonoBehaviour
     {
-        [SerializeField] private float speed;
+        [SerializeField] private float defaultSpeed;
         [SerializeField] private float rotationSpeed;
 
+        [HideInInspector]
+        public float bonusSpeed;
+        
         private Vector3 m_movement;
         private Quaternion m_moveRotation;
     
@@ -21,7 +24,7 @@ namespace Player
                 m_moveRotation = Quaternion.LookRotation(m_movement);
         }
 
-        void Update()
+        private void Update()
         {
             MovePlayer();
         }
@@ -29,7 +32,7 @@ namespace Player
         private void MovePlayer()
         {
             transform.rotation = Quaternion.Slerp(transform.rotation, m_moveRotation, rotationSpeed);
-            transform.Translate(m_movement * (speed * Time.deltaTime), Space.World);
+            transform.Translate(m_movement * ((defaultSpeed + bonusSpeed) * Time.deltaTime), Space.World);
         }
     }
 }
