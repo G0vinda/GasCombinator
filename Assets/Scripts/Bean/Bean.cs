@@ -9,19 +9,20 @@ namespace Bean
 {
     public class Bean : MonoBehaviour
     {
-        private void OnTriggerEnter(Collider other)
+        public enum Type
         {
-            if (other.TryGetComponent<Player.Dragon>(out var dragon))
-            {
-                ApplyEffect(other.gameObject.GetComponent<Dragon>());
-                Destroy(gameObject);
-            }
+            EXTRA_SHOTS,
+            BONUS_WALKING_SPEED,
+            SHOT_SLOW,
+            SHOT_SPREAD
         }
 
-        protected virtual void ApplyEffect(Player.Dragon target)
-        {
-            target.IncreaseHealth();
-            Debug.Log("Applied Effect of " + gameObject.name + " to " + target.gameObject.name);
-        }
+        [SerializeField] private Type type;
+        [SerializeField] private float walkingSpeedBonus;
+        [SerializeField] private float shotSlow;
+
+        public Type BeanType => type;
+        public float WalkingSpeedBonus => walkingSpeedBonus;
+        public float ShotSlow => shotSlow;
     }
 }

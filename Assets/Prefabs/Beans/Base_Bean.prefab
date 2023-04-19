@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 5286076309673407447}
   - component: {fileID: 4488880787622707309}
   m_Layer: 9
-  m_Name: Bean
+  m_Name: Base_Bean
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -29,7 +29,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4248012343151860386}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.59, y: 2.4, z: 4.294588}
+  m_LocalPosition: {x: 0, y: 2.4, z: 0}
   m_LocalScale: {x: 0.8137528, y: 0.8137528, z: 0.8137528}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -128,3 +128,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0b15e5b3df35234d9c84573711abd84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  type: 0
+  walkingSpeedBonus: 0
+  shotSlow: 0

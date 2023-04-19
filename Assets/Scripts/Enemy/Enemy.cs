@@ -11,26 +11,44 @@ namespace Enemy
         [SerializeField] private int maxHealth;
         [SerializeField] private float defaultSpeed;
         [SerializeField] private float slowDuration;
+        [SerializeField] private GameObject freezeBlock;
         
         [Header("PoisonValues")] 
         [SerializeField] private int numberOfPoisonHits;
         [SerializeField] private float poisonHitTime;
 
+        private float m_currentSpeed;
+        private float CurrentSpeed
+        {
+            get => m_currentSpeed;
+            set
+            {
+                if (m_freezeTimer > 0)
+                {
+                    m_currentSpeed = 0;
+                    return;   
+                }
+
+                m_currentSpeed = value;
+                m_navMeshAgent.speed = m_currentSpeed;
+            }
+        }
+        
         private NavMeshAgent m_navMeshAgent;
         private float m_health;
         private WaitForSeconds m_poisonTime;
         private WaitForSeconds m_slowDuration;
-        private float m_currentSpeed;
         private MeshRenderer m_renderer;
         private Color m_defaultColor;
         private Tweener m_hurtEffectTween;
         private Transform m_playerTransform;
+        private float m_freezeTimer;
         
         private void Awake()
         {
             m_navMeshAgent = GetComponent<NavMeshAgent>();
-            m_currentSpeed = defaultSpeed;
-            m_navMeshAgent.speed = m_currentSpeed;
+            CurrentSpeed = defaultSpeed;
+            m_navMeshAgent.speed = CurrentSpeed;
             m_playerTransform = GameObject.FindWithTag("Player").GetComponent<Transform>();
             
             m_health = maxHealth;
@@ -43,6 +61,15 @@ namespace Enemy
 
         private void Update()
         {
+            if (m_freezeTimer > 0)
+            {
+                m_freezeTimer -= Time.deltaTime;
+                if (m_freezeTimer > 0)
+                    return;
+
+                freezeBlock.SetActive(false);
+                CurrentSpeed = defaultSpeed;
+            }
             FollowPlayer();
         }
 
@@ -70,6 +97,13 @@ namespace Enemy
             StartCoroutine(ProcessSlow(slowFactor));
         }
 
+        public void Freeze(float freezeTime) // Call when Enemy gets stunned/frozen
+        {
+            freezeBlock.SetActive(true);
+            CurrentSpeed = 0;
+            m_freezeTimer = freezeTime;
+        }
+
         private IEnumerator ProcessPoison(float dmgPerHit)
         {
             var poisonCounter = numberOfPoisonHits;
@@ -84,12 +118,10 @@ namespace Enemy
         private IEnumerator ProcessSlow(float slowFactor)
         {
             var newSpeedFactor = 1 - slowFactor;
-            m_currentSpeed *= newSpeedFactor;
-            m_navMeshAgent.speed = m_currentSpeed;
+            CurrentSpeed *= newSpeedFactor;
             yield return m_slowDuration;
 
-            m_currentSpeed /= newSpeedFactor;
-            m_navMeshAgent.speed = m_currentSpeed;
+            CurrentSpeed /= newSpeedFactor;
         }
         
         private void ShowHurtEffect()
