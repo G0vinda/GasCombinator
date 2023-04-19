@@ -50,6 +50,7 @@ namespace Player
 
         public void OnBreathe(InputAction.CallbackContext context)
         {
+            Debug.Log("Should breathe in");
             vaccum.gameObject.SetActive(context.ReadValueAsButton());
             m_breatheAmount = context.ReadValueAsButton() ? breatheSpeed : 0;
         }
