@@ -101,7 +101,7 @@ namespace Player
                 return;
             
             m_dragonAttributes.ToDefault();
-            m_playerController.bonusSpeed = m_dragonAttributes.WalkSpeedBonus;
+            m_playerController.BonusSpeed = m_dragonAttributes.WalkSpeedBonus;
             m_playerHealth.IncreaseHealth(m_beanCount);
             m_beanCount = 0;
         }
@@ -179,7 +179,7 @@ namespace Player
                     break;
                 case Bean.Bean.Type.BONUS_WALKING_SPEED:
                     m_dragonAttributes.WalkSpeedBonus += bean.WalkingSpeedBonus;
-                    m_playerController.bonusSpeed = m_dragonAttributes.WalkSpeedBonus;
+                    m_playerController.BonusSpeed = m_dragonAttributes.WalkSpeedBonus;
                     break;
                 case Bean.Bean.Type.SHOT_SLOW:
                     m_dragonAttributes.ShotSlowEffect += bean.ShotSlow;
