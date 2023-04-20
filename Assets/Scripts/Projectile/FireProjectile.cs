@@ -19,9 +19,12 @@ namespace Projectile
             foreach (var hitCollider in colliders)
             {
                 var hitEnemy = hitCollider.GetComponent<Enemy.Enemy>();
-                
-                if(hitEnemy != null)
+
+                if (hitEnemy != null)
+                {
                     hitEnemy.TakeDamage(damage);
+                    hitEnemy.TakeSlow(slowEffect);
+                }
             }
 
             Destroy(gameObject);

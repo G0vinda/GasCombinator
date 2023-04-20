@@ -1,4 +1,5 @@
 using System;
+using Cinemachine;
 using Enemy;
 using UnityEngine;
 
@@ -10,11 +11,19 @@ namespace Projectile
         [SerializeField] private float speed;
         [SerializeField] private float range;
         [SerializeField] protected float damage;
-        
+
+        [HideInInspector]
+        public float slowEffect;
         public Color DragonColor => dragonColor;
         
         private float m_traveledDistance;
+        private GameObject owner;
 
+        public virtual void Init(GameObject newOwner)
+        {
+            owner = newOwner;
+        }
+        
         protected virtual void Move()
         {
             var oldPosition = transform.position;
@@ -27,6 +36,8 @@ namespace Projectile
 
         private void OnCollisionEnter(Collision other)
         {
+            if (other.gameObject == owner)
+                return;
             Enemy.Enemy hitEnemy = other.gameObject.GetComponent<Enemy.Enemy>();
             Hit(hitEnemy);
         }

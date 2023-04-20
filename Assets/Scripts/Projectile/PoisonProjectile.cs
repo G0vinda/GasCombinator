@@ -14,6 +14,7 @@ namespace Projectile
             if (hitEnemy != null)
             {
                 hitEnemy.TakePoison(damage);
+                hitEnemy.TakeSlow(slowEffect);
             }
 
             Destroy(gameObject);
