@@ -1006,6 +1006,75 @@ MonoBehaviour:
   - {fileID: 588199410}
   - {fileID: 588199409}
   - {fileID: 588199408}
+--- !u!1001 &769425107
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: a6359b098e7066440a275e3e153078e7, type: 3}
+      propertyPath: m_RootOrder
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: a6359b098e7066440a275e3e153078e7, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 175.24774
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: a6359b098e7066440a275e3e153078e7, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 175.24774
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: a6359b098e7066440a275e3e153078e7, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 175.24774
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: a6359b098e7066440a275e3e153078e7, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 4.46
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: a6359b098e7066440a275e3e153078e7, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.28
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: a6359b098e7066440a275e3e153078e7, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -7.97
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: a6359b098e7066440a275e3e153078e7, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.67775404
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: a6359b098e7066440a275e3e153078e7, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.7352887
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: a6359b098e7066440a275e3e153078e7, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 6.387616e-18
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: a6359b098e7066440a275e3e153078e7, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -6.387613e-18
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: a6359b098e7066440a275e3e153078e7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: a6359b098e7066440a275e3e153078e7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: a6359b098e7066440a275e3e153078e7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: a6359b098e7066440a275e3e153078e7, type: 3}
+      propertyPath: m_Name
+      value: Schroom_Warrior_big_Helmet
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: a6359b098e7066440a275e3e153078e7, type: 3}
 --- !u!1001 &857475628
 PrefabInstance:
   m_ObjectHideFlags: 0
