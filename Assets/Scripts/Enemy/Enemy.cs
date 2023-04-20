@@ -54,8 +54,8 @@ namespace Enemy
             m_health = maxHealth;
             m_poisonTime = new WaitForSeconds(poisonHitTime);
             m_slowDuration = new WaitForSeconds(slowDuration);
-            
-            m_renderer = GetComponent<MeshRenderer>();
+
+            m_renderer = transform.GetChild(0).GetComponent<MeshRenderer>();
             m_defaultColor = m_renderer.material.color;
         }
 
@@ -121,7 +121,7 @@ namespace Enemy
             CurrentSpeed *= newSpeedFactor;
             yield return m_slowDuration;
 
-            CurrentSpeed /= newSpeedFactor;
+            CurrentSpeed = defaultSpeed;
         }
         
         private void ShowHurtEffect()

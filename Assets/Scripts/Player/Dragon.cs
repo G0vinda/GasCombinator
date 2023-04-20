@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.InteropServices;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -22,7 +23,10 @@ namespace Player
         [SerializeField] private float multipleShotDelayTime;
 
         [Header("References")]
-        [SerializeField] private Material bodyMaterial;
+        [SerializeField] private Material primaryMaterial;
+        private Color defaultPrimaryColor;
+        [SerializeField] private Material secondaryMaterial;
+        private Color defaultSecondaryColor;
         [SerializeField] private Vaccum vaccum;
         
         private float m_fireCooldown;
@@ -53,6 +57,9 @@ namespace Player
             m_dragonAttributes.ToDefault();
             m_playerController = GetComponent<PlayerController>();
             m_playerHealth = GetComponent<PlayerHealth>();
+
+            defaultPrimaryColor = primaryMaterial.color;
+            defaultSecondaryColor = secondaryMaterial.color;
         }
         
         public bool IncreaseHealth(int amount = 1)
@@ -84,15 +91,6 @@ namespace Player
                 return;
 
             StartCoroutine(Shoot(1 + m_dragonAttributes.ExtraShots));
-            if (m_storedProjectiles.Count > 0)
-            {
-                bodyMaterial.color = m_storedProjectiles.Peek().GetComponent<Projectile.Projectile>().DragonColor;
-            } 
-            else
-            {
-                bodyMaterial.color = new Color(0.3146138f, 0.6603774f, 0.378644f);
-            }
-            
             BreatheOut(projectileCost);
             m_fireCooldown = fireCoolDownTime;
         }
@@ -119,9 +117,14 @@ namespace Player
         private IEnumerator Shoot(int numberOfProjectiles)
         {
             var projectile = m_storedProjectiles.Pop();
+            primaryMaterial.color = m_storedProjectiles.Count > 0 ? secondaryMaterial.color : defaultPrimaryColor;
+            secondaryMaterial.color = m_storedProjectiles.Count > 1
+                ? (m_storedProjectiles.ToArray()[1]).GetComponent<Projectile.Projectile>().DragonColor * 1.3f
+                : defaultSecondaryColor;
             for (var i = 0; i < numberOfProjectiles; i++)
             {
                 var newProjectile = Instantiate( projectile, mouthPosition.position, mouthPosition.rotation);
+                newProjectile.Init(gameObject);
                 newProjectile.slowEffect = m_dragonAttributes.ShotSlowEffect;
                 yield return m_multipleShotDelay;
             }
@@ -153,13 +156,18 @@ namespace Player
         private void AddProjectile()
         {
             var newProjectile = GasArea.GetProjectileFromArea(transform.position.x, transform.position.z);
-            bodyMaterial.color = newProjectile.GetComponent<Projectile.Projectile>().DragonColor;
+            primaryMaterial.color = newProjectile.GetComponent<Projectile.Projectile>().DragonColor;
+            if (m_storedProjectiles.Count >= 1)
+            {
+                secondaryMaterial.color = m_storedProjectiles.Peek().GetComponent<Projectile.Projectile>().DragonColor * 1.3f;
+            }
             m_storedProjectiles.Push(newProjectile);
         }
 
         private void OnApplicationQuit()
         {
-            bodyMaterial.color = new Color(0.3146138f, 0.6603774f, 0.378644f);
+            primaryMaterial.color = defaultPrimaryColor;
+            secondaryMaterial.color = defaultSecondaryColor;
         }
 
         public void ConsumeBean(Bean.Bean bean)
