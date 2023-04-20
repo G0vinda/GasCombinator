@@ -255,7 +255,9 @@ MonoBehaviour:
   maxBreatheScaleFactor: 1.4
   fireCoolDownTime: 0.1
   mouthPosition: {fileID: 7155520917048932953}
-  bodyMaterial: {fileID: 2100000, guid: 4d59fbc22563c6c4c8e7bb54ed750043, type: 2}
+  multipleShotDelayTime: 0
+  primaryMaterial: {fileID: 2100000, guid: 2d5523b03adac794ebb00f6c2f4f44cb, type: 2}
+  secondaryMaterial: {fileID: 2100000, guid: 8a26a4e453aaf5647a432018adb68f94, type: 2}
   vaccum: {fileID: 4725625980855902955}
 --- !u!54 &6586927034640496045
 Rigidbody:
@@ -365,10 +367,46 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -8283014085786757269, guid: 056f356d15578ab42b250fbfb3e6f01f, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 2d5523b03adac794ebb00f6c2f4f44cb, type: 2}
+    - target: {fileID: -3766398445875609878, guid: 056f356d15578ab42b250fbfb3e6f01f, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 2d5523b03adac794ebb00f6c2f4f44cb, type: 2}
     - target: {fileID: 919132149155446097, guid: 056f356d15578ab42b250fbfb3e6f01f, type: 3}
       propertyPath: m_Name
       value: DragonGirlSmooth
       objectReference: {fileID: 0}
+    - target: {fileID: 1358302728979851711, guid: 056f356d15578ab42b250fbfb3e6f01f, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 2d5523b03adac794ebb00f6c2f4f44cb, type: 2}
+    - target: {fileID: 1525539152500033246, guid: 056f356d15578ab42b250fbfb3e6f01f, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 2d5523b03adac794ebb00f6c2f4f44cb, type: 2}
+    - target: {fileID: 5071902447850498517, guid: 056f356d15578ab42b250fbfb3e6f01f, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 8a26a4e453aaf5647a432018adb68f94, type: 2}
+    - target: {fileID: 5956573875140244712, guid: 056f356d15578ab42b250fbfb3e6f01f, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 8a26a4e453aaf5647a432018adb68f94, type: 2}
+    - target: {fileID: 6990844945688383261, guid: 056f356d15578ab42b250fbfb3e6f01f, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 2d5523b03adac794ebb00f6c2f4f44cb, type: 2}
+    - target: {fileID: 8449996119470504636, guid: 056f356d15578ab42b250fbfb3e6f01f, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 2d5523b03adac794ebb00f6c2f4f44cb, type: 2}
+    - target: {fileID: 8449996119470504636, guid: 056f356d15578ab42b250fbfb3e6f01f, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 8a26a4e453aaf5647a432018adb68f94, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 056f356d15578ab42b250fbfb3e6f01f, type: 3}
 --- !u!4 &2519576124932988631 stripped
