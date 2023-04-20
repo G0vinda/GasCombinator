@@ -121,7 +121,7 @@ namespace Enemy
             CurrentSpeed *= newSpeedFactor;
             yield return m_slowDuration;
 
-            CurrentSpeed /= newSpeedFactor;
+            CurrentSpeed = defaultSpeed;
         }
         
         private void ShowHurtEffect()
