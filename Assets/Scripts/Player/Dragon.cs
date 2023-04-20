@@ -124,6 +124,7 @@ namespace Player
             for (var i = 0; i < numberOfProjectiles; i++)
             {
                 var newProjectile = Instantiate( projectile, mouthPosition.position, mouthPosition.rotation);
+                newProjectile.Init(gameObject);
                 newProjectile.slowEffect = m_dragonAttributes.ShotSlowEffect;
                 yield return m_multipleShotDelay;
             }
