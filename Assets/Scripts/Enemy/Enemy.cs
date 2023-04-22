@@ -12,6 +12,7 @@ namespace Enemy
         [SerializeField] private float defaultSpeed;
         [SerializeField] private float slowDuration;
         [SerializeField] private GameObject freezeBlock;
+        [SerializeField] protected Animator animator;
         
         [Header("PoisonValues")] 
         [SerializeField] private int numberOfPoisonHits;
@@ -30,52 +31,42 @@ namespace Enemy
                 }
 
                 m_currentSpeed = value;
-                m_navMeshAgent.speed = m_currentSpeed;
+                NavMeshAgent.speed = m_currentSpeed;
             }
         }
         
-        private NavMeshAgent m_navMeshAgent;
+        protected Transform PlayerTransform;
+        protected NavMeshAgent NavMeshAgent;
+        
         private float m_health;
         private WaitForSeconds m_poisonTime;
         private WaitForSeconds m_slowDuration;
         private MeshRenderer m_renderer;
         private Color m_defaultColor;
         private Tweener m_hurtEffectTween;
-        private Transform m_playerTransform;
         private float m_freezeTimer;
         
         private void Awake()
         {
-            m_navMeshAgent = GetComponent<NavMeshAgent>();
+            NavMeshAgent = GetComponent<NavMeshAgent>();
             CurrentSpeed = defaultSpeed;
-            m_navMeshAgent.speed = CurrentSpeed;
-            m_playerTransform = GameObject.FindWithTag("Player").GetComponent<Transform>();
+            NavMeshAgent.speed = CurrentSpeed;
+            PlayerTransform = GameObject.FindWithTag("Player").GetComponent<Transform>();
             
             m_health = maxHealth;
             m_poisonTime = new WaitForSeconds(poisonHitTime);
             m_slowDuration = new WaitForSeconds(slowDuration);
 
-            m_renderer = transform.GetChild(0).GetComponent<MeshRenderer>();
+            m_renderer = transform.GetComponentInChildren<MeshRenderer>();
             m_defaultColor = m_renderer.material.color;
         }
 
-        private void Update()
+        protected void FollowPlayer()
         {
-            if (m_freezeTimer > 0)
-            {
-                m_freezeTimer -= Time.deltaTime;
-                if (m_freezeTimer > 0)
-                    return;
-
-                freezeBlock.SetActive(false);
-                CurrentSpeed = defaultSpeed;
-            }
-            FollowPlayer();
-        }
-
-        private void FollowPlayer()
-        {
-            m_navMeshAgent.destination = m_playerTransform.position;
+            if(!NavMeshAgent.enabled)
+                return;
+            
+            NavMeshAgent.destination = PlayerTransform.position;
         }
 
         public void TakeDamage(float dmgAmount)
@@ -102,6 +93,21 @@ namespace Enemy
             freezeBlock.SetActive(true);
             CurrentSpeed = 0;
             m_freezeTimer = freezeTime;
+        }
+
+        protected bool ProcessFreeze()
+        {
+            if (m_freezeTimer > 0)
+            {
+                m_freezeTimer -= Time.deltaTime;
+                if (m_freezeTimer > 0)
+                    return false;
+
+                freezeBlock.SetActive(false);
+                CurrentSpeed = defaultSpeed;
+            }
+            
+            return true;
         }
 
         private IEnumerator ProcessPoison(float dmgPerHit)
