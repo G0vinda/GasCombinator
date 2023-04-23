@@ -17,11 +17,12 @@ namespace Enemy
         [SerializeField] private float rangeToStartAttack;
         [SerializeField] private float pauseTimeAfterAttack;
         [SerializeField] private float wandPreparationTime;
-        [SerializeField] private float dieTime;
 
         private Vector3 m_currentAimTarget;
         private float m_currentPauseTime;
         private bool m_isPreparingAttack;
+
+        private Tween m_currentTween;
 
         private void Update()
         {
@@ -42,11 +43,19 @@ namespace Enemy
         private IEnumerator PrepareAttack()
         {
             m_isPreparingAttack = true;
-            NavMeshAgent.enabled = false;
+            StopWalkingAnimation();
             m_currentAimTarget = PlayerTransform.position;
             SetWandToAttackPosition();
 
-            yield return new WaitForSeconds(wandPreparationTime);
+            var animationTime = wandPreparationTime;
+            while (animationTime > 0)
+            {
+                if (FreezeTimer <= 0)
+                    animationTime -= Time.deltaTime;
+
+                yield return null;
+            }
+            
             m_isPreparingAttack = false;
             Shoot();
         }
@@ -73,9 +82,16 @@ namespace Enemy
         {
             m_currentPauseTime = pauseTimeAfterAttack;
             SetWandToWalkPosition();
-            yield return new WaitForSeconds(wandPreparationTime);
+            var animationTime = wandPreparationTime;
+            while (animationTime > 0)
+            {
+                if (FreezeTimer <= 0)
+                    animationTime -= Time.deltaTime;
 
-            NavMeshAgent.enabled = true;
+                yield return null;
+            }
+
+            StartWalkingAnimation();
             m_currentPauseTime -= wandPreparationTime;
             while (m_currentPauseTime > 0)
             {
@@ -86,25 +102,33 @@ namespace Enemy
         
         private void SetWandToAttackPosition()
         {
-            var spearSequence = DOTween.Sequence();
-            spearSequence.Append(wandTransform.DOMove(wandShootTransform.position, wandPreparationTime));
-            spearSequence.Join(wandTransform.DORotate(wandShootTransform.rotation.eulerAngles, wandPreparationTime));
-            spearSequence.SetEase(Ease.InQuad);
+            var wandSequence = DOTween.Sequence();
+            wandSequence.Append(wandTransform.DOMove(wandShootTransform.position, wandPreparationTime));
+            wandSequence.Join(wandTransform.DORotate(wandShootTransform.rotation.eulerAngles, wandPreparationTime));
+            wandSequence.SetEase(Ease.InQuad);
+
+            m_currentTween = wandSequence;
         }
 
         private void SetWandToWalkPosition()
         {
-            var spearSequence = DOTween.Sequence();
-            spearSequence.Append(wandTransform.DOMove(wandWalkTransform.position, wandPreparationTime));
-            spearSequence.Join(wandTransform.DORotate(wandWalkTransform.rotation.eulerAngles, wandPreparationTime));
-            spearSequence.SetEase(Ease.InQuad);
+            var wandSequence = DOTween.Sequence();
+            wandSequence.Append(wandTransform.DOMove(wandWalkTransform.position, wandPreparationTime));
+            wandSequence.Join(wandTransform.DORotate(wandWalkTransform.rotation.eulerAngles, wandPreparationTime));
+            wandSequence.SetEase(Ease.InQuad);
+            
+            m_currentTween = wandSequence;
         }
 
-        protected override void Die()
+        public override void Freeze(float freezeTime)
         {
-            NavMeshAgent.enabled = false;
-            Destroy(gameObject, dieTime);
-            enabled = false;
+            base.Freeze(freezeTime);
+            m_currentTween?.Pause();
+        }
+
+        protected override void Unfreeze()
+        {
+            m_currentTween?.Play();
         }
     }
 }

@@ -18,13 +18,15 @@ namespace Enemy
         [SerializeField] private float spearPreparationTime;
         [SerializeField] private float attackTime;
         [SerializeField] private float timeBeforeNextAttack;
-        [SerializeField] private float dieTime;
-        
+
         private bool m_isPerformingAttack;
         private bool m_isPreparingAttack;
         private Vector3 m_currentAttackDestination;
-        private Tweener m_attackTweener;
         private float m_currentAttackPause;
+        
+        private Tweener m_attackTweener;
+        private Sequence m_spearPrepareSequence;
+        private Tween m_currentTween;
 
         void Update()
         {
@@ -64,10 +66,20 @@ namespace Enemy
             SetSpearToAttackPosition();
             
             m_currentAttackDestination = transform.position + attackDirection * attackRange;
-            NavMeshAgent.enabled = false;
-            yield return new WaitForSeconds(spearPreparationTime);
+            StopWalkingAnimation();
+
+            var animationTime = spearPreparationTime;
+            while (animationTime > 0)
+            {
+                if (FreezeTimer <= 0)
+                    animationTime -= Time.deltaTime;
+
+                yield return null;
+            }
+            
             m_attackTweener = transform.DOMove(m_currentAttackDestination, attackTime).SetEase(Ease.InBack).OnComplete(
                 () => { StartCoroutine(TimeAttackPause());});
+            m_currentTween = m_attackTweener;
             m_isPreparingAttack = false;
             m_isPerformingAttack = true;
         }
@@ -78,10 +90,20 @@ namespace Enemy
             m_attackTweener?.Kill();
             m_currentAttackPause = timeBeforeNextAttack;
             SetSpearToWalkPosition();
-            yield return new WaitForSeconds(spearPreparationTime);
+            if (FreezeTimer > 0)
+                m_currentTween.Pause();
+
+            var animationTime = spearPreparationTime;
+            while (animationTime > 0)
+            {
+                if (FreezeTimer <= 0)
+                    animationTime -= Time.deltaTime;
+
+                yield return null;
+            }
 
             m_currentAttackPause -= spearPreparationTime;
-            NavMeshAgent.enabled = true;
+            StartWalkingAnimation();
             while (m_currentAttackPause > 0)
             {
                 m_currentAttackPause -= Time.deltaTime;
@@ -98,27 +120,35 @@ namespace Enemy
         
         private void SetSpearToAttackPosition()
         {
-            var spearSequence = DOTween.Sequence();
-            spearSequence.Append(spearTransform.DOMove(spearAttackTransform.position, spearPreparationTime));
-            spearSequence.Join(spearTransform.DORotate(spearAttackTransform.rotation.eulerAngles, spearPreparationTime));
-            spearSequence.SetEase(Ease.InQuad).OnComplete(() => { spearCollider.enabled = true; });
+            m_spearPrepareSequence = DOTween.Sequence();
+            m_spearPrepareSequence.Append(spearTransform.DOMove(spearAttackTransform.position, spearPreparationTime));
+            m_spearPrepareSequence.Join(spearTransform.DORotate(spearAttackTransform.rotation.eulerAngles, spearPreparationTime));
+            m_spearPrepareSequence.SetEase(Ease.InQuad).OnComplete(() => { spearCollider.enabled = true; });
+
+            m_currentTween = m_spearPrepareSequence;
         }
 
         private void SetSpearToWalkPosition()
         {
             spearCollider.enabled = false;
             
-            var spearSequence = DOTween.Sequence();
-            spearSequence.Append(spearTransform.DOMove(spearWalkTransform.position, spearPreparationTime));
-            spearSequence.Join(spearTransform.DORotate(spearWalkTransform.rotation.eulerAngles, spearPreparationTime));
-            spearSequence.SetEase(Ease.InQuad);
+            m_spearPrepareSequence = DOTween.Sequence();
+            m_spearPrepareSequence.Append(spearTransform.DOMove(spearWalkTransform.position, spearPreparationTime));
+            m_spearPrepareSequence.Join(spearTransform.DORotate(spearWalkTransform.rotation.eulerAngles, spearPreparationTime));
+            m_spearPrepareSequence.SetEase(Ease.InQuad);
+
+            m_currentTween = m_spearPrepareSequence;
         }
 
-        protected override void Die()
+        public override void Freeze(float freezeTime)
         {
-            NavMeshAgent.enabled = false;
-            Destroy(gameObject, dieTime);
-            enabled = false;
+            base.Freeze(freezeTime);
+            m_currentTween?.Pause();
+        }
+
+        protected override void Unfreeze()
+        {
+            m_currentTween?.Play();
         }
     }
 }

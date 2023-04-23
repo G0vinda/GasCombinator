@@ -139,6 +139,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SpearEnemy
       objectReference: {fileID: 0}
+    - target: {fileID: 6986248398519920704, guid: b36091da41488e84383ce8ab3550c2e1, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6986248398519920705, guid: b36091da41488e84383ce8ab3550c2e1, type: 3}
       propertyPath: m_RootOrder
       value: 13
@@ -453,6 +457,10 @@ PrefabInstance:
     - target: {fileID: 6986248398519920704, guid: b36091da41488e84383ce8ab3550c2e1, type: 3}
       propertyPath: m_Name
       value: SpearEnemy (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6986248398519920704, guid: b36091da41488e84383ce8ab3550c2e1, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6986248398519920705, guid: b36091da41488e84383ce8ab3550c2e1, type: 3}
       propertyPath: m_RootOrder
@@ -2519,6 +2527,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Magician (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 1897952904775148097, guid: 42fb7bf0af284674286157affbf37d0f, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1897952904775148101, guid: 42fb7bf0af284674286157affbf37d0f, type: 3}
       propertyPath: m_RootOrder
       value: 12
@@ -3181,6 +3193,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Magician
       objectReference: {fileID: 0}
+    - target: {fileID: 1897952904775148097, guid: 42fb7bf0af284674286157affbf37d0f, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1897952904775148101, guid: 42fb7bf0af284674286157affbf37d0f, type: 3}
       propertyPath: m_RootOrder
       value: 11
@@ -3482,9 +3498,21 @@ PrefabInstance:
       propertyPath: freezeBlock
       value: 
       objectReference: {fileID: 6611812208429006935}
+    - target: {fileID: 6611812207883670738, guid: f62dc5765e102dc42ac8babf7e2cea81, type: 3}
+      propertyPath: ashParticles
+      value: 
+      objectReference: {fileID: 5889098959561618952, guid: 02dd3412337a4f048946b6b35beb2df6, type: 3}
+    - target: {fileID: 6611812207883670738, guid: f62dc5765e102dc42ac8babf7e2cea81, type: 3}
+      propertyPath: bounceHeight
+      value: 0.8
+      objectReference: {fileID: 0}
     - target: {fileID: 6611812207883670741, guid: f62dc5765e102dc42ac8babf7e2cea81, type: 3}
       propertyPath: m_Name
       value: TankEnemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 6611812207883670741, guid: f62dc5765e102dc42ac8babf7e2cea81, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f62dc5765e102dc42ac8babf7e2cea81, type: 3}

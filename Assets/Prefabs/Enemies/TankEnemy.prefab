@@ -170,6 +170,8 @@ MonoBehaviour:
   defaultSpeed: 2.5
   slowDuration: 2
   freezeBlock: {fileID: 159686252102714109}
+  bounceHeight: 0.8
+  bounceTime: 0.6
   numberOfPoisonHits: 0
   poisonHitTime: 0
   dieTime: 0
