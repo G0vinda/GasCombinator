@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace Projectile
 {
@@ -11,6 +12,7 @@ namespace Projectile
         {
             Move();
         }
+        
 
         public override void Hit(Enemy.Enemy empty) // this parameter is not needed in this override
         {
