@@ -134,6 +134,19 @@ namespace Player
                     }
                 }
             }
+
+            if (BlueBean.Attributes.ActivatedEffects.Contains(BlueBean.Effect.FreezeFart))
+            {
+                var colliders = Physics.OverlapSphere(transform.position, Single.PositiveInfinity);
+                foreach (var hitCollider in colliders)
+                {
+                    if (hitCollider.TryGetComponent<Enemy.Enemy>(out Enemy.Enemy enemy))
+                    {
+                        enemy.Freeze(BlueBean.Attributes.FartFreezeTime/*, 
+                            BlueBean.Attributes.PermanentSlowMultiplierPerBean * BlueBean.Attributes.Collected*/);
+                    }
+                }
+            }
             ResetBeans();
             Debug.Log("I JUST FARTED!!!");
         }
@@ -196,6 +209,30 @@ namespace Player
                             }
                         }
                     }
+                break;
+            case Bean.Bean.Type.BLUE:
+                if (BlueBean.Attributes.ActivatedEffects.Contains(BlueBean.Effect.Spread))
+                {
+                    var extraShotCount = (int) (BlueBean.Attributes.Collected * BlueBean.Attributes.ExtraShotPerBean);
+                    for (int i = 1; i <= extraShotCount; i++)
+                    {
+                        var aimOffset = maximumShotSpread * ((int)((i + 1) / 2) / 3.0f) * (i % 2 == 0 ? -1 : 1);
+                        newProjectiles.Add(Instantiate(projectile, mouthPosition.position, 
+                            Quaternion.Euler(mouthPosition.rotation.eulerAngles.x,  
+                                mouthPosition.rotation.eulerAngles.y + aimOffset,
+                                mouthPosition.rotation.eulerAngles.z)));
+                    }
+                }
+
+                if (BlueBean.Attributes.ActivatedEffects.Contains(BlueBean.Effect.PermanentFreeze))
+                {
+                    foreach (var newProjectile in newProjectiles)
+                    {
+                        ((Projectile.IceProjectile)newProjectile).unfrozenSpeedMultiplier =
+                            BlueBean.Attributes.PermanentSlowMultiplierPerBean * BlueBean.Attributes.Collected;
+                    }
+                }
+                
                 break;
             }
             Debug.Log("------Projectiles Start-------");
@@ -282,6 +319,10 @@ namespace Player
                     RedBean.Attributes.ActivatedEffects.Add(((RedBean) bean).effectOrder[RedBean.Attributes.Collected]);
                     RedBean.Attributes.Collected++;
                     break;
+                case Bean.Bean.Type.BLUE:
+                    BlueBean.Attributes.ActivatedEffects.Add(((BlueBean) bean).effectOrder[BlueBean.Attributes.Collected]);
+                    BlueBean.Attributes.Collected++;
+                    break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
@@ -313,6 +354,7 @@ namespace Player
         private void ResetBeans()
         {
             RedBean.Attributes.ToDefault();
+            BlueBean.Attributes.ToDefault();
         }
         
         private struct DragonAttributes
