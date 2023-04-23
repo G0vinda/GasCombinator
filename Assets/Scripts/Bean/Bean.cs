@@ -12,9 +12,9 @@ namespace Bean
     {
         public enum Type
         {
-            NEUTRAL,
-            RED,
-            BLUE,
+            NEUTRAL = 0, 
+            RED, 
+            BLUE, 
             GREEN
         }
         

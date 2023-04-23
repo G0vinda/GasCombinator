@@ -1085,6 +1085,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7d1352c122abbb46a4a22cb03abf2ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &914689915 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4230149811530286816, guid: fc8f32652dc379643ab8c464ba5daa59, type: 3}
+  m_PrefabInstance: {fileID: 95417182}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd4891358e46482eb940d767f259cd46, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &921581573
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1413,7 +1424,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-116928
+  m_Name: pb_Mesh-241786
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -2873,6 +2884,10 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 1099041839}
+    - target: {fileID: 6891079635738564726, guid: a92f90df64a7cfc449ec6e8ad8b60d8c, type: 3}
+      propertyPath: beanSpawner
+      value: 
+      objectReference: {fileID: 914689915}
     - target: {fileID: 7370427769144482427, guid: a92f90df64a7cfc449ec6e8ad8b60d8c, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -2931,7 +2946,7 @@ PrefabInstance:
       objectReference: {fileID: 1099041839}
     - target: {fileID: 7914587084586791072, guid: a92f90df64a7cfc449ec6e8ad8b60d8c, type: 3}
       propertyPath: m_VersionIndex
-      value: 7417
+      value: 7423
       objectReference: {fileID: 0}
     - target: {fileID: 8993327890375960587, guid: a92f90df64a7cfc449ec6e8ad8b60d8c, type: 3}
       propertyPath: damageOverlay

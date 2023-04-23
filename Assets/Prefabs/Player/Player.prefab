@@ -306,6 +306,7 @@ MonoBehaviour:
   startLives: 5
   invincibilityTime: 1
   liveTextElement: {fileID: 0}
+  damageOverlay: {fileID: 0}
 --- !u!1001 &1262464926901877310
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -369,10 +370,30 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -6850929102898031791, guid: 28646205df41ca3498f8435f017229d2, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 2578d4247efb5cf418914393d0ec3847, type: 2}
+    - target: {fileID: -1206874426333947015, guid: 28646205df41ca3498f8435f017229d2, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 2578d4247efb5cf418914393d0ec3847, type: 2}
+    - target: {fileID: -1075006969236365437, guid: 28646205df41ca3498f8435f017229d2, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 2578d4247efb5cf418914393d0ec3847, type: 2}
     - target: {fileID: 919132149155446097, guid: 28646205df41ca3498f8435f017229d2, type: 3}
       propertyPath: m_Name
       value: DragonGirlDone_Animation
       objectReference: {fileID: 0}
+    - target: {fileID: 5797384429611982230, guid: 28646205df41ca3498f8435f017229d2, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 2578d4247efb5cf418914393d0ec3847, type: 2}
+    - target: {fileID: 7652573439579322721, guid: 28646205df41ca3498f8435f017229d2, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 2578d4247efb5cf418914393d0ec3847, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 28646205df41ca3498f8435f017229d2, type: 3}
 --- !u!4 &1589652286208826837 stripped
