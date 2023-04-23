@@ -1,36 +1,32 @@
-using System;
 using System.Collections;
 using DG.Tweening;
-using Player;
 using UnityEngine;
 
 namespace Enemy
 {
     public class SpearEnemy : Enemy
     {
+        [Header("SpearReferences")] 
+        [SerializeField] private Transform spearTransform;
+        [SerializeField] private Collider spearCollider;
+        [SerializeField] private Transform spearWalkTransform;
+        [SerializeField] private Transform spearAttackTransform;
+        
+        [Header("SpearAttackValues")]
         [SerializeField] private float rangeToStartAttack;
-        [SerializeField] private float attackPreparationTime;
         [SerializeField] private float attackRange;
+        [SerializeField] private float spearPreparationTime;
         [SerializeField] private float attackTime;
         [SerializeField] private float timeBeforeNextAttack;
-        [SerializeField] private float dieTime;
-        
+
         private bool m_isPerformingAttack;
         private bool m_isPreparingAttack;
         private Vector3 m_currentAttackDestination;
-        private Tweener m_attackTweener;
         private float m_currentAttackPause;
-
-        private int m_prepareForAttackHash;
-        private int m_afterAttackHash;
-        private int m_dieHash;
-
-        private void Start()
-        {
-            m_prepareForAttackHash = Animator.StringToHash("PrepareForAttack");
-            m_afterAttackHash = Animator.StringToHash("AfterAttack");
-            m_dieHash = Animator.StringToHash("Die");
-        }
+        
+        private Tweener m_attackTweener;
+        private Sequence m_spearPrepareSequence;
+        private Tween m_currentTween;
 
         void Update()
         {
@@ -46,7 +42,6 @@ namespace Enemy
             
             if (PlayerIsInSpearRange())
             {
-                m_isPreparingAttack = true;
                 StartCoroutine(PrepareAttack());
                 return;
             }
@@ -65,48 +60,95 @@ namespace Enemy
 
         private IEnumerator PrepareAttack()
         {
+            m_isPreparingAttack = true;
             var attackDirection = Vector3.Normalize(PlayerTransform.position - transform.position);
             transform.rotation = Quaternion.LookRotation(attackDirection);
+            SetSpearToAttackPosition();
+            
             m_currentAttackDestination = transform.position + attackDirection * attackRange;
-            NavMeshAgent.enabled = false;
-            //animator.SetTrigger(m_prepareForAttackHash);
-            yield return new WaitForSeconds(attackPreparationTime);
+            StopWalkingAnimation();
+
+            var animationTime = spearPreparationTime;
+            while (animationTime > 0)
+            {
+                if (FreezeTimer <= 0)
+                    animationTime -= Time.deltaTime;
+
+                yield return null;
+            }
+            
             m_attackTweener = transform.DOMove(m_currentAttackDestination, attackTime).SetEase(Ease.InBack).OnComplete(
                 () => { StartCoroutine(TimeAttackPause());});
+            m_currentTween = m_attackTweener;
             m_isPreparingAttack = false;
             m_isPerformingAttack = true;
         }
 
         private IEnumerator TimeAttackPause()
         {
-            NavMeshAgent.enabled = true;
             m_isPerformingAttack = false;
             m_attackTweener?.Kill();
             m_currentAttackPause = timeBeforeNextAttack;
-            
+            SetSpearToWalkPosition();
+            if (FreezeTimer > 0)
+                m_currentTween.Pause();
+
+            var animationTime = spearPreparationTime;
+            while (animationTime > 0)
+            {
+                if (FreezeTimer <= 0)
+                    animationTime -= Time.deltaTime;
+
+                yield return null;
+            }
+
+            m_currentAttackPause -= spearPreparationTime;
+            StartWalkingAnimation();
             while (m_currentAttackPause > 0)
             {
-                Debug.Log(DateTime.Now);
                 m_currentAttackPause -= Time.deltaTime;
                 yield return null;
             }
-            
-            Debug.Log(DateTime.Now);
         }
 
         private void OnCollisionEnter(Collision other)
         {
-            if(m_isPerformingAttack) // TODO: Check for collision with player
+            Debug.Log("collision detected");
+            if(m_isPerformingAttack) 
                 StartCoroutine(TimeAttackPause());
         }
-
-
-        protected override void Die()
+        
+        private void SetSpearToAttackPosition()
         {
-            NavMeshAgent.enabled = false;
-            //animator.SetTrigger(m_dieHash);
-            Destroy(gameObject, dieTime);
-            enabled = false;
+            m_spearPrepareSequence = DOTween.Sequence();
+            m_spearPrepareSequence.Append(spearTransform.DOMove(spearAttackTransform.position, spearPreparationTime));
+            m_spearPrepareSequence.Join(spearTransform.DORotate(spearAttackTransform.rotation.eulerAngles, spearPreparationTime));
+            m_spearPrepareSequence.SetEase(Ease.InQuad).OnComplete(() => { spearCollider.enabled = true; });
+
+            m_currentTween = m_spearPrepareSequence;
+        }
+
+        private void SetSpearToWalkPosition()
+        {
+            spearCollider.enabled = false;
+            
+            m_spearPrepareSequence = DOTween.Sequence();
+            m_spearPrepareSequence.Append(spearTransform.DOMove(spearWalkTransform.position, spearPreparationTime));
+            m_spearPrepareSequence.Join(spearTransform.DORotate(spearWalkTransform.rotation.eulerAngles, spearPreparationTime));
+            m_spearPrepareSequence.SetEase(Ease.InQuad);
+
+            m_currentTween = m_spearPrepareSequence;
+        }
+
+        public override void Freeze(float freezeTime)
+        {
+            base.Freeze(freezeTime);
+            m_currentTween?.Pause();
+        }
+
+        protected override void Unfreeze()
+        {
+            m_currentTween?.Play();
         }
     }
 }
