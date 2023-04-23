@@ -23,10 +23,6 @@ namespace Enemy
         [Header("Death")] [SerializeField] private float dieTime;
         [SerializeField] private ParticleSystem ashParticles;
 
-        [Header("PoisonValues")] [SerializeField]
-        private int numberOfPoisonHits;
-
-        [SerializeField] private float poisonHitTime;
 
         public static event Action<GameObject> EnemyDied;
 
@@ -68,7 +64,6 @@ namespace Enemy
             PlayerTransform = GameObject.FindWithTag("Player").GetComponent<Transform>();
             
             m_health = maxHealth;
-            m_poisonTime = new WaitForSeconds(poisonHitTime);
             m_slowDuration = new WaitForSeconds(slowDuration);
 
             m_renderer = transform.GetComponentInChildren<MeshRenderer>();
@@ -94,9 +89,10 @@ namespace Enemy
             ShowHurtEffect();
         }
 
-        public void TakePoison(float dmgPerHit) // Call when Enemy gets poisoned
+        public void TakePoison(float dmgPerHit, float poisonHitTime, int  numberOfPoisonHits) // Call when Enemy gets poisoned
         {
-            StartCoroutine(ProcessPoison(dmgPerHit));
+            Debug.Log("Posion taken: " + dmgPerHit + " damage, " + poisonHitTime + " speed, " + numberOfPoisonHits + " Hits.");
+            StartCoroutine(ProcessPoison(dmgPerHit, poisonHitTime, numberOfPoisonHits));
         }
 
         public void TakeSlow(float slowFactor) // Call when Enemy gets slowed
@@ -133,14 +129,14 @@ namespace Enemy
             CurrentSpeed = unfreezeSpeed;
         }
 
-        private IEnumerator ProcessPoison(float dmgPerHit)
+        private IEnumerator ProcessPoison(float dmgPerHit, float poisonHitTime, int  numberOfPoisonHits)
         {
             var poisonCounter = numberOfPoisonHits;
             while (poisonCounter > 0)
             {   
                 TakeDamage(dmgPerHit);
                 poisonCounter--;
-                yield return m_poisonTime;
+                yield return new WaitForSeconds(poisonHitTime);
             }
         }
 

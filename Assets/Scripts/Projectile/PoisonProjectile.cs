@@ -4,6 +4,9 @@ namespace Projectile
 {
     public class PoisonProjectile : Projectile
     {
+        public float poisonHitTime = 1;
+        public int numberOfPoisonHits = 6;
+        
         
         private void Update()
         {
@@ -14,7 +17,7 @@ namespace Projectile
         {
             if (hitEnemy != null)
             {
-                hitEnemy.TakePoison(damage);
+                hitEnemy.TakePoison(damage, poisonHitTime, numberOfPoisonHits);
                 hitEnemy.TakeSlow(slowEffect);
             }
 

@@ -115,6 +115,7 @@ MonoBehaviour:
   speed: 20
   range: 10
   damage: 20
+  baseCriticalMultiplier: 1.5
   isPlayerProjectile: 1
   slowEffect: 0
   type: 3
