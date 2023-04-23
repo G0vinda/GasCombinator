@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using TMPro;
+using UI;
 using UnityEngine;
 
 namespace Player
@@ -11,6 +12,7 @@ namespace Player
         [Tooltip("Player will be invincible after hit in seconds.")]
         [SerializeField] private float invincibilityTime;
         [SerializeField] private TextMeshProUGUI liveTextElement;
+        [SerializeField] private DamageOverlay damageOverlay;
 
         private int m_currentLives;
         private PlayerController m_playerController;
@@ -48,6 +50,7 @@ namespace Player
         public void TakeDamage(int amount = 1)
         {
             m_currentLives--;
+            damageOverlay.Show();
             UpdateLiveText();
             if (m_currentLives == 0)
             {

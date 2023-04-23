@@ -1,7 +1,4 @@
-﻿using System;
-using UnityEngine;
-
-namespace Enemy
+﻿namespace Enemy
 {
     public class Tank : Enemy
     {
@@ -11,6 +8,12 @@ namespace Enemy
                 return;
             
             FollowPlayer();
+        }
+
+        protected override void Unfreeze()
+        {
+            base.Unfreeze();
+            StartWalkingAnimation();
         }
     }
 }

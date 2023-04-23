@@ -114,18 +114,17 @@ namespace Enemy
                 FreezeTimer -= Time.deltaTime;
                 if (FreezeTimer > 0)
                     return false;
-
-                freezeBlock.SetActive(false);
-                CurrentSpeed = defaultSpeed;
+                
+                Unfreeze();
             }
             
-            Unfreeze();
             return true;
         }
 
         protected virtual void Unfreeze()
         {
-            // Meant to be empty
+            freezeBlock.SetActive(false);
+            CurrentSpeed = defaultSpeed;
         }
 
         private IEnumerator ProcessPoison(float dmgPerHit)

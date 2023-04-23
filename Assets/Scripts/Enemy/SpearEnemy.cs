@@ -148,6 +148,7 @@ namespace Enemy
 
         protected override void Unfreeze()
         {
+            base.Unfreeze();
             m_currentTween?.Play();
         }
     }
