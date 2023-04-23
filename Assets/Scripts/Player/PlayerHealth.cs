@@ -1,7 +1,8 @@
-﻿using System;
+using System;
 using System.Collections;
 using Bean;
 using TMPro;
+using UI;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -13,6 +14,7 @@ namespace Player
         [Tooltip("Player will be invincible after hit in seconds.")]
         [SerializeField] private float invincibilityTime;
         [SerializeField] private TextMeshProUGUI liveTextElement;
+        [SerializeField] private DamageOverlay damageOverlay;
 
         private int m_currentLives;
         private PlayerController m_playerController;
@@ -49,6 +51,7 @@ namespace Player
 
         public void TakeDamage(int amount = 1)
         {
+            damageOverlay.Show();
             if (BlueBean.Attributes.ActivatedEffects.Contains(BlueBean.Effect.AvoidDamage))
             {
                 var hit = Random.Range(0.0f, 1.0f);

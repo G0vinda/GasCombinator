@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.AI;
@@ -24,6 +25,8 @@ namespace Enemy
         [Header("PoisonValues")] 
         [SerializeField] private int numberOfPoisonHits;
         [SerializeField] private float poisonHitTime;
+
+        public static event Action<GameObject> EnemyDied;
 
         private float m_currentSpeed;
         private float CurrentSpeed
@@ -55,7 +58,7 @@ namespace Enemy
         private Tweener m_hurtEffectTween;
         private Tweener m_walkingTween;
 
-        private void Awake()
+        private void Start()
         {
             NavMeshAgent = GetComponent<NavMeshAgent>();
             CurrentSpeed = defaultSpeed;
@@ -114,18 +117,17 @@ namespace Enemy
                 FreezeTimer -= Time.deltaTime;
                 if (FreezeTimer > 0)
                     return false;
-
-                freezeBlock.SetActive(false);
-                CurrentSpeed = defaultSpeed;
+                
+                Unfreeze();
             }
             
-            Unfreeze();
             return true;
         }
 
         protected virtual void Unfreeze()
         {
-            // Meant to be empty
+            freezeBlock.SetActive(false);
+            CurrentSpeed = defaultSpeed;
         }
 
         private IEnumerator ProcessPoison(float dmgPerHit)
@@ -175,6 +177,7 @@ namespace Enemy
         private void Die()
         {
             Instantiate(ashParticles, transform.position, Quaternion.identity);
+            EnemyDied?.Invoke(gameObject);
             Destroy(gameObject);
         }
     }
