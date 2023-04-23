@@ -116,6 +116,7 @@ MonoBehaviour:
   range: 10
   damage: 20
   slowEffect: 0
+  type: 3
 --- !u!54 &7120106158415747252
 Rigidbody:
   m_ObjectHideFlags: 0

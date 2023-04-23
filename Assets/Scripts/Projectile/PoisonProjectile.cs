@@ -4,6 +4,7 @@ namespace Projectile
 {
     public class PoisonProjectile : Projectile
     {
+        
         private void Update()
         {
             Move();
