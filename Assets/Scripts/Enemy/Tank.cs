@@ -1,12 +1,7 @@
-﻿using System;
-using UnityEngine;
-
-namespace Enemy
+﻿namespace Enemy
 {
     public class Tank : Enemy
     {
-        [SerializeField] private float dieTime;
-
         private void Update()
         {
             if (!ProcessFreeze())
@@ -15,11 +10,10 @@ namespace Enemy
             FollowPlayer();
         }
 
-        protected override void Die()
+        protected override void Unfreeze()
         {
-            NavMeshAgent.enabled = false;
-            Destroy(gameObject, dieTime);
-            enabled = false;
+            base.Unfreeze();
+            StartWalkingAnimation();
         }
     }
 }

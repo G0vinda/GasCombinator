@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.AI;
@@ -13,9 +14,19 @@ namespace Enemy
         [SerializeField] private float slowDuration;
         [SerializeField] private GameObject freezeBlock;
 
+        [Header("MovementAnimationValues")] 
+        [SerializeField] private float bounceHeight;
+        [SerializeField] private float bounceTime;
+
+        [Header("Death")] 
+        [SerializeField] private float dieTime;
+        [SerializeField] private ParticleSystem ashParticles;
+
         [Header("PoisonValues")] 
         [SerializeField] private int numberOfPoisonHits;
         [SerializeField] private float poisonHitTime;
+
+        public static event Action<GameObject> EnemyDied;
 
         private float m_currentSpeed;
         private float CurrentSpeed
@@ -23,7 +34,7 @@ namespace Enemy
             get => m_currentSpeed;
             set
             {
-                if (m_freezeTimer > 0)
+                if (FreezeTimer > 0)
                 {
                     m_currentSpeed = 0;
                     return;   
@@ -36,16 +47,18 @@ namespace Enemy
         
         protected Transform PlayerTransform;
         protected NavMeshAgent NavMeshAgent;
+        protected float FreezeTimer;
         
         private float m_health;
         private WaitForSeconds m_poisonTime;
         private WaitForSeconds m_slowDuration;
         private MeshRenderer m_renderer;
         private Color m_defaultColor;
-        private Tweener m_hurtEffectTween;
-        private float m_freezeTimer;
         
-        private void Awake()
+        private Tweener m_hurtEffectTween;
+        private Tweener m_walkingTween;
+
+        private void Start()
         {
             NavMeshAgent = GetComponent<NavMeshAgent>();
             CurrentSpeed = defaultSpeed;
@@ -58,6 +71,8 @@ namespace Enemy
 
             m_renderer = transform.GetComponentInChildren<MeshRenderer>();
             m_defaultColor = m_renderer.material.color;
+            
+            StartWalkingAnimation();
         }
 
         protected void FollowPlayer()
@@ -87,26 +102,32 @@ namespace Enemy
             StartCoroutine(ProcessSlow(slowFactor));
         }
 
-        public void Freeze(float freezeTime) // Call when Enemy gets stunned/frozen
+        public virtual void Freeze(float freezeTime) // Call when Enemy gets stunned/frozen
         {
+            StopWalkingAnimation();
             freezeBlock.SetActive(true);
             CurrentSpeed = 0;
-            m_freezeTimer = freezeTime;
+            FreezeTimer = freezeTime;
         }
 
         protected bool ProcessFreeze()
         {
-            if (m_freezeTimer > 0)
+            if (FreezeTimer > 0)
             {
-                m_freezeTimer -= Time.deltaTime;
-                if (m_freezeTimer > 0)
+                FreezeTimer -= Time.deltaTime;
+                if (FreezeTimer > 0)
                     return false;
-
-                freezeBlock.SetActive(false);
-                CurrentSpeed = defaultSpeed;
+                
+                Unfreeze();
             }
             
             return true;
+        }
+
+        protected virtual void Unfreeze()
+        {
+            freezeBlock.SetActive(false);
+            CurrentSpeed = defaultSpeed;
         }
 
         private IEnumerator ProcessPoison(float dmgPerHit)
@@ -138,6 +159,26 @@ namespace Enemy
                 colorValue => { m_renderer.material.color = colorValue; }).SetEase(Ease.OutExpo);
         }
 
-        protected abstract void Die();
+        protected void StartWalkingAnimation()
+        {
+            NavMeshAgent.enabled = true;
+            m_walkingTween = transform.DOMoveY(bounceHeight, bounceTime).SetLoops(-1, LoopType.Yoyo);
+        }
+
+        protected void StopWalkingAnimation()
+        {
+            m_walkingTween?.Kill(); 
+            var position = transform.position;
+            position.y = 0;
+            transform.position = position;
+            NavMeshAgent.enabled = false;
+        }
+
+        private void Die()
+        {
+            Instantiate(ashParticles, transform.position, Quaternion.identity);
+            EnemyDied?.Invoke(gameObject);
+            Destroy(gameObject);
+        }
     }
 }
