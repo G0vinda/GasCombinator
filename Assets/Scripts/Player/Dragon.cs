@@ -96,7 +96,7 @@ namespace Player
             if(!context.ReadValueAsButton())
                 return;
 
-            if(m_fireCooldown > 0 || m_storedProjectiles.Count == 0)
+            if(m_fireCooldown > 0 || m_storedProjectiles.Count == 0 ||  vaccum.gameObject.activeSelf)
                 return;
 
             var projectile = m_storedProjectiles.Peek();
