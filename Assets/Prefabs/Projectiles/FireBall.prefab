@@ -116,6 +116,7 @@ MonoBehaviour:
   range: 10
   damage: 50
   slowEffect: 0
+  type: 1
   explosionPrefab: {fileID: 2896011587928144294, guid: cc488deaa6f129f47961f54b4ae7e2f5, type: 3}
   explosionRadius: 1.5
 --- !u!54 &4192698580070186719

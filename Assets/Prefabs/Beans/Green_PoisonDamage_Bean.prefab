@@ -10,7 +10,7 @@ PrefabInstance:
     - target: {fileID: 2238890321138866110, guid: 9f1004ab4b8aefc47b75bca5cc422d8d, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: ba9a8cbcbaa9e6d458663481b2d9aa26, type: 2}
+      objectReference: {fileID: 2100000, guid: b62aff428ee3ee34a9198ee5141d5a30, type: 2}
     - target: {fileID: 2939397833571419093, guid: 9f1004ab4b8aefc47b75bca5cc422d8d, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -57,19 +57,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4248012343151860386, guid: 9f1004ab4b8aefc47b75bca5cc422d8d, type: 3}
       propertyPath: m_Name
-      value: MoveSpeed_Bean
+      value: Green_PoisonDamage_Bean
       objectReference: {fileID: 0}
     - target: {fileID: 4488880787622707309, guid: 9f1004ab4b8aefc47b75bca5cc422d8d, type: 3}
       propertyPath: type
-      value: 0
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4488880787622707309, guid: 9f1004ab4b8aefc47b75bca5cc422d8d, type: 3}
       propertyPath: effect
-      value: 1
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4488880787622707309, guid: 9f1004ab4b8aefc47b75bca5cc422d8d, type: 3}
-      propertyPath: walkingSpeedBonus
-      value: 0.25
+      propertyPath: shotSlow
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4488880787622707309, guid: 9f1004ab4b8aefc47b75bca5cc422d8d, type: 3}
+      propertyPath: shotDamageMultiplier
+      value: 1.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9f1004ab4b8aefc47b75bca5cc422d8d, type: 3}

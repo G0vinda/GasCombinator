@@ -116,6 +116,7 @@ MonoBehaviour:
   range: 10
   damage: 40
   slowEffect: 0
+  type: 2
   freezeTime: 2
 --- !u!54 &6240641666528908506
 Rigidbody:

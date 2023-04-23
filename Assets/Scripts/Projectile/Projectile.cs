@@ -15,10 +15,17 @@ namespace Projectile
         [HideInInspector]
         public float slowEffect;
         public Color DragonColor => dragonColor;
-        
+
+        public float Damage
+        {
+            set => damage = value;
+            get => damage;
+        }
+        public Bean.Bean.Type type = Bean.Bean.Type.NEUTRAL;
+
         private float m_traveledDistance;
         private GameObject owner;
-
+        
         public virtual void Init(GameObject newOwner)
         {
             owner = newOwner;
