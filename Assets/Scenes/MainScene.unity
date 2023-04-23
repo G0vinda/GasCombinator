@@ -866,8 +866,16 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 4230149811530286816, guid: fc8f32652dc379643ab8c464ba5daa59, type: 3}
-      propertyPath: beanPrefabs.Array.size
+      propertyPath: maxSpawnDelay
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4230149811530286816, guid: fc8f32652dc379643ab8c464ba5daa59, type: 3}
+      propertyPath: minSpawnDelay
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4230149811530286816, guid: fc8f32652dc379643ab8c464ba5daa59, type: 3}
+      propertyPath: beanPrefabs.Array.size
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4230149811530286816, guid: fc8f32652dc379643ab8c464ba5daa59, type: 3}
       propertyPath: beanPrefabs.Array.data[0]
@@ -876,7 +884,7 @@ PrefabInstance:
     - target: {fileID: 4230149811530286816, guid: fc8f32652dc379643ab8c464ba5daa59, type: 3}
       propertyPath: beanPrefabs.Array.data[1]
       value: 
-      objectReference: {fileID: 286497467662576995, guid: 6f6b888ea3ef12e4e9948968752b79c7, type: 3}
+      objectReference: {fileID: 6786093055638620669, guid: 6eccd54b5a87c854199dc20ba04caa64, type: 3}
     - target: {fileID: 4230149811530286816, guid: fc8f32652dc379643ab8c464ba5daa59, type: 3}
       propertyPath: beanPrefabs.Array.data[2]
       value: 
@@ -887,10 +895,14 @@ PrefabInstance:
       objectReference: {fileID: 286497467662576995, guid: e6d27cf28d8a9034cb43ab4e5427ccdd, type: 3}
     - target: {fileID: 4230149811530286816, guid: fc8f32652dc379643ab8c464ba5daa59, type: 3}
       propertyPath: beanProbabilities.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4230149811530286816, guid: fc8f32652dc379643ab8c464ba5daa59, type: 3}
       propertyPath: beanProbabilities.Array.data[0]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4230149811530286816, guid: fc8f32652dc379643ab8c464ba5daa59, type: 3}
+      propertyPath: beanProbabilities.Array.data[1]
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4230149811530286816, guid: fc8f32652dc379643ab8c464ba5daa59, type: 3}
@@ -1803,9 +1815,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5664688091567887946, guid: bd437824f5c528341b9ca675d5df0742, type: 3}
+      propertyPath: enemyPrefab
+      value: 
+      objectReference: {fileID: 1897952904775148097, guid: 42fb7bf0af284674286157affbf37d0f, type: 3}
     - target: {fileID: 5664688091567887948, guid: bd437824f5c528341b9ca675d5df0742, type: 3}
       propertyPath: m_Name
       value: EnemySpawner (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5664688091567887948, guid: bd437824f5c528341b9ca675d5df0742, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5664688091567887949, guid: bd437824f5c528341b9ca675d5df0742, type: 3}
       propertyPath: m_RootOrder
@@ -3042,6 +3062,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5664688091567887946, guid: bd437824f5c528341b9ca675d5df0742, type: 3}
+      propertyPath: enemyPrefab
+      value: 
+      objectReference: {fileID: 6986248398519920704, guid: b36091da41488e84383ce8ab3550c2e1, type: 3}
     - target: {fileID: 5664688091567887948, guid: bd437824f5c528341b9ca675d5df0742, type: 3}
       propertyPath: m_Name
       value: EnemySpawner
