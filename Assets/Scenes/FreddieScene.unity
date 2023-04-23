@@ -2946,7 +2946,7 @@ PrefabInstance:
       objectReference: {fileID: 1099041839}
     - target: {fileID: 7914587084586791072, guid: a92f90df64a7cfc449ec6e8ad8b60d8c, type: 3}
       propertyPath: m_VersionIndex
-      value: 7423
+      value: 7453
       objectReference: {fileID: 0}
     - target: {fileID: 8993327890375960587, guid: a92f90df64a7cfc449ec6e8ad8b60d8c, type: 3}
       propertyPath: damageOverlay
