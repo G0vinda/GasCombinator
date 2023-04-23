@@ -25,6 +25,9 @@ namespace Enemy
 
         private void Update()
         {
+            if (!ProcessFreeze())
+                return;
+            
             if(m_isPreparingAttack)
                 return;
             
