@@ -57,19 +57,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4248012343151860386, guid: 9f1004ab4b8aefc47b75bca5cc422d8d, type: 3}
       propertyPath: m_Name
-      value: MoveSpeed_Bean
+      value: ShotSlow_Bean
       objectReference: {fileID: 0}
     - target: {fileID: 4488880787622707309, guid: 9f1004ab4b8aefc47b75bca5cc422d8d, type: 3}
       propertyPath: type
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4488880787622707309, guid: 9f1004ab4b8aefc47b75bca5cc422d8d, type: 3}
-      propertyPath: effect
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4488880787622707309, guid: 9f1004ab4b8aefc47b75bca5cc422d8d, type: 3}
-      propertyPath: walkingSpeedBonus
-      value: 0.25
+      propertyPath: shotSlow
+      value: 0.4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9f1004ab4b8aefc47b75bca5cc422d8d, type: 3}
