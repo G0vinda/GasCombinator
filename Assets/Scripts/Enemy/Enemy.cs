@@ -12,8 +12,7 @@ namespace Enemy
         [SerializeField] private float defaultSpeed;
         [SerializeField] private float slowDuration;
         [SerializeField] private GameObject freezeBlock;
-        [SerializeField] protected Animator animator;
-        
+
         [Header("PoisonValues")] 
         [SerializeField] private int numberOfPoisonHits;
         [SerializeField] private float poisonHitTime;

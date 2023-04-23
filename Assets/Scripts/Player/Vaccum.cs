@@ -51,6 +51,9 @@ namespace Player
         {
             foreach (var capturedBean in m_capturedBeans)
             {
+                if(capturedBean == null)
+                    continue;
+                
                 var beanTransform = capturedBean.transform;
                 var beanPosition = beanTransform.position;
                 var targetPosition = targetTransform.position;
