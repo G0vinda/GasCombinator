@@ -86,16 +86,14 @@ namespace Enemy
             
             while (m_currentAttackPause > 0)
             {
-                Debug.Log(DateTime.Now);
                 m_currentAttackPause -= Time.deltaTime;
                 yield return null;
             }
-            
-            Debug.Log(DateTime.Now);
         }
 
         private void OnCollisionEnter(Collision other)
         {
+            Debug.Log("collision detected");
             if(m_isPerformingAttack) // TODO: Check for collision with player
                 StartCoroutine(TimeAttackPause());
         }
