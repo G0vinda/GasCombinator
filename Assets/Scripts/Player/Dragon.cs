@@ -229,7 +229,7 @@ namespace Player
                     foreach (var newProjectile in newProjectiles)
                     {
                         ((Projectile.IceProjectile)newProjectile).unfrozenSpeedMultiplier =
-                            BlueBean.Attributes.PermanentSlowMultiplierPerBean * BlueBean.Attributes.Collected;
+                           1 / (1 + BlueBean.Attributes.PermanentSlowMultiplierPerBean * BlueBean.Attributes.Collected);
                     }
                 }
                 

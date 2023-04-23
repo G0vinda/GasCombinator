@@ -140,16 +140,16 @@ namespace Enemy
             m_currentTween = m_spearPrepareSequence;
         }
 
-        public override void Freeze(float freezeTime)
+        public override void Freeze(float freezeTime, float unfreezeSpeedMultiplier = 1.0f)
         {
-            base.Freeze(freezeTime);
+            base.Freeze(freezeTime, unfreezeSpeedMultiplier);
             m_currentTween?.Pause();
         }
 
         protected override void Unfreeze()
         {
-            base.Unfreeze();
             m_currentTween?.Play();
+            base.Unfreeze();
         }
     }
 }
