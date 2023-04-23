@@ -1,6 +1,7 @@
 using System;
 using Cinemachine;
 using Enemy;
+using Player;
 using UnityEngine;
 
 namespace Projectile
@@ -11,6 +12,7 @@ namespace Projectile
         [SerializeField] private float speed;
         [SerializeField] private float range;
         [SerializeField] protected float damage;
+        [SerializeField] protected bool isPlayerProjectile;
 
         [HideInInspector]
         public float slowEffect;
@@ -26,12 +28,12 @@ namespace Projectile
         private float m_traveledDistance;
         private GameObject owner;
         
-        public virtual void Init(GameObject newOwner)
+        public void Init(GameObject newOwner)
         {
             owner = newOwner;
         }
         
-        protected virtual void Move()
+        protected void Move()
         {
             var oldPosition = transform.position;
             transform.Translate(transform.forward * (speed * Time.deltaTime), Space.World);
@@ -45,8 +47,19 @@ namespace Projectile
         {
             if (other.gameObject == owner)
                 return;
-            Enemy.Enemy hitEnemy = other.gameObject.GetComponent<Enemy.Enemy>();
-            Hit(hitEnemy);
+
+            if (isPlayerProjectile)
+            {
+                if(other.gameObject.TryGetComponent<Enemy.Enemy>(out var hitEnemy))
+                    Hit(hitEnemy);   
+            }
+            else 
+            {
+                if(other.gameObject.TryGetComponent<PlayerHealth>(out var playerHealth))
+                    playerHealth.TakeDamage();
+            }
+            
+            Destroy(gameObject);
         }
 
         public abstract void Hit(Enemy.Enemy hitEnemy);

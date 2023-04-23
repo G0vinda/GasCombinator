@@ -12,10 +12,10 @@ GameObject:
   - component: {fileID: 683796396486755151}
   - component: {fileID: 8113368094788859466}
   - component: {fileID: 6221644856416242678}
-  - component: {fileID: 7339490704655966751}
-  - component: {fileID: 6240641666528908506}
+  - component: {fileID: 4241779338935867338}
+  - component: {fileID: 7120106158415747252}
   m_Layer: 10
-  m_Name: IceBall
+  m_Name: PoisonBall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -30,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 7367696124537165238}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 1.13, z: 1.73}
-  m_LocalScale: {x: 0.4, y: 0.4, z: 0.4}
+  m_LocalScale: {x: 0.4, y: 0.4, z: 0.6}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -64,7 +64,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 88ae3039d0fe84940aa0dc10e5897aa4, type: 2}
+  - {fileID: 2100000, guid: 2ca9dce2e17319d4ca330df6369abc67, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -99,7 +99,7 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &7339490704655966751
+--- !u!114 &4241779338935867338
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -108,17 +108,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 7367696124537165238}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa5d173c2cd649a0adcc1eac7278e704, type: 3}
+  m_Script: {fileID: 11500000, guid: fcf58d5c643e477da207c4f6b36c6b2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dragonColor: {r: 0, g: 0.43586493, b: 1, a: 1}
+  dragonColor: {r: 0.25249934, g: 0.9056604, b: 0.17515129, a: 1}
   speed: 20
   range: 10
-  damage: 40
+  damage: 20
+  isPlayerProjectile: 1
   slowEffect: 0
-  type: 2
-  freezeTime: 2
---- !u!54 &6240641666528908506
+  type: 3
+--- !u!54 &7120106158415747252
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

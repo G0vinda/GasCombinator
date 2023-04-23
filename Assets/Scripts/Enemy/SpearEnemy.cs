@@ -1,16 +1,21 @@
-using System;
 using System.Collections;
 using DG.Tweening;
-using Player;
 using UnityEngine;
 
 namespace Enemy
 {
     public class SpearEnemy : Enemy
     {
+        [Header("SpearReferences")] 
+        [SerializeField] private Transform spearTransform;
+        [SerializeField] private Collider spearCollider;
+        [SerializeField] private Transform spearWalkTransform;
+        [SerializeField] private Transform spearAttackTransform;
+        
+        [Header("SpearAttackValues")]
         [SerializeField] private float rangeToStartAttack;
-        [SerializeField] private float attackPreparationTime;
         [SerializeField] private float attackRange;
+        [SerializeField] private float spearPreparationTime;
         [SerializeField] private float attackTime;
         [SerializeField] private float timeBeforeNextAttack;
         [SerializeField] private float dieTime;
@@ -20,17 +25,6 @@ namespace Enemy
         private Vector3 m_currentAttackDestination;
         private Tweener m_attackTweener;
         private float m_currentAttackPause;
-
-        private int m_prepareForAttackHash;
-        private int m_afterAttackHash;
-        private int m_dieHash;
-
-        private void Start()
-        {
-            m_prepareForAttackHash = Animator.StringToHash("PrepareForAttack");
-            m_afterAttackHash = Animator.StringToHash("AfterAttack");
-            m_dieHash = Animator.StringToHash("Die");
-        }
 
         void Update()
         {
@@ -46,7 +40,6 @@ namespace Enemy
             
             if (PlayerIsInSpearRange())
             {
-                m_isPreparingAttack = true;
                 StartCoroutine(PrepareAttack());
                 return;
             }
@@ -65,12 +58,14 @@ namespace Enemy
 
         private IEnumerator PrepareAttack()
         {
+            m_isPreparingAttack = true;
             var attackDirection = Vector3.Normalize(PlayerTransform.position - transform.position);
             transform.rotation = Quaternion.LookRotation(attackDirection);
+            SetSpearToAttackPosition();
+            
             m_currentAttackDestination = transform.position + attackDirection * attackRange;
             NavMeshAgent.enabled = false;
-            //animator.SetTrigger(m_prepareForAttackHash);
-            yield return new WaitForSeconds(attackPreparationTime);
+            yield return new WaitForSeconds(spearPreparationTime);
             m_attackTweener = transform.DOMove(m_currentAttackDestination, attackTime).SetEase(Ease.InBack).OnComplete(
                 () => { StartCoroutine(TimeAttackPause());});
             m_isPreparingAttack = false;
@@ -79,11 +74,14 @@ namespace Enemy
 
         private IEnumerator TimeAttackPause()
         {
-            NavMeshAgent.enabled = true;
             m_isPerformingAttack = false;
             m_attackTweener?.Kill();
             m_currentAttackPause = timeBeforeNextAttack;
-            
+            SetSpearToWalkPosition();
+            yield return new WaitForSeconds(spearPreparationTime);
+
+            m_currentAttackPause -= spearPreparationTime;
+            NavMeshAgent.enabled = true;
             while (m_currentAttackPause > 0)
             {
                 m_currentAttackPause -= Time.deltaTime;
@@ -94,15 +92,31 @@ namespace Enemy
         private void OnCollisionEnter(Collision other)
         {
             Debug.Log("collision detected");
-            if(m_isPerformingAttack) // TODO: Check for collision with player
+            if(m_isPerformingAttack) 
                 StartCoroutine(TimeAttackPause());
         }
+        
+        private void SetSpearToAttackPosition()
+        {
+            var spearSequence = DOTween.Sequence();
+            spearSequence.Append(spearTransform.DOMove(spearAttackTransform.position, spearPreparationTime));
+            spearSequence.Join(spearTransform.DORotate(spearAttackTransform.rotation.eulerAngles, spearPreparationTime));
+            spearSequence.SetEase(Ease.InQuad).OnComplete(() => { spearCollider.enabled = true; });
+        }
 
+        private void SetSpearToWalkPosition()
+        {
+            spearCollider.enabled = false;
+            
+            var spearSequence = DOTween.Sequence();
+            spearSequence.Append(spearTransform.DOMove(spearWalkTransform.position, spearPreparationTime));
+            spearSequence.Join(spearTransform.DORotate(spearWalkTransform.rotation.eulerAngles, spearPreparationTime));
+            spearSequence.SetEase(Ease.InQuad);
+        }
 
         protected override void Die()
         {
             NavMeshAgent.enabled = false;
-            //animator.SetTrigger(m_dieHash);
             Destroy(gameObject, dieTime);
             enabled = false;
         }
