@@ -134,16 +134,28 @@ namespace Player
                     }
                 }
             }
-
-            if (BlueBean.Attributes.ActivatedEffects.Contains(BlueBean.Effect.FreezeFart))
+            else if (BlueBean.Attributes.ActivatedEffects.Contains(BlueBean.Effect.FreezeFart))
             {
                 var colliders = Physics.OverlapSphere(transform.position, Single.PositiveInfinity);
                 foreach (var hitCollider in colliders)
                 {
                     if (hitCollider.TryGetComponent<Enemy.Enemy>(out Enemy.Enemy enemy))
                     {
-                        enemy.Freeze(BlueBean.Attributes.FartFreezeTime/*, 
-                            BlueBean.Attributes.PermanentSlowMultiplierPerBean * BlueBean.Attributes.Collected*/);
+                        enemy.Freeze(BlueBean.Attributes.FartFreezeTime, 
+                            BlueBean.Attributes.PermanentSlowMultiplierPerBean * BlueBean.Attributes.Collected);
+                    }
+                }
+            }
+            else if (GreenBean.Attributes.ActivatedEffects.Contains(GreenBean.Effect.PoisonFart))
+            {
+                var colliders = Physics.OverlapSphere(transform.position, Single.PositiveInfinity);
+                foreach (var hitCollider in colliders)
+                {
+                    if (hitCollider.TryGetComponent<Enemy.Enemy>(out Enemy.Enemy enemy))
+                    {
+                        enemy.TakePoison(10.0f + GreenBean.Attributes.PoisonDamagePerBean * GreenBean.Attributes.Collected,
+                            1.0f - (GreenBean.Attributes.PoisonTickSpeedPerBean * GreenBean.Attributes.Collected), 
+                            6 + (GreenBean.Attributes.ExtraPoisonTickPerBean * GreenBean.Attributes.Collected));
                     }
                 }
             }
@@ -229,19 +241,57 @@ namespace Player
                     foreach (var newProjectile in newProjectiles)
                     {
                         ((Projectile.IceProjectile)newProjectile).unfrozenSpeedMultiplier =
-                            BlueBean.Attributes.PermanentSlowMultiplierPerBean * BlueBean.Attributes.Collected;
+                           1 / (1 + BlueBean.Attributes.PermanentSlowMultiplierPerBean * BlueBean.Attributes.Collected);
                     }
                 }
-                
+                break;
+            case Bean.Bean.Type.GREEN:
+                if (GreenBean.Attributes.ActivatedEffects.Contains(GreenBean.Effect.SpreadChance))
+                {
+                    var extraShotCount = 7;
+                    var hit = Random.Range(0.0f, 1.0f);
+                    for (int i = 1; i <= extraShotCount && 
+                                    hit <= (GreenBean.Attributes.SpreadChancePerBean * GreenBean.Attributes.Collected);
+                         i++)
+                    {
+                        var aimOffset = maximumShotSpread * ((int)((i + 1) / 2) / 3.0f) * (i % 2 == 0 ? -1 : 1);
+                        newProjectiles.Add(Instantiate(projectile, mouthPosition.position, 
+                            Quaternion.Euler(mouthPosition.rotation.eulerAngles.x,  
+                                mouthPosition.rotation.eulerAngles.y + aimOffset,
+                                mouthPosition.rotation.eulerAngles.z)));
+                        hit = Random.Range(0.0f, 1.0f);
+                    }
+                }
+                if (GreenBean.Attributes.ActivatedEffects.Contains(GreenBean.Effect.PoisonDamage))
+                {
+                    foreach (var newProjectile in newProjectiles)
+                    {
+                        ((Projectile.PoisonProjectile)newProjectile).Damage +=
+                            GreenBean.Attributes.PoisonDamagePerBean * GreenBean.Attributes.Collected;
+                    }
+                }
+                if (GreenBean.Attributes.ActivatedEffects.Contains(GreenBean.Effect.PoisonDuration))
+                {
+                    foreach (var newProjectile in newProjectiles)
+                    {
+                        ((Projectile.PoisonProjectile)newProjectile).numberOfPoisonHits +=
+                            GreenBean.Attributes.ExtraPoisonTickPerBean * GreenBean.Attributes.Collected;
+                    }
+                }
+               if (GreenBean.Attributes.ActivatedEffects.Contains(GreenBean.Effect.PoisonSpeed))
+                {
+                    foreach (var newProjectile in newProjectiles)
+                    {
+                        ((Projectile.PoisonProjectile)newProjectile).poisonHitTime -=
+                            GreenBean.Attributes.PoisonTickSpeedPerBean * GreenBean.Attributes.Collected;
+                    }
+                }
                 break;
             }
-            Debug.Log("------Projectiles Start-------");
             foreach (var newProjectile in newProjectiles)
             {
                 newProjectile.Init(this.gameObject);
-                Debug.Log(newProjectile.Damage);
             }
-            Debug.Log("------Projectiles End-------");
         }
         
         private IEnumerator Shoot(int numberOfProjectiles)
@@ -323,6 +373,10 @@ namespace Player
                     BlueBean.Attributes.ActivatedEffects.Add(((BlueBean) bean).effectOrder[BlueBean.Attributes.Collected]);
                     BlueBean.Attributes.Collected++;
                     break;
+                case Bean.Bean.Type.GREEN:
+                    GreenBean.Attributes.ActivatedEffects.Add(((GreenBean) bean).effectOrder[GreenBean.Attributes.Collected]);
+                    GreenBean.Attributes.Collected++;
+                    break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
@@ -355,6 +409,7 @@ namespace Player
         {
             RedBean.Attributes.ToDefault();
             BlueBean.Attributes.ToDefault();
+            GreenBean.Attributes.ToDefault();
         }
         
         private struct DragonAttributes

@@ -29,7 +29,7 @@ namespace Bean
             public static int Collected = 0;
             public static float AvoidDamageChancePerBean = 0.05f;
             public static float AvoidEffectChancePerBean = 0.2f;
-            public static float PermanentSlowMultiplierPerBean = 0.15f;
+            public static float PermanentSlowMultiplierPerBean = 0.5f;
             public static float FartFreezeTime = 5f;
             public static float ExtraShotPerBean = 0.5f;
 
