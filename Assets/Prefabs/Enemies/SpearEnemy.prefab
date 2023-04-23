@@ -296,8 +296,8 @@ MonoBehaviour:
   bounceTime: 0.5
   dieTime: 0
   ashParticles: {fileID: 5889098959561618952, guid: 02dd3412337a4f048946b6b35beb2df6, type: 3}
-  numberOfPoisonHits: 0
-  poisonHitTime: 0
+  numberOfPoisonHits: 6
+  poisonHitTime: 1
   spearTransform: {fileID: 6769653456183119719}
   spearCollider: {fileID: 6986248398519920733}
   spearWalkTransform: {fileID: 6986248397600882849}
