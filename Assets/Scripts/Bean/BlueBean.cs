@@ -9,7 +9,7 @@ namespace Bean
         public enum Effect
         {
             AvoidDamage,
-            AvoidEffect,
+            DoubleFartHeal,
             PermanentFreeze,
             Spread,
             FreezeFart
@@ -18,7 +18,7 @@ namespace Bean
         public List<Effect> effectOrder = new List<Effect>()
         {
           Effect.AvoidDamage,
-          Effect.AvoidEffect,
+          Effect.DoubleFartHeal,
           Effect.PermanentFreeze,
           Effect.Spread,
           Effect.FreezeFart
@@ -28,7 +28,6 @@ namespace Bean
         {
             public static int Collected = 0;
             public static float AvoidDamageChancePerBean = 0.05f;
-            public static float AvoidEffectChancePerBean = 0.2f;
             public static float PermanentSlowMultiplierPerBean = 0.5f;
             public static float FartFreezeTime = 5f;
             public static float ExtraShotPerBean = 0.5f;

@@ -120,7 +120,8 @@ namespace Player
         {
             /*m_fireballTypeAttributes.Clear();*/
             m_playerController.BonusSpeed = 0;
-            m_playerHealth.IncreaseHealth(m_collectedBeansCount);
+            m_playerHealth.IncreaseHealth(m_collectedBeansCount * (
+                                          BlueBean.Attributes.ActivatedEffects.Contains(BlueBean.Effect.DoubleFartHeal) ? 2 : 1));
             m_collectedBeansCount = 0;
 
             if (RedBean.Attributes.ActivatedEffects.Contains(RedBean.Effect.KillFart))
