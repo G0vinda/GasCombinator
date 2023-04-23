@@ -8,8 +8,8 @@ namespace Bean
     public class BeanSpawner : MonoBehaviour
     {
         [SerializeField] private Bean[] beanPrefabs;
-        [Tooltip("Spawn probability of the beans, in whole numbers")]
-        [SerializeField] private int[] beanProbabilities;
+        [Tooltip("Spawn probability of the beans, in whole numbers")] 
+        public float[] beanProbabilities;
         [SerializeField] private float minSpawnDelay;
         [SerializeField] private float maxSpawnDelay;
         [SerializeField] private Transform lowerLimit;

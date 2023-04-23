@@ -1,8 +1,10 @@
-﻿using System;
+using System;
 using System.Collections;
+using Bean;
 using TMPro;
 using UI;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Player
 {
@@ -49,8 +51,16 @@ namespace Player
 
         public void TakeDamage(int amount = 1)
         {
-            m_currentLives--;
             damageOverlay.Show();
+            if (BlueBean.Attributes.ActivatedEffects.Contains(BlueBean.Effect.AvoidDamage))
+            {
+                var hit = Random.Range(0.0f, 1.0f);
+                var chance = BlueBean.Attributes.AvoidDamageChancePerBean * BlueBean.Attributes.Collected;
+                Debug.Log(hit + " | " + chance + " => " + (hit <= chance ? " Damage avoid success!" : "Damage avoid fail!"));
+                if (hit <= chance) return;
+            }
+            
+            m_currentLives -= amount;
             UpdateLiveText();
             if (m_currentLives == 0)
             {

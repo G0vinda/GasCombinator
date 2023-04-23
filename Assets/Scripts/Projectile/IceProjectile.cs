@@ -5,6 +5,7 @@ namespace Projectile
     public class IceProjectile : Projectile
     {
         [SerializeField] private float freezeTime;
+        public float unfrozenSpeedMultiplier = 1.0f;
         
         private void Update()
         {

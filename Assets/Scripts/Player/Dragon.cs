@@ -3,8 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
+using Bean;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Random = UnityEngine.Random;
 
 namespace Player
 {
@@ -18,6 +20,7 @@ namespace Player
         [SerializeField] private float maxBreatheScaleFactor;
 
         [Header("FireValues")]
+        public float maximumShotSpread;
         [SerializeField] private float fireCoolDownTime;
         [SerializeField] private Transform mouthPosition;
         [SerializeField] private float multipleShotDelayTime;
@@ -28,9 +31,8 @@ namespace Player
         [SerializeField] private Material secondaryMaterial;
         private Color defaultSecondaryColor;
         [SerializeField] private Vaccum vaccum;
-        private Dictionary<int, DragonAttributes> m_fireballTypeAttributes;
-
-
+        [SerializeField] private BeanSpawner beanSpawner;
+        
         private float m_fireCooldown;
         private Stack<Projectile.Projectile> m_storedProjectiles;
         private int m_maxProjectiles = 5;
@@ -43,14 +45,18 @@ namespace Player
         
         private PlayerController m_playerController;
         private PlayerHealth m_playerHealth;
-        private int m_beanCount;
+        
+        // Beans
+        private int m_collectedBeansCount;
+        private DragonAttributes m_dragonAttributes;
 
         private void Awake()
         {
             m_storedProjectiles = new Stack<Projectile.Projectile>();
             m_multipleShotDelay = new WaitForSeconds(multipleShotDelayTime);
-            m_fireballTypeAttributes = new Dictionary<int, DragonAttributes>();
-            m_fireballTypeAttributes[(int) Bean.Bean.Type.NEUTRAL] = new DragonAttributes();
+            m_dragonAttributes = new DragonAttributes();
+            /*m_fireballTypeAttributes = new Dictionary<int, ShotAttributes>();
+            m_fireballTypeAttributes[(int) Bean.Bean.Type.NEUTRAL] = new ShotAttributes();*/
             m_minBreatheSize = Vector3.one * minBreatheScaleFactor;
             m_maxBreatheSize = Vector3.one * maxBreatheScaleFactor;
             transform.localScale = m_minBreatheSize;
@@ -92,27 +98,57 @@ namespace Player
                 return;
 
             var projectile = m_storedProjectiles.Peek();
-            if (!m_fireballTypeAttributes.ContainsKey((int) projectile.type))
+            /*if (!m_fireballTypeAttributes.ContainsKey((int) projectile.type))
             {
-                m_fireballTypeAttributes[(int) projectile.type] = new DragonAttributes();
-            }
+                m_fireballTypeAttributes[(int) projectile.type] = new ShotAttributes();
+            }*/
             
-            StartCoroutine(Shoot(1 
-                                 + m_fireballTypeAttributes[(int)Bean.Bean.Type.NEUTRAL].ExtraShots 
-                                 + m_fireballTypeAttributes[(int)projectile.type].ExtraShots));
+            Shoot();
             BreatheOut(projectileCost);
             m_fireCooldown = fireCoolDownTime;
         }
 
         public void OnFart(InputAction.CallbackContext context)
         {
-            if(!context.performed || m_beanCount == 0)
+            if(!context.performed || m_collectedBeansCount == 0)
                 return;
             
-            m_fireballTypeAttributes.Clear();
+           Fart();
+        }
+
+        private void Fart()
+        {
+            /*m_fireballTypeAttributes.Clear();*/
             m_playerController.BonusSpeed = 0;
-            m_playerHealth.IncreaseHealth(m_beanCount);
-            m_beanCount = 0;
+            m_playerHealth.IncreaseHealth(m_collectedBeansCount);
+            m_collectedBeansCount = 0;
+
+            if (RedBean.Attributes.ActivatedEffects.Contains(RedBean.Effect.KillFart))
+            {
+                var colliders = Physics.OverlapSphere(transform.position, RedBean.Attributes.KillFartRadius);
+                foreach (var hitCollider in colliders)
+                {
+                    if (hitCollider.TryGetComponent<Enemy.Enemy>(out Enemy.Enemy enemy))
+                    {
+                        enemy.TakeDamage(Single.PositiveInfinity);
+                    }
+                }
+            }
+
+            if (BlueBean.Attributes.ActivatedEffects.Contains(BlueBean.Effect.FreezeFart))
+            {
+                var colliders = Physics.OverlapSphere(transform.position, Single.PositiveInfinity);
+                foreach (var hitCollider in colliders)
+                {
+                    if (hitCollider.TryGetComponent<Enemy.Enemy>(out Enemy.Enemy enemy))
+                    {
+                        enemy.Freeze(BlueBean.Attributes.FartFreezeTime/*, 
+                            BlueBean.Attributes.PermanentSlowMultiplierPerBean * BlueBean.Attributes.Collected*/);
+                    }
+                }
+            }
+            ResetBeans();
+            Debug.Log("I JUST FARTED!!!");
         }
 
         #endregion
@@ -123,6 +159,91 @@ namespace Player
             m_fireCooldown = Mathf.Max(m_fireCooldown - Time.deltaTime, 0);
         }
 
+        private void Shoot()
+        {
+            var projectile = m_storedProjectiles.Pop();
+            primaryMaterial.color = m_storedProjectiles.Count > 0 ? secondaryMaterial.color : defaultPrimaryColor;
+            secondaryMaterial.color = m_storedProjectiles.Count > 1
+                ? (m_storedProjectiles.ToArray()[1]).GetComponent<Projectile.Projectile>().DragonColor * 1.3f
+                : defaultSecondaryColor;
+
+            List<Projectile.Projectile> newProjectiles = new List<Projectile.Projectile>();
+            newProjectiles.Add(Instantiate( projectile, mouthPosition.position, mouthPosition.rotation));
+
+
+            switch (projectile.type)
+            {
+                case Bean.Bean.Type.RED:
+                    if (RedBean.Attributes.ActivatedEffects.Contains(RedBean.Effect.Spread))
+                    {
+                        var extraShotCount = RedBean.Attributes.Collected * RedBean.Attributes.ExtraShotPerBean;
+                        for (int i = 1; i <= extraShotCount; i++)
+                        {
+                            var aimOffset = maximumShotSpread * ((int)((i + 1) / 2) / 3.0f) * (i % 2 == 0 ? -1 : 1);
+                            newProjectiles.Add(Instantiate( projectile, mouthPosition.position, 
+                            Quaternion.Euler(mouthPosition.rotation.eulerAngles.x,  
+                                mouthPosition.rotation.eulerAngles.y + aimOffset,
+                                mouthPosition.rotation.eulerAngles.z)));
+                        }
+                    }
+
+                    foreach (var newProjectile in newProjectiles)
+                    {
+                        var hit = Random.Range(0.0f, 1.0f);
+                        if (RedBean.Attributes.ActivatedEffects.Contains(RedBean.Effect.InstantKill))
+                        {
+                            if (hit <= RedBean.Attributes.InstantKillChancePerBean * RedBean.Attributes.Collected)
+                            {
+                                newProjectile.Damage = Single.PositiveInfinity;
+                                continue;
+                            }
+                        }
+                        if (RedBean.Attributes.ActivatedEffects.Contains(RedBean.Effect.CriticalChance))
+                        {
+                            
+                            if (hit <= RedBean.Attributes.CriticalChancePerBean * RedBean.Attributes.Collected)
+                            {
+                                newProjectile.Damage *= RedBean.Attributes.BaseCriticalMultiplier +
+                                                        (RedBean.Attributes.Collected *
+                                                         RedBean.Attributes.CriticalMultiplierPerBean);
+                            }
+                        }
+                    }
+                break;
+            case Bean.Bean.Type.BLUE:
+                if (BlueBean.Attributes.ActivatedEffects.Contains(BlueBean.Effect.Spread))
+                {
+                    var extraShotCount = (int) (BlueBean.Attributes.Collected * BlueBean.Attributes.ExtraShotPerBean);
+                    for (int i = 1; i <= extraShotCount; i++)
+                    {
+                        var aimOffset = maximumShotSpread * ((int)((i + 1) / 2) / 3.0f) * (i % 2 == 0 ? -1 : 1);
+                        newProjectiles.Add(Instantiate(projectile, mouthPosition.position, 
+                            Quaternion.Euler(mouthPosition.rotation.eulerAngles.x,  
+                                mouthPosition.rotation.eulerAngles.y + aimOffset,
+                                mouthPosition.rotation.eulerAngles.z)));
+                    }
+                }
+
+                if (BlueBean.Attributes.ActivatedEffects.Contains(BlueBean.Effect.PermanentFreeze))
+                {
+                    foreach (var newProjectile in newProjectiles)
+                    {
+                        ((Projectile.IceProjectile)newProjectile).unfrozenSpeedMultiplier =
+                            BlueBean.Attributes.PermanentSlowMultiplierPerBean * BlueBean.Attributes.Collected;
+                    }
+                }
+                
+                break;
+            }
+            Debug.Log("------Projectiles Start-------");
+            foreach (var newProjectile in newProjectiles)
+            {
+                newProjectile.Init(this.gameObject);
+                Debug.Log(newProjectile.Damage);
+            }
+            Debug.Log("------Projectiles End-------");
+        }
+        
         private IEnumerator Shoot(int numberOfProjectiles)
         {
             var projectile = m_storedProjectiles.Pop();
@@ -134,8 +255,8 @@ namespace Player
             {
                 var newProjectile = Instantiate( projectile, mouthPosition.position, mouthPosition.rotation);
                 newProjectile.Init(gameObject);
-                newProjectile.slowEffect += m_fireballTypeAttributes[(int) newProjectile.type].ShotSlowEffect;
-                newProjectile.Damage *= 1 + m_fireballTypeAttributes[(int) newProjectile.type].DamageMultiplier;
+                /*newProjectile.slowEffect += m_fireballTypeAttributes[(int) newProjectile.type].ShotSlowEffect;
+                newProjectile.Damage *= 1 + m_fireballTypeAttributes[(int) newProjectile.type].DamageMultiplier;*/
                 yield return m_multipleShotDelay;
             }
         }
@@ -182,12 +303,31 @@ namespace Player
 
         public void ConsumeBean(Bean.Bean bean)
         {
-            if (!m_fireballTypeAttributes.ContainsKey((int) bean.BeanType))
+            /*if (!m_fireballTypeAttributes.ContainsKey((int) bean.BeanType))
             {
-                m_fireballTypeAttributes[(int) bean.BeanType] = new DragonAttributes();
-            }
+                m_fireballTypeAttributes[(int) bean.BeanType] = new ShotAttributes();
+            }*/
 
-            switch (bean.BeanEfect)
+            if (m_collectedBeansCount >= 5)
+            {
+                Fart();
+            }
+            
+            switch (bean.BeanType)
+            {
+                case Bean.Bean.Type.RED:
+                    RedBean.Attributes.ActivatedEffects.Add(((RedBean) bean).effectOrder[RedBean.Attributes.Collected]);
+                    RedBean.Attributes.Collected++;
+                    break;
+                case Bean.Bean.Type.BLUE:
+                    BlueBean.Attributes.ActivatedEffects.Add(((BlueBean) bean).effectOrder[BlueBean.Attributes.Collected]);
+                    BlueBean.Attributes.Collected++;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+            beanSpawner.beanProbabilities[(int)bean.BeanType - 1] *= 1.1f;
+            /*switch (bean.BeanEfect)
             {
                 case Bean.Bean.Effect.EXTRA_SHOTS:
                     m_fireballTypeAttributes[(int) bean.BeanType].IncreaseExtraShots();
@@ -204,25 +344,47 @@ namespace Player
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
-            }
-            m_beanCount++;
+            }*/
+            m_collectedBeansCount++;
+            Debug.Log(m_collectedBeansCount + "/5 Beans collected");
             vaccum.RemoveBean(bean);
             Destroy(bean.gameObject);
         }
 
-        private class DragonAttributes
+        private void ResetBeans()
         {
-            public int ExtraShots;
-            public float DamageMultiplier;
-            public float WalkSpeedBonus;
-            public float ShotSlowEffect;
-            public int ShotSpreadAmount;
-
-            public DragonAttributes()
+            RedBean.Attributes.ToDefault();
+            BlueBean.Attributes.ToDefault();
+        }
+        
+        private struct DragonAttributes
+        {
+            public enum FartEffect
             {
-                ToDefault();
+                NONE,
+                RED,
+                BLUE,
+                GREEN
             }
             
+            public int IgnoreDamageChance;
+            public int IgnoreEffectChance;
+            public FartEffect ExtraFartEffect;
+
+            public void ToDefault()
+            {
+                IgnoreDamageChance = 0;
+                IgnoreEffectChance = 0;
+                ExtraFartEffect = FartEffect.NONE;
+            }
+        }
+        
+        private class ShotAttributes
+        {
+            public int ExtraShots = 0;
+            public float DamageMultiplier = 1;
+            public float ShotSlowEffect = 0;
+           
             public void IncreaseExtraShots(int amount = 1)
             {
                 ExtraShots += amount;
@@ -236,19 +398,6 @@ namespace Player
              public void IncreaseShotSlow(float amount)
             {
                 ShotSlowEffect += amount;
-            }
-            
-            public void IncreaseWalkSpeedBonus(float amount)
-            {
-                WalkSpeedBonus += amount;
-            }
-
-            public void ToDefault()
-            {
-                ExtraShots = 0;
-                WalkSpeedBonus = 0;
-                ShotSlowEffect = 0;
-                ShotSpreadAmount = 0;
             }
         }
     }
