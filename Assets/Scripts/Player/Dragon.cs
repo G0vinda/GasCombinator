@@ -122,6 +122,18 @@ namespace Player
             m_playerController.BonusSpeed = 0;
             m_playerHealth.IncreaseHealth(m_collectedBeansCount);
             m_collectedBeansCount = 0;
+
+            if (RedBean.Attributes.ActivatedEffects.Contains(RedBean.Effect.KillFart))
+            {
+                var colliders = Physics.OverlapSphere(transform.position, RedBean.Attributes.KillFartRadius);
+                foreach (var hitCollider in colliders)
+                {
+                    if (hitCollider.TryGetComponent<Enemy.Enemy>(out Enemy.Enemy enemy))
+                    {
+                        enemy.TakeDamage(Single.PositiveInfinity);
+                    }
+                }
+            }
             ResetBeans();
             Debug.Log("I JUST FARTED!!!");
         }

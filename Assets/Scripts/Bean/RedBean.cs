@@ -32,6 +32,7 @@ namespace Bean
             public static float CriticalMultiplierPerBean = 0.25f;
             public static float BaseCriticalMultiplier = 1.5f;
             public static float InstantKillChancePerBean = 0.025f;
+            public static float KillFartRadius = 10.0f;
             public static List<Effect> ActivatedEffects = new List<Effect>();
 
             public static void ToDefault()
