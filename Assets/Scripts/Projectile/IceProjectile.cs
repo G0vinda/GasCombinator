@@ -17,8 +17,7 @@ namespace Projectile
             if (hitEnemy != null)
             {
                 hitEnemy.TakeDamage(damage);
-                hitEnemy.TakeSlow(slowEffect);
-                hitEnemy.Freeze(freezeTime);
+                hitEnemy.Freeze(freezeTime, unfrozenSpeedMultiplier);
             }
 
             Destroy(gameObject);

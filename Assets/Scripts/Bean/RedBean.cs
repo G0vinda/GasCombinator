@@ -34,7 +34,9 @@ namespace Bean
             public static float InstantKillChancePerBean = 0.025f;
             public static float KillFartRadius = 10.0f;
             public static List<Effect> ActivatedEffects = new List<Effect>();
-
+            
+            public static Dictionary<int, string> EffectInfo = new Dictionary<int, string>() {{1, "Shoot more red shots"}, 
+                {2, "Red shots can deal critical damage"}, {3, "Critical damage multiplier increased"}, {4, "Chance for instantly kill enemies"}, {5, "Fart of Doom"}};
             public static void ToDefault()
             {
                 Collected = 0;
