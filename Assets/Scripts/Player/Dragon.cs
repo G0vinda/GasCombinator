@@ -6,6 +6,7 @@ using System.Runtime.InteropServices;
 using Bean;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Random = UnityEngine.Random;
 
 namespace Player
 {
@@ -160,13 +161,38 @@ namespace Player
                                 mouthPosition.rotation.eulerAngles.z)));
                         }
                     }
+
+                    foreach (var newProjectile in newProjectiles)
+                    {
+                        var hit = Random.Range(0.0f, 1.0f);
+                        if (RedBean.Attributes.ActivatedEffects.Contains(RedBean.Effect.InstantKill))
+                        {
+                            if (hit <= RedBean.Attributes.InstantKillChancePerBean * RedBean.Attributes.Collected)
+                            {
+                                newProjectile.Damage = Single.PositiveInfinity;
+                                continue;
+                            }
+                        }
+                        if (RedBean.Attributes.ActivatedEffects.Contains(RedBean.Effect.CriticalChance))
+                        {
+                            
+                            if (hit <= RedBean.Attributes.CriticalChancePerBean * RedBean.Attributes.Collected)
+                            {
+                                newProjectile.Damage *= RedBean.Attributes.BaseCriticalMultiplier +
+                                                        (RedBean.Attributes.Collected *
+                                                         RedBean.Attributes.CriticalMultiplierPerBean);
+                            }
+                        }
+                    }
                 break;
             }
-
+            Debug.Log("------Projectiles Start-------");
             foreach (var newProjectile in newProjectiles)
             {
                 newProjectile.Init(this.gameObject);
+                Debug.Log(newProjectile.Damage);
             }
+            Debug.Log("------Projectiles End-------");
         }
         
         private IEnumerator Shoot(int numberOfProjectiles)

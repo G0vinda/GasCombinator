@@ -28,7 +28,9 @@ namespace Bean
         {
             public static int Collected = 0;
             public static int ExtraShotPerBean = 1;
-            public static double CriticalChancePerBean = 0.05;
+            public static float CriticalChancePerBean = 0.05f;
+            public static float CriticalMultiplierPerBean = 0.25f;
+            public static float BaseCriticalMultiplier = 1.5f;
             public static float InstantKillChancePerBean = 0.025f;
             public static List<Effect> ActivatedEffects = new List<Effect>();
 
