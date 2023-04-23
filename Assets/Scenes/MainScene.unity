@@ -867,12 +867,12 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4230149811530286816, guid: fc8f32652dc379643ab8c464ba5daa59, type: 3}
       propertyPath: beanPrefabs.Array.size
-      value: 4
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4230149811530286816, guid: fc8f32652dc379643ab8c464ba5daa59, type: 3}
       propertyPath: beanPrefabs.Array.data[0]
       value: 
-      objectReference: {fileID: 286497467662576995, guid: d824ba6b6cdf2d3449c29c153bc05b42, type: 3}
+      objectReference: {fileID: 3144648542040826039, guid: 279f8432112e59b4993ea42e7ca0a1d3, type: 3}
     - target: {fileID: 4230149811530286816, guid: fc8f32652dc379643ab8c464ba5daa59, type: 3}
       propertyPath: beanPrefabs.Array.data[1]
       value: 
@@ -887,7 +887,7 @@ PrefabInstance:
       objectReference: {fileID: 286497467662576995, guid: e6d27cf28d8a9034cb43ab4e5427ccdd, type: 3}
     - target: {fileID: 4230149811530286816, guid: fc8f32652dc379643ab8c464ba5daa59, type: 3}
       propertyPath: beanProbabilities.Array.size
-      value: 4
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4230149811530286816, guid: fc8f32652dc379643ab8c464ba5daa59, type: 3}
       propertyPath: beanProbabilities.Array.data[0]
@@ -1536,7 +1536,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-5928
+  m_Name: pb_Mesh-2198
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -2410,6 +2410,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8655880017687019980, guid: 2db24887859b326488a48cc926848dec, type: 3}
   m_PrefabInstance: {fileID: 1424814142}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1690872660 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4230149811530286816, guid: fc8f32652dc379643ab8c464ba5daa59, type: 3}
+  m_PrefabInstance: {fileID: 770193735}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd4891358e46482eb940d767f259cd46, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1791718456
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2892,6 +2903,10 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 1186154902}
+    - target: {fileID: 6891079635738564726, guid: a92f90df64a7cfc449ec6e8ad8b60d8c, type: 3}
+      propertyPath: beanSpawner
+      value: 
+      objectReference: {fileID: 1690872660}
     - target: {fileID: 7370427769144482427, guid: a92f90df64a7cfc449ec6e8ad8b60d8c, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -2950,7 +2965,7 @@ PrefabInstance:
       objectReference: {fileID: 1186154902}
     - target: {fileID: 7914587084586791072, guid: a92f90df64a7cfc449ec6e8ad8b60d8c, type: 3}
       propertyPath: m_VersionIndex
-      value: 6976
+      value: 6982
       objectReference: {fileID: 0}
     - target: {fileID: 8993327890375960587, guid: a92f90df64a7cfc449ec6e8ad8b60d8c, type: 3}
       propertyPath: liveTextElement

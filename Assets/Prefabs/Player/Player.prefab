@@ -253,12 +253,14 @@ MonoBehaviour:
   projectileCost: 20
   minBreatheScaleFactor: 1
   maxBreatheScaleFactor: 1.4
+  maximumShotSpread: 40
   fireCoolDownTime: 0.1
   mouthPosition: {fileID: 7155520917048932953}
   multipleShotDelayTime: 0
   primaryMaterial: {fileID: 9171952328373019990, guid: 28646205df41ca3498f8435f017229d2, type: 3}
   secondaryMaterial: {fileID: 637949407474519127, guid: 28646205df41ca3498f8435f017229d2, type: 3}
   vaccum: {fileID: 4725625980855902955}
+  beanSpawner: {fileID: 0}
 --- !u!54 &6586927034640496045
 Rigidbody:
   m_ObjectHideFlags: 0

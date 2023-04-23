@@ -11,7 +11,8 @@ namespace Projectile
         [SerializeField] private float speed;
         [SerializeField] private float range;
         [SerializeField] protected float damage;
-
+        public float baseCriticalMultiplier = 1.5f;
+        
         [HideInInspector]
         public float slowEffect;
         public Color DragonColor => dragonColor;
