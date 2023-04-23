@@ -276,8 +276,8 @@ MonoBehaviour:
   bounceTime: 0.5
   dieTime: 0
   ashParticles: {fileID: 5889098959561618952, guid: 02dd3412337a4f048946b6b35beb2df6, type: 3}
-  numberOfPoisonHits: 0
-  poisonHitTime: 0
+  numberOfPoisonHits: 6
+  poisonHitTime: 1
   magicProjectilePrefab: {fileID: 1068356845276398802, guid: ed574dd27694594498ac1340b7b10380, type: 3}
   wandTransform: {fileID: 8181122487832317214}
   wandTipTransform: {fileID: 1897952903896053743}
