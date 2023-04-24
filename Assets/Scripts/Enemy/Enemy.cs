@@ -23,6 +23,7 @@ namespace Enemy
         [Header("Death")] [SerializeField] private float dieTime;
         [SerializeField] private ParticleSystem ashParticles;
 
+        public int damage;
 
         public static event Action<GameObject> EnemyDied;
 
