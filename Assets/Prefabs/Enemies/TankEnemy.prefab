@@ -170,7 +170,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 500
-  defaultSpeed: 3.5
+  defaultSpeed: 5
   unfreezeSpeed: 0
   slowDuration: 2
   freezeBlock: {fileID: 159686252102714109}
@@ -178,7 +178,7 @@ MonoBehaviour:
   bounceTime: 0.6
   dieTime: 0
   ashParticles: {fileID: 5889098959561618952, guid: 02dd3412337a4f048946b6b35beb2df6, type: 3}
-  damage: 3
+  damage: 2
   m_currentSpeed: 0
 --- !u!136 &562025607
 CapsuleCollider:
