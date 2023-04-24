@@ -66,7 +66,7 @@ namespace Player
             
             m_currentLives -= amount;
             UpdateLiveText();
-            if (m_currentLives == 0)
+            if (m_currentLives <= 0)
             {
                 m_playerController.enabled = false;
                 Time.timeScale = 0f;
