@@ -49,6 +49,9 @@ namespace Player
         // Beansw
         private int m_collectedBeansCount;
         private DragonAttributes m_dragonAttributes;
+
+        public static event Action<List<KeyValuePair<int, string>>> BeansChanged;
+
         [HideInInspector] public List<KeyValuePair<int, string>> CollectedBeanInfo;
 
         private void Awake()
@@ -373,18 +376,21 @@ namespace Player
                     RedBean.Attributes.Collected++;
                     CollectedBeanInfo.Add( new KeyValuePair<int, string>(
                         (int) Bean.Bean.Type.RED, RedBean.Attributes.EffectInfo[RedBean.Attributes.Collected]));
+                    BeansChanged?.Invoke(CollectedBeanInfo);
                     break;
                 case Bean.Bean.Type.BLUE:
                     BlueBean.Attributes.ActivatedEffects.Add(((BlueBean) bean).effectOrder[BlueBean.Attributes.Collected]);
                     BlueBean.Attributes.Collected++;
                     CollectedBeanInfo.Add( new KeyValuePair<int, string>(
                         (int) Bean.Bean.Type.BLUE, BlueBean.Attributes.EffectInfo[ BlueBean.Attributes.Collected]));
+                    BeansChanged?.Invoke(CollectedBeanInfo);
                     break;
                 case Bean.Bean.Type.GREEN:
                     GreenBean.Attributes.ActivatedEffects.Add(((GreenBean) bean).effectOrder[GreenBean.Attributes.Collected]);
                     GreenBean.Attributes.Collected++;
                     CollectedBeanInfo.Add( new KeyValuePair<int, string>(
                         (int) Bean.Bean.Type.GREEN, GreenBean.Attributes.EffectInfo[GreenBean.Attributes.Collected]));
+                    BeansChanged?.Invoke(CollectedBeanInfo);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -420,6 +426,7 @@ namespace Player
             BlueBean.Attributes.ToDefault();
             GreenBean.Attributes.ToDefault();
             CollectedBeanInfo.Clear();
+            BeansChanged?.Invoke(CollectedBeanInfo);
         }
         
         private struct DragonAttributes

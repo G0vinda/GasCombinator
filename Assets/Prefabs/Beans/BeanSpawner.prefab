@@ -111,10 +111,12 @@ MonoBehaviour:
   beanPrefabs:
   - {fileID: 6786093055638620669, guid: 6eccd54b5a87c854199dc20ba04caa64, type: 3}
   - {fileID: 3144648542040826039, guid: 279f8432112e59b4993ea42e7ca0a1d3, type: 3}
+  - {fileID: -1148105951585520142, guid: 40876fffd898cc5469ab842fad9e2a07, type: 3}
   beanProbabilities:
   - 1
   - 1
-  minSpawnDelay: 2
-  maxSpawnDelay: 5
+  - 1
+  minSpawnDelay: 5
+  maxSpawnDelay: 8
   lowerLimit: {fileID: 5040130453909694684}
   upperLimit: {fileID: 1638106586334804147}
