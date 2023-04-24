@@ -34,6 +34,9 @@ namespace Bean
 
             public static List<Effect> ActivatedEffects = new List<Effect>();
 
+            public static Dictionary<int, string> EffectInfo = new Dictionary<int, string>() {{1, "Chance to shoot extra green shots"}, 
+                {2, "Poison damage increased"}, {3, "Poison duration increased"}, {4, "Poison damage speed increased"}, {5, "Super Poison Fart"}};
+            
             public static void ToDefault()
             {
                 Collected = 0;

@@ -46,15 +46,17 @@ namespace Player
         private PlayerController m_playerController;
         private PlayerHealth m_playerHealth;
         
-        // Beans
+        // Beansw
         private int m_collectedBeansCount;
         private DragonAttributes m_dragonAttributes;
+        [HideInInspector] public List<KeyValuePair<int, string>> CollectedBeanInfo;
 
         private void Awake()
         {
             m_storedProjectiles = new Stack<Projectile.Projectile>();
             m_multipleShotDelay = new WaitForSeconds(multipleShotDelayTime);
             m_dragonAttributes = new DragonAttributes();
+            CollectedBeanInfo = new List<KeyValuePair<int, string>>();
             /*m_fireballTypeAttributes = new Dictionary<int, ShotAttributes>();
             m_fireballTypeAttributes[(int) Bean.Bean.Type.NEUTRAL] = new ShotAttributes();*/
             m_minBreatheSize = Vector3.one * minBreatheScaleFactor;
@@ -94,7 +96,7 @@ namespace Player
             if(!context.ReadValueAsButton())
                 return;
 
-            if(m_fireCooldown > 0 || m_storedProjectiles.Count == 0)
+            if(m_fireCooldown > 0 || m_storedProjectiles.Count == 0 ||  vaccum.gameObject.activeSelf)
                 return;
 
             var projectile = m_storedProjectiles.Peek();
@@ -120,7 +122,8 @@ namespace Player
         {
             /*m_fireballTypeAttributes.Clear();*/
             m_playerController.BonusSpeed = 0;
-            m_playerHealth.IncreaseHealth(m_collectedBeansCount);
+            m_playerHealth.IncreaseHealth(m_collectedBeansCount * (
+                                          BlueBean.Attributes.ActivatedEffects.Contains(BlueBean.Effect.DoubleFartHeal) ? 2 : 1));
             m_collectedBeansCount = 0;
 
             if (RedBean.Attributes.ActivatedEffects.Contains(RedBean.Effect.KillFart))
@@ -368,14 +371,20 @@ namespace Player
                 case Bean.Bean.Type.RED:
                     RedBean.Attributes.ActivatedEffects.Add(((RedBean) bean).effectOrder[RedBean.Attributes.Collected]);
                     RedBean.Attributes.Collected++;
+                    CollectedBeanInfo.Add( new KeyValuePair<int, string>(
+                        (int) Bean.Bean.Type.RED, RedBean.Attributes.EffectInfo[RedBean.Attributes.Collected]));
                     break;
                 case Bean.Bean.Type.BLUE:
                     BlueBean.Attributes.ActivatedEffects.Add(((BlueBean) bean).effectOrder[BlueBean.Attributes.Collected]);
                     BlueBean.Attributes.Collected++;
+                    CollectedBeanInfo.Add( new KeyValuePair<int, string>(
+                        (int) Bean.Bean.Type.BLUE, BlueBean.Attributes.EffectInfo[ BlueBean.Attributes.Collected]));
                     break;
                 case Bean.Bean.Type.GREEN:
                     GreenBean.Attributes.ActivatedEffects.Add(((GreenBean) bean).effectOrder[GreenBean.Attributes.Collected]);
                     GreenBean.Attributes.Collected++;
+                    CollectedBeanInfo.Add( new KeyValuePair<int, string>(
+                        (int) Bean.Bean.Type.GREEN, GreenBean.Attributes.EffectInfo[GreenBean.Attributes.Collected]));
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -410,6 +419,7 @@ namespace Player
             RedBean.Attributes.ToDefault();
             BlueBean.Attributes.ToDefault();
             GreenBean.Attributes.ToDefault();
+            CollectedBeanInfo.Clear();
         }
         
         private struct DragonAttributes

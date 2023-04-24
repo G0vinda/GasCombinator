@@ -65,7 +65,7 @@ namespace Enemy
         private Dictionary<int, (GameObject[], int[])> m_levelEnemyData;
         private List<GameObject> m_spawnedEnemies = new ();
         private int m_currentWaveId;
-        private const int MAXWaveId = 1;
+        private const int MAXWaveId = 14;
 
         private void Awake()
         {
