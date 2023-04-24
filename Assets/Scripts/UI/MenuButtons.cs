@@ -10,6 +10,11 @@ namespace UI
         public void LoadMainScene()
         {
             SceneManager.LoadScene(m_mainSceneIndex);
+        } 
+        
+        public void LoadCreditScene()
+        {
+            SceneManager.LoadScene("CreditScene");
         }
 
         public void QuitGame()
