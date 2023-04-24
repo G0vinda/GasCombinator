@@ -112,7 +112,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 434, y: -166.06958}
+  m_AnchoredPosition: {x: 414, y: -142}
   m_SizeDelta: {x: 545.8091, y: 632.1392}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3603137368738220725
@@ -144,7 +144,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_text: "-Creative Producer-\nBenjamin Scharff\n\n-Programming-\nG0vinda\nBenedikt
-    M.\n\n-Art-\nJessica F\xF6lber (2D)\nDaniil Rabtsevich (3D)"
+    Mertes\n\n-Art-\nJessica F\xF6lber (2D)\nDaniil Rabtsevich (3D)\n\nSpecial Thanks
+    to Lukas Schmidt"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -171,8 +172,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 32
+  m_fontSizeBase: 32
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
