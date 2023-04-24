@@ -268,16 +268,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55b5c73868674670afc19c4355cfb2e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 100
+  maxHealth: 200
   defaultSpeed: 3
+  unfreezeSpeed: 0
   slowDuration: 2
   freezeBlock: {fileID: 8014483477569989957}
   bounceHeight: 0.8
   bounceTime: 0.5
   dieTime: 0
   ashParticles: {fileID: 5889098959561618952, guid: 02dd3412337a4f048946b6b35beb2df6, type: 3}
-  numberOfPoisonHits: 6
-  poisonHitTime: 1
+  damage: 6
+  m_currentSpeed: 0
   magicProjectilePrefab: {fileID: 1068356845276398802, guid: ed574dd27694594498ac1340b7b10380, type: 3}
   wandTransform: {fileID: 8181122487832317214}
   wandTipTransform: {fileID: 1897952903896053743}
