@@ -69,7 +69,7 @@ namespace Player
             UpdateLiveText();
             if (m_currentLives <= 0)
             {
-                SceneManager.LoadScene("MainMenuScene");
+                SceneManager.LoadScene("LoseScene");
             }
 
             m_isInvincible = true;

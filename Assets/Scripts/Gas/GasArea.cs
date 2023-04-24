@@ -19,7 +19,7 @@ public class GasArea : MonoBehaviour
 
     public Projectile.Projectile Projectile => projectile;
 
-    public static bool randomizeQueued;
+    public static bool randomizeQueued = true;
     private static List<GasArea> GasAreasInGame = new (); 
     
     private Bounds m_bounds;
@@ -54,5 +54,11 @@ public class GasArea : MonoBehaviour
     private bool IsInsideArea(float positionX, float positionZ)
     {
         return m_bounds.Contains(new Vector3(positionX, m_bounds.center.y, positionZ));
+    }
+
+    private void OnDestroy()
+    {
+        randomizeQueued = true;
+        GasAreasInGame.Clear();
     }
 }

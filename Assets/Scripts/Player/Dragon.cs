@@ -52,9 +52,8 @@ namespace Player
         
         private AudioSource m_audioSource;
         
-        // Beansw
+        // Beans
         private int m_collectedBeansCount;
-        private DragonAttributes m_dragonAttributes;
 
         public static event Action<List<KeyValuePair<int, string>>> BeansChanged;
 
@@ -64,7 +63,6 @@ namespace Player
         {
             m_storedProjectiles = new Stack<Projectile.Projectile>();
             m_multipleShotDelay = new WaitForSeconds(multipleShotDelayTime);
-            m_dragonAttributes = new DragonAttributes();
             CollectedBeanInfo = new List<KeyValuePair<int, string>>();
             /*m_fireballTypeAttributes = new Dictionary<int, ShotAttributes>();
             m_fireballTypeAttributes[(int) Bean.Bean.Type.NEUTRAL] = new ShotAttributes();*/
@@ -451,49 +449,10 @@ namespace Player
             CollectedBeanInfo.Clear();
             BeansChanged?.Invoke(CollectedBeanInfo);
         }
-        
-        private struct DragonAttributes
-        {
-            public enum FartEffect
-            {
-                NONE,
-                RED,
-                BLUE,
-                GREEN
-            }
-            
-            public int IgnoreDamageChance;
-            public int IgnoreEffectChance;
-            public FartEffect ExtraFartEffect;
 
-            public void ToDefault()
-            {
-                IgnoreDamageChance = 0;
-                IgnoreEffectChance = 0;
-                ExtraFartEffect = FartEffect.NONE;
-            }
-        }
-        
-        private class ShotAttributes
+        private void OnDestroy()
         {
-            public int ExtraShots = 0;
-            public float DamageMultiplier = 1;
-            public float ShotSlowEffect = 0;
-           
-            public void IncreaseExtraShots(int amount = 1)
-            {
-                ExtraShots += amount;
-            }
-
-            public void IncreaseDamageMultiplier(float multiplier)
-            {
-                DamageMultiplier *= multiplier;
-            } 
-            
-             public void IncreaseShotSlow(float amount)
-            {
-                ShotSlowEffect += amount;
-            }
+            ResetBeans();
         }
     }
 }
