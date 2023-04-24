@@ -4,6 +4,7 @@ using Bean;
 using TMPro;
 using UI;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Random = UnityEngine.Random;
 
 namespace Player
@@ -68,8 +69,7 @@ namespace Player
             UpdateLiveText();
             if (m_currentLives <= 0)
             {
-                m_playerController.enabled = false;
-                Time.timeScale = 0f;
+                SceneManager.LoadScene("MainMenuScene");
             }
 
             m_isInvincible = true;

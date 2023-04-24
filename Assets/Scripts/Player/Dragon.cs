@@ -76,6 +76,8 @@ namespace Player
             m_playerController = GetComponent<PlayerController>();
             m_playerHealth = GetComponent<PlayerHealth>();
 
+            primaryMaterial.color = Color.gray;
+            secondaryMaterial.color = Color.white;
             defaultPrimaryColor = primaryMaterial.color;
             defaultSecondaryColor = secondaryMaterial.color;
             

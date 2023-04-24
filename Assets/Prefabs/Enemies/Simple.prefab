@@ -178,6 +178,7 @@ MonoBehaviour:
   bounceTime: 0.6
   dieTime: 0
   ashParticles: {fileID: 5889098959561618952, guid: 02dd3412337a4f048946b6b35beb2df6, type: 3}
+  deathSound: {fileID: 8300000, guid: 213edbdc1e9e63145b69575cc6c609e1, type: 3}
   damage: 1
   m_currentSpeed: 0
 --- !u!136 &562025607

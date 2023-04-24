@@ -22,6 +22,7 @@ namespace Enemy
 
         [Header("Death")] [SerializeField] private float dieTime;
         [SerializeField] private ParticleSystem ashParticles;
+        [SerializeField] private AudioClip deathSound;
 
         public int damage;
 
@@ -178,6 +179,7 @@ namespace Enemy
         {
             Instantiate(ashParticles, transform.position, Quaternion.identity);
             EnemyDied?.Invoke(gameObject);
+            AudioSource.PlayClipAtPoint(deathSound, transform.position);
             Destroy(gameObject);
         }
     }

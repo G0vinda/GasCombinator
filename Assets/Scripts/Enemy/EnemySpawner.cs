@@ -140,7 +140,7 @@ namespace Enemy
             if(m_currentWaveId > MAXWaveId)
                 return; // Handle win here
 
-            GasArea.randomizeQueued = true;
+            //GasArea.randomizeQueued = true;
             Debug.Log("Wave defeated");
             Invoke(nameof(SpawnNextWave), pauseTimeBetweenWaves);
         }
