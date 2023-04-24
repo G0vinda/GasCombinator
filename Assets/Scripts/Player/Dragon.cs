@@ -33,6 +33,10 @@ namespace Player
         [SerializeField] private Vaccum vaccum;
         [SerializeField] private BeanSpawner beanSpawner;
         
+        [Header("Audio")]
+        [SerializeField] private AudioClip fartSound;
+        [SerializeField] private AudioClip breathSound;
+        
         private float m_fireCooldown;
         private Stack<Projectile.Projectile> m_storedProjectiles;
         private int m_maxProjectiles = 5;
@@ -45,6 +49,8 @@ namespace Player
         
         private PlayerController m_playerController;
         private PlayerHealth m_playerHealth;
+        
+        private AudioSource m_audioSource;
         
         // Beansw
         private int m_collectedBeansCount;
@@ -72,6 +78,8 @@ namespace Player
 
             defaultPrimaryColor = primaryMaterial.color;
             defaultSecondaryColor = secondaryMaterial.color;
+            
+            m_audioSource = GetComponent<AudioSource>();
         }
         
         public bool IncreaseHealth(int amount = 1)
@@ -90,6 +98,16 @@ namespace Player
 
         public void OnBreathe(InputAction.CallbackContext context)
         {
+            if (context.ReadValueAsButton())
+            {   
+                m_audioSource.volume = 1f;
+                m_audioSource.clip = breathSound;
+                m_audioSource.Play();
+            }
+            else
+            {
+                m_audioSource.Stop();
+            }
             vaccum.gameObject.SetActive(context.ReadValueAsButton());
             m_breatheAmount = context.ReadValueAsButton() ? breatheSpeed : 0;
         }
@@ -123,6 +141,9 @@ namespace Player
 
         private void Fart()
         {
+            m_audioSource.volume = 0.7f;
+            m_audioSource.clip = fartSound;
+            m_audioSource.Play();
             /*m_fireballTypeAttributes.Clear();*/
             m_playerController.BonusSpeed = 0;
             m_playerHealth.IncreaseHealth(m_collectedBeansCount * (
