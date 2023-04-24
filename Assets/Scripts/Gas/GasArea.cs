@@ -19,7 +19,7 @@ public class GasArea : MonoBehaviour
 
     public Projectile.Projectile Projectile => projectile;
 
-    private static bool randomizeQueued = true;
+    public static bool randomizeQueued = true;
     private static List<GasArea> GasAreasInGame = new (); 
     
     private Bounds m_bounds;

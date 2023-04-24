@@ -1032,7 +1032,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 190922167413574845, guid: a92f90df64a7cfc449ec6e8ad8b60d8c, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2811058129702213429, guid: a92f90df64a7cfc449ec6e8ad8b60d8c, type: 3}
       propertyPath: m_Mesh

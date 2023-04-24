@@ -56,7 +56,7 @@ namespace Projectile
             else 
             {
                 if(other.gameObject.TryGetComponent<PlayerHealth>(out var playerHealth))
-                    playerHealth.TakeDamage();
+                    playerHealth.TakeDamage((int)Damage);
             }
             
             Destroy(gameObject);

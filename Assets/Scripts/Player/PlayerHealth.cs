@@ -47,9 +47,9 @@ namespace Player
             
             Debug.Log("Collision entered");
             
-            if (other.gameObject.GetComponent<Enemy.Enemy>() != null)
+            if (other.gameObject.TryGetComponent<Enemy.Enemy>(out var enemy))
             {
-                TakeDamage();
+                TakeDamage(enemy.damage);
             }
         }
 
