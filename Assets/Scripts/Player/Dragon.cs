@@ -139,14 +139,15 @@ namespace Player
            Fart();
         }
 
+        //hier habe ich *3 bei m_collectedBeansCount gesetzt
         private void Fart()
         {
-            m_audioSource.volume = 0.7f;
+            m_audioSource.volume = 0.6f;
             m_audioSource.clip = fartSound;
             m_audioSource.Play();
             /*m_fireballTypeAttributes.Clear();*/
             m_playerController.BonusSpeed = 0;
-            m_playerHealth.IncreaseHealth(m_collectedBeansCount * (
+            m_playerHealth.IncreaseHealth((m_collectedBeansCount*3) * (
                                           BlueBean.Attributes.ActivatedEffects.Contains(BlueBean.Effect.DoubleFartHeal) ? 2 : 1));
             m_collectedBeansCount = 0;
 
