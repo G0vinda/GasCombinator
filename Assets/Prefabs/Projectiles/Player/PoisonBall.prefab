@@ -113,8 +113,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dragonColor: {r: 0.25249934, g: 0.9056604, b: 0.17515129, a: 1}
   speed: 30
-  range: 10
-  damage: 30
+  range: 15
+  damage: 25
   baseCriticalMultiplier: 1.5
   isPlayerProjectile: 1
   slowEffect: 0
