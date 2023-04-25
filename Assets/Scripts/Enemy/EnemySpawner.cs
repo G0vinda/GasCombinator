@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.SceneManagement;
 using Random = UnityEngine.Random;
 
 namespace Enemy
@@ -137,8 +138,8 @@ namespace Enemy
             
             // All enemies have been destroyed
             m_currentWaveId++;
-            if(m_currentWaveId > MAXWaveId)
-                return; // Handle win here
+            if (m_currentWaveId > MAXWaveId)
+                SceneManager.LoadScene("WinScene");
 
             GasArea.randomizeQueued = true;
             Debug.Log("Wave defeated");

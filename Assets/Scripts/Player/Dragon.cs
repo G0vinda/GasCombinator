@@ -33,6 +33,10 @@ namespace Player
         [SerializeField] private Vaccum vaccum;
         [SerializeField] private BeanSpawner beanSpawner;
         
+        [Header("Audio")]
+        [SerializeField] private AudioClip fartSound;
+        [SerializeField] private AudioClip breathSound;
+        
         private float m_fireCooldown;
         private Stack<Projectile.Projectile> m_storedProjectiles;
         private int m_maxProjectiles = 5;
@@ -46,9 +50,10 @@ namespace Player
         private PlayerController m_playerController;
         private PlayerHealth m_playerHealth;
         
-        // Beansw
+        private AudioSource m_audioSource;
+        
+        // Beans
         private int m_collectedBeansCount;
-        private DragonAttributes m_dragonAttributes;
 
         public static event Action<List<KeyValuePair<int, string>>> BeansChanged;
 
@@ -58,7 +63,6 @@ namespace Player
         {
             m_storedProjectiles = new Stack<Projectile.Projectile>();
             m_multipleShotDelay = new WaitForSeconds(multipleShotDelayTime);
-            m_dragonAttributes = new DragonAttributes();
             CollectedBeanInfo = new List<KeyValuePair<int, string>>();
             /*m_fireballTypeAttributes = new Dictionary<int, ShotAttributes>();
             m_fireballTypeAttributes[(int) Bean.Bean.Type.NEUTRAL] = new ShotAttributes();*/
@@ -70,8 +74,12 @@ namespace Player
             m_playerController = GetComponent<PlayerController>();
             m_playerHealth = GetComponent<PlayerHealth>();
 
+            primaryMaterial.color = Color.gray;
+            secondaryMaterial.color = Color.white;
             defaultPrimaryColor = primaryMaterial.color;
             defaultSecondaryColor = secondaryMaterial.color;
+            
+            m_audioSource = GetComponent<AudioSource>();
         }
         
         public bool IncreaseHealth(int amount = 1)
@@ -90,6 +98,16 @@ namespace Player
 
         public void OnBreathe(InputAction.CallbackContext context)
         {
+            if (context.ReadValueAsButton())
+            {   
+                m_audioSource.volume = 1f;
+                m_audioSource.clip = breathSound;
+                m_audioSource.Play();
+            }
+            else
+            {
+                m_audioSource.Stop();
+            }
             vaccum.gameObject.SetActive(context.ReadValueAsButton());
             m_breatheAmount = context.ReadValueAsButton() ? breatheSpeed : 0;
         }
@@ -123,6 +141,9 @@ namespace Player
 
         private void Fart()
         {
+            m_audioSource.volume = 0.7f;
+            m_audioSource.clip = fartSound;
+            m_audioSource.Play();
             /*m_fireballTypeAttributes.Clear();*/
             m_playerController.BonusSpeed = 0;
             m_playerHealth.IncreaseHealth(m_collectedBeansCount * (
@@ -428,49 +449,10 @@ namespace Player
             CollectedBeanInfo.Clear();
             BeansChanged?.Invoke(CollectedBeanInfo);
         }
-        
-        private struct DragonAttributes
-        {
-            public enum FartEffect
-            {
-                NONE,
-                RED,
-                BLUE,
-                GREEN
-            }
-            
-            public int IgnoreDamageChance;
-            public int IgnoreEffectChance;
-            public FartEffect ExtraFartEffect;
 
-            public void ToDefault()
-            {
-                IgnoreDamageChance = 0;
-                IgnoreEffectChance = 0;
-                ExtraFartEffect = FartEffect.NONE;
-            }
-        }
-        
-        private class ShotAttributes
+        private void OnDestroy()
         {
-            public int ExtraShots = 0;
-            public float DamageMultiplier = 1;
-            public float ShotSlowEffect = 0;
-           
-            public void IncreaseExtraShots(int amount = 1)
-            {
-                ExtraShots += amount;
-            }
-
-            public void IncreaseDamageMultiplier(float multiplier)
-            {
-                DamageMultiplier *= multiplier;
-            } 
-            
-             public void IncreaseShotSlow(float amount)
-            {
-                ShotSlowEffect += amount;
-            }
+            ResetBeans();
         }
     }
 }

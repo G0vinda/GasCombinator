@@ -55,4 +55,10 @@ public class GasArea : MonoBehaviour
     {
         return m_bounds.Contains(new Vector3(positionX, m_bounds.center.y, positionZ));
     }
+
+    private void OnDestroy()
+    {
+        randomizeQueued = true;
+        GasAreasInGame.Clear();
+    }
 }
