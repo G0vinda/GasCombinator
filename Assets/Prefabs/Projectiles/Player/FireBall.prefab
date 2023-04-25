@@ -114,7 +114,8 @@ MonoBehaviour:
   dragonColor: {r: 0.8962264, g: 0.25259718, b: 0.114142045, a: 1}
   speed: 15
   range: 10
-  damage: 50
+  damage: 60
+  baseCriticalMultiplier: 1.5
   isPlayerProjectile: 1
   slowEffect: 0
   type: 1

@@ -112,13 +112,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dragonColor: {r: 0.25249934, g: 0.9056604, b: 0.17515129, a: 1}
-  speed: 20
+  speed: 30
   range: 10
-  damage: 20
+  damage: 30
   baseCriticalMultiplier: 1.5
   isPlayerProjectile: 1
   slowEffect: 0
   type: 3
+  poisonHitTime: 1
+  numberOfPoisonHits: 6
 --- !u!54 &7120106158415747252
 Rigidbody:
   m_ObjectHideFlags: 0
