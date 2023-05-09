@@ -261,6 +261,8 @@ MonoBehaviour:
   secondaryMaterial: {fileID: 2100000, guid: 8a26a4e453aaf5647a432018adb68f94, type: 2}
   vaccum: {fileID: 4725625980855902955}
   beanSpawner: {fileID: 0}
+  fartSound: {fileID: 0}
+  breathSound: {fileID: 0}
 --- !u!54 &6586927034640496045
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -303,7 +305,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90599260aace41d6a09615c2aeacb595, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startLives: 5
+  startLives: 100
   invincibilityTime: 1
   liveTextElement: {fileID: 0}
   damageOverlay: {fileID: 0}

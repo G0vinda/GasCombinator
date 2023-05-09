@@ -80,11 +80,12 @@ namespace Enemy
             var selfCheckPosition1 = selfPosition + crossVector * attackCollisionCheckRange;
             var selfCheckPosition2 = selfPosition - crossVector * attackCollisionCheckRange;
 
-            if (Physics.Raycast(selfCheckPosition1, dirToPlayer, attackRange, attackCollisionCheckLayer))
+            if (Physics.Raycast(selfCheckPosition1, dirToPlayer, attackRange, attackCollisionCheckLayer) ||
+                Physics.Raycast(selfCheckPosition2, dirToPlayer, attackRange, attackCollisionCheckLayer))
+            {
+                m_currentAttackPause = 0.5f;
                 return false;
-
-            if (Physics.Raycast(selfCheckPosition2, dirToPlayer, attackRange, attackCollisionCheckLayer))
-                return false;
+            }
 
             return true;
         }

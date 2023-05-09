@@ -30,9 +30,9 @@ namespace Player
         public bool IncreaseHealth(int amount = 1)
         {
             m_currentLives += amount;
-            if (m_currentLives > 20)
+            if (m_currentLives > 100)
             {
-                m_currentLives = 20;
+                m_currentLives = 100;
             }
             UpdateLiveText();
             return true;

@@ -280,7 +280,7 @@ MonoBehaviour:
   dieTime: 0
   ashParticles: {fileID: 5889098959561618952, guid: 02dd3412337a4f048946b6b35beb2df6, type: 3}
   deathSound: {fileID: 8300000, guid: f9c27feffbbc2db47933476eb68de886, type: 3}
-  damage: 6
+  damage: 5
   m_currentSpeed: 0
   magicProjectilePrefab: {fileID: 1068356845276398802, guid: ed574dd27694594498ac1340b7b10380, type: 3}
   wandTransform: {fileID: 8181122487832317214}
