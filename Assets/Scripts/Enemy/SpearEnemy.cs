@@ -1,5 +1,6 @@
 using System.Collections;
 using DG.Tweening;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 namespace Enemy
@@ -14,6 +15,8 @@ namespace Enemy
         
         [Header("SpearAttackValues")]
         [SerializeField] private float rangeToStartAttack;
+        [SerializeField] private float attackCollisionCheckRange;
+        [SerializeField] private LayerMask attackCollisionCheckLayer;
         [SerializeField] private float attackRange;
         [SerializeField] private float spearPreparationTime;
         [SerializeField] private float attackTime;
@@ -52,10 +55,38 @@ namespace Enemy
         private bool PlayerIsInSpearRange()
         {
             if (m_currentAttackPause > 0)
-                return false;
-            
+            {
+                m_currentAttackPause -= Time.deltaTime;
+                return false;   
+            }
+
             var distanceToPlayer = Vector3.Distance(transform.position, PlayerTransform.position);
-            return distanceToPlayer < rangeToStartAttack;
+            if (distanceToPlayer > rangeToStartAttack)
+                return false;
+
+            return IsPlayerInSight();
+        }
+
+        private bool IsPlayerInSight()
+        {
+            var selfPosition = transform.position;
+            selfPosition.y = 1f;
+            var playerPosition = PlayerTransform.position;
+            playerPosition.y = 1f;
+
+            var dirToPlayer = (playerPosition - selfPosition).normalized;
+            var crossVector = Vector3.Cross(dirToPlayer, Vector3.up).normalized;
+
+            var selfCheckPosition1 = selfPosition + crossVector * attackCollisionCheckRange;
+            var selfCheckPosition2 = selfPosition - crossVector * attackCollisionCheckRange;
+
+            if (Physics.Raycast(selfCheckPosition1, dirToPlayer, attackRange, attackCollisionCheckLayer))
+                return false;
+
+            if (Physics.Raycast(selfCheckPosition2, dirToPlayer, attackRange, attackCollisionCheckLayer))
+                return false;
+
+            return true;
         }
 
         private IEnumerator PrepareAttack()
@@ -101,14 +132,8 @@ namespace Enemy
 
                 yield return null;
             }
-
-            m_currentAttackPause -= spearPreparationTime;
+            
             StartWalkingAnimation();
-            while (m_currentAttackPause > 0)
-            {
-                m_currentAttackPause -= Time.deltaTime;
-                yield return null;
-            }
         }
 
         private void OnCollisionEnter(Collision other)
