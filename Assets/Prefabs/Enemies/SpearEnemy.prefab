@@ -307,6 +307,10 @@ MonoBehaviour:
   spearWalkTransform: {fileID: 6986248397600882849}
   spearAttackTransform: {fileID: 6986248398690167113}
   rangeToStartAttack: 8
+  attackCollisionCheckRange: 1
+  attackCollisionCheckLayer:
+    serializedVersion: 2
+    m_Bits: 4096
   attackRange: 10
   spearPreparationTime: 1
   attackTime: 1
