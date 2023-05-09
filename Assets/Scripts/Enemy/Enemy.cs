@@ -9,6 +9,7 @@ namespace Enemy
     [RequireComponent(typeof(NavMeshAgent))]
     public abstract class Enemy : MonoBehaviour
     {
+        [SerializeField] private HealthBar healthBar;
         [SerializeField] private int maxHealth;
         [SerializeField] private float defaultSpeed;
         [SerializeField] private float unfreezeSpeed;
@@ -87,7 +88,8 @@ namespace Enemy
             m_health -= dmgAmount;
             if (m_health <= 0)
                 Die();
-
+            
+            healthBar.UpdateHealth(m_health / maxHealth);
             ShowHurtEffect();
         }
 

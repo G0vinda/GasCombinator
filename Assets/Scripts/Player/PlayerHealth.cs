@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
 using Bean;
+using Cinemachine;
+using DG.Tweening;
 using TMPro;
 using UI;
 using UnityEngine;
@@ -16,6 +18,9 @@ namespace Player
         [SerializeField] private float invincibilityTime;
         [SerializeField] private TextMeshProUGUI liveTextElement;
         [SerializeField] private DamageOverlay damageOverlay;
+        [SerializeField] private CinemachineVirtualCamera virtualCamera;
+        [SerializeField] private float hitScreenShakeTime;
+        [SerializeField] private float hitScreenShakeIntensity;
 
         private int m_currentLives;
         private PlayerController m_playerController;
@@ -57,6 +62,10 @@ namespace Player
         public void TakeDamage(int amount = 1)
         {
             damageOverlay.Show();
+            var cameraNoise = virtualCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
+            DOVirtual.Float(hitScreenShakeIntensity, 0f, hitScreenShakeTime,
+                value => cameraNoise.m_AmplitudeGain = value).SetEase(Ease.InExpo);
+            
             if (BlueBean.Attributes.ActivatedEffects.Contains(BlueBean.Effect.AvoidDamage))
             {
                 var hit = Random.Range(0.0f, 1.0f);

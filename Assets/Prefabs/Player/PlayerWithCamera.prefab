@@ -5635,6 +5635,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 7140204844204966453, guid: d62a75fd6651385499ddf247ca767816, type: 3}
+      propertyPath: hitScreenShakeTime
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7374098742961290257, guid: d62a75fd6651385499ddf247ca767816, type: 3}
       propertyPath: m_Layer
       value: 7
