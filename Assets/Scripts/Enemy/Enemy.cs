@@ -108,7 +108,7 @@ namespace Enemy
         {
             StopWalkingAnimation();
             freezeBlock.SetActive(true);
-            unfreezeSpeed = CurrentSpeed * unfreezeSpeedMultiplier;
+            unfreezeSpeed = defaultSpeed * unfreezeSpeedMultiplier;
             CurrentSpeed = 0;
             FreezeTimer = freezeTime;
         }
