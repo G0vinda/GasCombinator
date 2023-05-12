@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: 2f5df547409338b489e86a19586ff40f
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - CoalhandLukeTRIAL
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 0cb6a0467917b9a42b4b9263d853a8fe, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
