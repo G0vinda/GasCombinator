@@ -1,17 +1,27 @@
 using System;
 using System.Collections.Generic;
 using Player;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class BeanIndicator : MonoBehaviour
 {
     [SerializeField] private Image[] BeanIndicatorImage;
+    [SerializeField] private TextMeshProUGUI[] BeanInfoTexts;
 
     [SerializeField] private Sprite redSprite;
     [SerializeField] private Sprite blueSprite;
     [SerializeField] private Sprite greenSprite;
 
+
+    private void Start()
+    {
+        foreach (var beanInfoTexts in BeanInfoTexts)
+        {
+            beanInfoTexts.enabled = false;
+        }
+    }
 
     private void OnEnable()
     {
@@ -31,6 +41,12 @@ public class BeanIndicator : MonoBehaviour
         }
         
         int counter = 0;
+
+        foreach (var beanInfoTexts in BeanInfoTexts)
+        {
+            beanInfoTexts.enabled = false;
+        }
+        
         foreach (var keyValuePair in beans)
         {
             switch ((Bean.Bean.Type)keyValuePair.Key)
@@ -50,6 +66,8 @@ public class BeanIndicator : MonoBehaviour
                     throw new ArgumentOutOfRangeException();
             }
 
+            BeanInfoTexts[counter].text = keyValuePair.Value;
+            BeanInfoTexts[counter].enabled = true;
             counter++;
         }
     }
