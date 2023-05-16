@@ -11,6 +11,44 @@ namespace Enemy
         [SerializeField] private int maxHealth;
         [SerializeField] private float defaultSpeed;
         [SerializeField] private float slowDuration;
+<<<<<<< Updated upstream
+=======
+        [SerializeField] private GameObject freezeBlock;
+
+        [Header("MovementAnimationValues")] [SerializeField]
+        private float bounceHeight;
+
+        [SerializeField] private float bounceTime;
+
+        [Header("Death")] [SerializeField] private float dieTime;
+        [SerializeField] private ParticleSystem ashParticles;
+        private AudioSource m_audioSource;
+        
+        public int damage;
+
+        public static event Action<GameObject> EnemyDied;
+
+        [SerializeField] private float m_currentSpeed;
+        private float CurrentSpeed
+        {
+            get => m_currentSpeed;
+            set
+            {
+                if (FreezeTimer > 0)
+                {
+                    m_currentSpeed = 0;
+                    return;   
+                }
+
+                m_currentSpeed = value;
+                NavMeshAgent.speed = m_currentSpeed;
+            }
+        }
+        
+        protected Transform PlayerTransform;
+        protected NavMeshAgent NavMeshAgent;
+        protected float FreezeTimer;
+>>>>>>> Stashed changes
         
         [Header("PoisonValues")] 
         [SerializeField] private int numberOfPoisonHits;
@@ -28,10 +66,19 @@ namespace Enemy
         
         private void Awake()
         {
+<<<<<<< Updated upstream
             m_navMeshAgent = GetComponent<NavMeshAgent>();
             m_currentSpeed = defaultSpeed;
             m_navMeshAgent.speed = m_currentSpeed;
             m_playerTransform = GameObject.FindWithTag("Player").GetComponent<Transform>();
+=======
+            m_audioSource = GetComponent<AudioSource>();
+
+            NavMeshAgent = GetComponent<NavMeshAgent>();
+            CurrentSpeed = defaultSpeed;
+            NavMeshAgent.speed = CurrentSpeed;
+            PlayerTransform = GameObject.FindWithTag("Player").GetComponent<Transform>();
+>>>>>>> Stashed changes
             
             m_health = maxHealth;
             m_poisonTime = new WaitForSeconds(poisonHitTime);
@@ -101,6 +148,31 @@ namespace Enemy
                 colorValue => { m_renderer.material.color = colorValue; }).SetEase(Ease.OutExpo);
         }
 
+<<<<<<< Updated upstream
         protected abstract void Die();
+=======
+        protected void StartWalkingAnimation()
+        {
+            NavMeshAgent.enabled = true;
+            m_walkingTween = transform.DOMoveY(bounceHeight, bounceTime).SetLoops(-1, LoopType.Yoyo);
+        }
+
+        protected void StopWalkingAnimation()
+        {
+            m_walkingTween?.Kill(); 
+            var position = transform.position;
+            position.y = 0;
+            transform.position = position;
+            NavMeshAgent.enabled = false;
+        }
+
+        private void Die()
+        {
+            Instantiate(ashParticles, transform.position, Quaternion.identity);
+            EnemyDied?.Invoke(gameObject);
+            AudioSource.PlayClipAtPoint(m_audioSource.clip, transform.position);
+            Destroy(gameObject);
+        }
+>>>>>>> Stashed changes
     }
 }

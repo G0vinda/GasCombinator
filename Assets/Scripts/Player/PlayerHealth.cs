@@ -2,6 +2,11 @@
 using System.Collections;
 using TMPro;
 using UnityEngine;
+<<<<<<< Updated upstream
+=======
+using UnityEngine.SceneManagement;
+using Random = UnityEngine.Random;
+>>>>>>> Stashed changes
 
 namespace Player
 {
@@ -52,6 +57,19 @@ namespace Player
                 m_isInvincible = true;
                 StartCoroutine(InvincibleTimer());
             }
+<<<<<<< Updated upstream
+=======
+            
+            m_currentLives -= amount;
+            UpdateLiveText();
+            if (m_currentLives <= 0)
+            {
+                SceneManager.LoadScene("MainMenuScene", LoadSceneMode.Single);
+            }
+
+            m_isInvincible = true;
+            StartCoroutine(InvincibleTimer());
+>>>>>>> Stashed changes
         }
 
         private IEnumerator InvincibleTimer()
