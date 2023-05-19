@@ -36,6 +36,7 @@ namespace Player
         [Header("Audio")]
         [SerializeField] private AudioClip fartSound;
         [SerializeField] private AudioClip breathSound;
+        [SerializeField] private AudioClip shootSound;
         
         private float m_fireCooldown;
         private Stack<Projectile.Projectile> m_storedProjectiles;
@@ -209,7 +210,9 @@ namespace Player
 
             List<Projectile.Projectile> newProjectiles = new List<Projectile.Projectile>();
             newProjectiles.Add(Instantiate( projectile, mouthPosition.position, mouthPosition.rotation));
-
+            m_audioSource.volume = 1f;
+            m_audioSource.clip = shootSound;
+            m_audioSource.Play();
 
             switch (projectile.type)
             {

@@ -1654,6 +1654,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 8300000, guid: 8308acced6d596342b2daf6a216afd74, type: 3}
     - target: {fileID: 6891079635738564726, guid: a92f90df64a7cfc449ec6e8ad8b60d8c, type: 3}
+      propertyPath: shootSound
+      value: 
+      objectReference: {fileID: 8300000, guid: e79349b8a6ab0f14d9f96009e8856651, type: 3}
+    - target: {fileID: 6891079635738564726, guid: a92f90df64a7cfc449ec6e8ad8b60d8c, type: 3}
       propertyPath: beanSpawner
       value: 
       objectReference: {fileID: 2013697477}
@@ -1719,7 +1723,7 @@ PrefabInstance:
       objectReference: {fileID: 2095091714}
     - target: {fileID: 7914587084586791072, guid: a92f90df64a7cfc449ec6e8ad8b60d8c, type: 3}
       propertyPath: m_VersionIndex
-      value: 7435
+      value: 7438
       objectReference: {fileID: 0}
     - target: {fileID: 8993327890375960587, guid: a92f90df64a7cfc449ec6e8ad8b60d8c, type: 3}
       propertyPath: damageOverlay
@@ -7488,11 +7492,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4230149811530286816, guid: fc8f32652dc379643ab8c464ba5daa59, type: 3}
       propertyPath: maxSpawnDelay
-      value: 10
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4230149811530286816, guid: fc8f32652dc379643ab8c464ba5daa59, type: 3}
       propertyPath: minSpawnDelay
-      value: 5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5040130453909694684, guid: fc8f32652dc379643ab8c464ba5daa59, type: 3}
       propertyPath: m_LocalPosition.x
