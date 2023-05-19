@@ -1,15 +1,20 @@
 using System;
 using System.Collections.Generic;
+using DG.Tweening;
 using Player;
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class BeanIndicator : MonoBehaviour
 {
     [SerializeField] private Image[] BeanIndicatorImage;
     [SerializeField] private TextMeshProUGUI[] BeanInfoTexts;
+    [SerializeField] private GameObject[] BeanInfoCards;
 
+    private bool isBeanInfoShown = false;
+    
     [SerializeField] private Sprite redSprite;
     [SerializeField] private Sprite blueSprite;
     [SerializeField] private Sprite greenSprite;
@@ -23,6 +28,21 @@ public class BeanIndicator : MonoBehaviour
         }
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Tab))
+        {
+            if (isBeanInfoShown)
+            {
+                HideBeanInfo();
+            }
+            else
+            {
+                ShowBeanInfo();
+            }
+        }
+    }
+
     private void OnEnable()
     {
         Dragon.BeansChanged += UpdateBeanUI;
@@ -33,6 +53,27 @@ public class BeanIndicator : MonoBehaviour
         Dragon.BeansChanged -= UpdateBeanUI;
     }
 
+    private void ShowBeanInfo()
+    {
+        Debug.Log("Showing Bean Info!");
+        foreach (var beanInfoCard in BeanInfoCards)
+        {
+            beanInfoCard.transform.DOScale(new Vector3(1f, 1f, 1f), 0.5f);
+        }
+
+        isBeanInfoShown = true;
+    }
+    
+     private void HideBeanInfo()
+    {
+        foreach (var beanInfoCard in BeanInfoCards)
+        {
+            beanInfoCard.transform.DOScale(new Vector3(0f, 1f, 1f), 0.5f);
+        }
+
+        isBeanInfoShown = false;
+    }
+    
     private void UpdateBeanUI(List<KeyValuePair<int, string>> beans)
     {
         foreach (var image in BeanIndicatorImage)
@@ -40,13 +81,15 @@ public class BeanIndicator : MonoBehaviour
             ResetBeanImage(image);
         }
         
-        int counter = 0;
+     
 
+        
         foreach (var beanInfoTexts in BeanInfoTexts)
         {
             beanInfoTexts.enabled = false;
         }
         
+        var counter = 0;
         foreach (var keyValuePair in beans)
         {
             switch ((Bean.Bean.Type)keyValuePair.Key)
@@ -65,7 +108,7 @@ public class BeanIndicator : MonoBehaviour
                 default:
                     throw new ArgumentOutOfRangeException();
             }
-
+            
             BeanInfoTexts[counter].text = keyValuePair.Value;
             BeanInfoTexts[counter].enabled = true;
             counter++;
