@@ -27,22 +27,7 @@ public class BeanIndicator : MonoBehaviour
             beanInfoTexts.enabled = false;
         }
     }
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Tab))
-        {
-            if (isBeanInfoShown)
-            {
-                HideBeanInfo();
-            }
-            else
-            {
-                ShowBeanInfo();
-            }
-        }
-    }
-
+    
     private void OnEnable()
     {
         Dragon.BeansChanged += UpdateBeanUI;
@@ -53,25 +38,16 @@ public class BeanIndicator : MonoBehaviour
         Dragon.BeansChanged -= UpdateBeanUI;
     }
 
-    private void ShowBeanInfo()
+    public void ToggleBeanInfo(InputAction.CallbackContext context)
     {
-        Debug.Log("Showing Bean Info!");
+        if (!context.started)
+            return;
         foreach (var beanInfoCard in BeanInfoCards)
         {
-            beanInfoCard.transform.DOScale(new Vector3(1f, 1f, 1f), 0.5f);
+            beanInfoCard.transform.DOScale(new Vector3(isBeanInfoShown ? 0f : 1f, 1f, 1f), 0.5f);
         }
 
-        isBeanInfoShown = true;
-    }
-    
-     private void HideBeanInfo()
-    {
-        foreach (var beanInfoCard in BeanInfoCards)
-        {
-            beanInfoCard.transform.DOScale(new Vector3(0f, 1f, 1f), 0.5f);
-        }
-
-        isBeanInfoShown = false;
+        isBeanInfoShown = !isBeanInfoShown;
     }
     
     private void UpdateBeanUI(List<KeyValuePair<int, string>> beans)
@@ -80,9 +56,6 @@ public class BeanIndicator : MonoBehaviour
         {
             ResetBeanImage(image);
         }
-        
-     
-
         
         foreach (var beanInfoTexts in BeanInfoTexts)
         {

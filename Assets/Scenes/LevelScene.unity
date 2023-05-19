@@ -625,6 +625,7 @@ GameObject:
   - component: {fileID: 116222665}
   - component: {fileID: 116222669}
   - component: {fileID: 116222670}
+  - component: {fileID: 116222671}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -790,6 +791,56 @@ MonoBehaviour:
   redSprite: {fileID: 21300000, guid: 1c335a4d1ae0c334ab07b0375b205a48, type: 3}
   blueSprite: {fileID: 21300000, guid: bc6a6ebf716088b48b027a7e1bc269bd, type: 3}
   greenSprite: {fileID: 21300000, guid: 44fc9374f7abf004b8c3367f869e2b65, type: 3}
+--- !u!114 &116222671
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 116222664}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: dc985a3adb7cd394491b509e3c7c4bb1, type: 3}
+  m_NotificationBehavior: 2
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 9d83e8a0-7bf4-455e-bbbb-3fae6df52662
+    m_ActionName: GameState/Quit[/Keyboard/escape]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 116222670}
+        m_TargetAssemblyTypeName: BeanIndicator, Assembly-CSharp
+        m_MethodName: ToggleBeanInfo
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 44f8a96b-c267-473d-8baa-3f871b35458a
+    m_ActionName: GameState/ToggleInfo[/Keyboard/tab]
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: GameState
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
 --- !u!4 &122427174 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 7ac75960389fc654b936a2e6005d32db, type: 3}
@@ -7489,14 +7540,6 @@ PrefabInstance:
     - target: {fileID: 1638106586334804147, guid: fc8f32652dc379643ab8c464ba5daa59, type: 3}
       propertyPath: m_LocalPosition.z
       value: -0.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4230149811530286816, guid: fc8f32652dc379643ab8c464ba5daa59, type: 3}
-      propertyPath: maxSpawnDelay
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4230149811530286816, guid: fc8f32652dc379643ab8c464ba5daa59, type: 3}
-      propertyPath: minSpawnDelay
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5040130453909694684, guid: fc8f32652dc379643ab8c464ba5daa59, type: 3}
       propertyPath: m_LocalPosition.x
@@ -19452,7 +19495,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-203132
+  m_Name: pb_Mesh-13372
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
