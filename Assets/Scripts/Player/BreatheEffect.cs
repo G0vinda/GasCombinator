@@ -8,7 +8,7 @@ namespace Player
         [SerializeField] private float rotationSpeed;
         void Update()
         {
-            transform.RotateAround(transform.position, transform.up, rotationSpeed * Time.deltaTime);
+            transform.RotateAround(transform.position, transform.forward, rotationSpeed * Time.deltaTime);
         }
     }
 }

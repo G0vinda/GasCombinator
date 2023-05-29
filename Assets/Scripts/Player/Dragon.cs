@@ -30,7 +30,7 @@ namespace Player
         private Color defaultPrimaryColor;
         [SerializeField] private Material secondaryMaterial;
         private Color defaultSecondaryColor;
-        [SerializeField] private Vaccum vaccum;
+        [SerializeField] private Vacuum vacuum;
         [SerializeField] private BeanSpawner beanSpawner;
         
         [Header("Audio")]
@@ -56,8 +56,8 @@ namespace Player
         private int m_collectedBeansCount;
 
         public static event Action<List<KeyValuePair<int, string>>> BeansChanged;
-
-        [HideInInspector] public List<KeyValuePair<int, string>> CollectedBeanInfo;
+        
+        public List<KeyValuePair<int, string>> CollectedBeanInfo;
 
         private void Awake()
         {
@@ -90,7 +90,7 @@ namespace Player
 
         public void RemoveBean(Bean.Bean bean)
         {
-            vaccum.RemoveBean(bean);
+            vacuum.RemoveBean(bean);
         }
         
         // Gets called from Player Input Component
@@ -108,7 +108,7 @@ namespace Player
             {
                 m_audioSource.Stop();
             }
-            vaccum.gameObject.SetActive(context.ReadValueAsButton());
+            vacuum.gameObject.SetActive(context.ReadValueAsButton());
             m_breatheAmount = context.ReadValueAsButton() ? breatheSpeed : 0;
         }
 
@@ -117,7 +117,7 @@ namespace Player
             if(!context.ReadValueAsButton())
                 return;
 
-            if(m_fireCooldown > 0 || m_storedProjectiles.Count == 0 ||  vaccum.gameObject.activeSelf)
+            if(m_fireCooldown > 0 || m_storedProjectiles.Count == 0 ||  vacuum.gameObject.activeSelf)
                 return;
 
             var projectile = m_storedProjectiles.Peek();
@@ -438,7 +438,7 @@ namespace Player
             }*/
             m_collectedBeansCount++;
             Debug.Log(m_collectedBeansCount + "/5 Beans collected");
-            vaccum.RemoveBean(bean);
+            vacuum.RemoveBean(bean);
             Destroy(bean.gameObject);
         }
 
