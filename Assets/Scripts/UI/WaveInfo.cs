@@ -14,7 +14,7 @@ namespace UI
 
         [SerializeField] private Image infoImage;
         [SerializeField] private float yOffset;
-        [SerializeField] private float moveTime;
+        [SerializeField] private float transitionTime;
         [SerializeField] private float showTime;
 
         private Vector3 m_defaultPosition;
@@ -48,8 +48,10 @@ namespace UI
             infoImage.sprite = waveInfoSprite[newWaveId];
             infoImage.gameObject.SetActive(true);
 
-
-            infoImage.transform.DOMove(m_showPosition, moveTime).SetEase(Ease.OutCirc).SetLoops(2, LoopType.Yoyo);
+            var fadeSequence = DOTween.Sequence();
+            fadeSequence.Append(infoImage.DOColor(Color.white, transitionTime).SetOptions(true).SetEase(Ease.OutCirc));
+            fadeSequence.Append(infoImage.DOColor(new Color(1, 1, 1, 0), transitionTime).SetOptions(true)
+                .SetEase(Ease.InCirc).SetDelay(showTime));
         }
     }
 }

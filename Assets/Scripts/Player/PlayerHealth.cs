@@ -16,33 +16,33 @@ namespace Player
         [SerializeField] private int startLives;
         [Tooltip("Player will be invincible after hit in seconds.")]
         [SerializeField] private float invincibilityTime;
-        [SerializeField] private TextMeshProUGUI liveTextElement;
         [SerializeField] private DamageOverlay damageOverlay;
         [SerializeField] private CinemachineVirtualCamera virtualCamera;
         [SerializeField] private float hitScreenShakeTime;
         [SerializeField] private float hitScreenShakeIntensity;
-
+        [SerializeField] private PlayerHealthBar playerHealthBar;
+        
+            
         private int m_currentLives;
-        private PlayerController m_playerController;
         private WaitForSeconds m_invincibilityPause;
         private bool m_isInvincible;
 
         public bool IncreaseHealth(int amount = 1)
         {
             m_currentLives += amount;
-            if (m_currentLives > 100)
+            if (m_currentLives > startLives)
             {
-                m_currentLives = 100;
+                m_currentLives = startLives;
             }
-            UpdateLiveText();
+            
+            playerHealthBar.UpdateBar((float) m_currentLives / startLives);
             return true;
         }
         
         private void Awake()
         {
             m_currentLives = startLives;
-            UpdateLiveText();
-            m_playerController = GetComponent<PlayerController>();
+            playerHealthBar.UpdateBar((float) m_currentLives / startLives);
             m_invincibilityPause = new WaitForSeconds(invincibilityTime);
         }
 
@@ -75,7 +75,7 @@ namespace Player
             }
             
             m_currentLives -= amount;
-            UpdateLiveText();
+            playerHealthBar.UpdateBar((float) m_currentLives / startLives);
             if (m_currentLives <= 0)
             {
                 SceneManager.LoadScene("LoseScene");
@@ -89,11 +89,6 @@ namespace Player
         {
             yield return m_invincibilityPause;
             m_isInvincible = false;
-        }
-
-        private void UpdateLiveText()
-        {
-            liveTextElement.text = $"Lives: {m_currentLives}";
         }
     }
 }
