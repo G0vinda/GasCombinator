@@ -216,6 +216,10 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 4b83b2ce-9280-4537-b8d6-375508302dde
     m_ActionName: Player/Fart[/XInputControllerWindows/buttonEast,/Keyboard/space]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: a575243c-0af6-4fe8-95c6-c8587f462af1
+    m_ActionName: Player/TogglePauseMenu[/Keyboard/escape]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -307,8 +311,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startLives: 100
   invincibilityTime: 1
-  liveTextElement: {fileID: 0}
   damageOverlay: {fileID: 0}
+  virtualCamera: {fileID: 0}
+  hitScreenShakeTime: 0
+  hitScreenShakeIntensity: 0
+  playerHealthBar: {fileID: 0}
 --- !u!1001 &1262464926901877310
 PrefabInstance:
   m_ObjectHideFlags: 0
