@@ -7,6 +7,11 @@ namespace UI
     {
         private int m_mainSceneIndex = 1;
 
+        public void LoadTutorialScene()
+        {
+            SceneManager.LoadScene("TutorialScene");
+        }
+
         public void LoadMainScene()
         {
             SceneManager.LoadScene(m_mainSceneIndex);
