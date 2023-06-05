@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace UI
 {
@@ -13,5 +14,17 @@ namespace UI
 
             Time.timeScale = gameObject.activeSelf ? 0 : 1;
         }
+
+        public void GoToCredits()
+        {
+            SceneManager.LoadScene("CreditScene");
+        }
+
+        public void GoToMainMenu()
+        {
+            SceneManager.LoadScene("MainMenuScene");
+        }
+        
+        
     }
 }
