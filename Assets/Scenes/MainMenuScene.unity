@@ -2727,7 +2727,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 2143816721}
         m_TargetAssemblyTypeName: UI.MenuButtons, Assembly-CSharp
-        m_MethodName: LoadMainScene
+        m_MethodName: LoadTutorialScene
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

@@ -15,6 +15,7 @@ namespace Enemy
         [SerializeField] private float unfreezeSpeed;
         [SerializeField] private float slowDuration;
         [SerializeField] private GameObject freezeBlock;
+        [SerializeField] private ParticleSystem poisonEffect;
 
         [Header("MovementAnimationValues")] [SerializeField]
         private float bounceHeight;
@@ -135,6 +136,7 @@ namespace Enemy
 
         private IEnumerator ProcessPoison(float dmgPerHit, float poisonHitTime, int  numberOfPoisonHits)
         {
+            poisonEffect.Play();
             var poisonCounter = numberOfPoisonHits;
             while (poisonCounter > 0)
             {   
@@ -142,6 +144,7 @@ namespace Enemy
                 poisonCounter--;
                 yield return new WaitForSeconds(poisonHitTime);
             }
+            poisonEffect.Stop();
         }
 
         private IEnumerator ProcessSlow(float slowFactor)

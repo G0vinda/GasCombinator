@@ -69,7 +69,7 @@ namespace Player
         private void MovePlayer()
         {
             transform.rotation = Quaternion.Slerp(transform.rotation, m_moveRotation, rotationSpeed);
-            m_rigidbody.MovePosition(m_rigidbody.position + m_movement * ((defaultSpeed + m_bonusSpeed) * Time.deltaTime));
+            m_rigidbody.velocity = m_movement * (defaultSpeed + m_bonusSpeed);
         }
     }
 }

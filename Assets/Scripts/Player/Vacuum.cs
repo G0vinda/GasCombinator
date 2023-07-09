@@ -6,7 +6,7 @@ using UnityEngine.Serialization;
 
 namespace Player
 {
-    public class Vaccum : MonoBehaviour
+    public class Vacuum : MonoBehaviour
     {
         public float baseSpeed;
         public AnimationCurve speedOverDistance;
@@ -25,16 +25,14 @@ namespace Player
 
         void OnTriggerEnter(Collider other)
         {
-            if (other.gameObject.TryGetComponent<Bean.Bean>(out var bean) && !m_capturedBeans.Contains(other))
+            if (other.gameObject.TryGetComponent<Bean.Bean>(out _) && !m_capturedBeans.Contains(other))
             {
-                Debug.Log("Bean captured: " + other.gameObject.name);
                 m_capturedBeans.Add(other);
             }
         }
 
         private void OnTriggerExit(Collider other)
         {
-            Debug.Log("Bean dropped: " + other.gameObject.name);
             m_capturedBeans.Remove(other);
         }
 
