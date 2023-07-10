@@ -16,8 +16,8 @@ TagManager:
   - InvisibleWall
   - Bean
   - Projectile
-  - 
-  - 
+  - Enemy
+  - Obstacle
   - 
   - 
   - 

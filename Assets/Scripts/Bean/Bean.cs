@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using DG.Tweening.Core;
 using UnityEngine;
 using Player;
+using UnityEngine.Serialization;
 
 namespace Bean
 {
@@ -11,18 +12,15 @@ namespace Bean
     {
         public enum Type
         {
-            EXTRA_SHOTS,
-            BONUS_WALKING_SPEED,
-            SHOT_SLOW,
-            SHOT_SPREAD
+            NEUTRAL = 0, 
+            RED, 
+            BLUE, 
+            GREEN
         }
-
+        
         [SerializeField] private Type type;
-        [SerializeField] private float walkingSpeedBonus;
-        [SerializeField] private float shotSlow;
-
+        
         public Type BeanType => type;
-        public float WalkingSpeedBonus => walkingSpeedBonus;
-        public float ShotSlow => shotSlow;
+
     }
 }

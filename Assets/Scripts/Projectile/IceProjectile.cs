@@ -5,6 +5,7 @@ namespace Projectile
     public class IceProjectile : Projectile
     {
         [SerializeField] private float freezeTime;
+        public float unfrozenSpeedMultiplier = 1.0f;
         
         private void Update()
         {
@@ -16,8 +17,7 @@ namespace Projectile
             if (hitEnemy != null)
             {
                 hitEnemy.TakeDamage(damage);
-                hitEnemy.TakeSlow(slowEffect);
-                hitEnemy.Freeze(freezeTime);
+                hitEnemy.Freeze(freezeTime, unfrozenSpeedMultiplier);
             }
 
             Destroy(gameObject);
