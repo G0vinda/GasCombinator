@@ -39,6 +39,25 @@ namespace UI
         {
             Dragon.BeansChanged -= UpdateBeanUI;
         }
+
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.Tab))
+            {
+                ToggleBeanInfoManually();
+            }
+        }
+
+        // Temp Solution as new Input system won't work :/ todo: fix
+        private void ToggleBeanInfoManually()
+        {
+            foreach (var beanInfoCard in BeanInfoCards)
+            {
+                beanInfoCard.transform.DOScale(new Vector3(isBeanInfoShown ? 0f : 1f, 1f, 1f), 0.5f);
+            }
+
+            isBeanInfoShown = !isBeanInfoShown;
+        }
         
         public void ToggleBeanInfo(InputAction.CallbackContext context)
         {
