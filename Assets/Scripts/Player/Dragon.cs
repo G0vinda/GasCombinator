@@ -36,6 +36,7 @@ namespace Player
         [Header("Audio")]
         [SerializeField] private AudioClip fartSound;
         [SerializeField] private AudioClip breathSound;
+        [SerializeField] private AudioClip shootSound;
         
         private float m_fireCooldown;
         private Stack<Projectile.Projectile> m_storedProjectiles;
@@ -114,6 +115,7 @@ namespace Player
 
         public void OnSpitFire(InputAction.CallbackContext context)
         {
+
             if(!context.ReadValueAsButton())
                 return;
 
@@ -209,7 +211,9 @@ namespace Player
 
             List<Projectile.Projectile> newProjectiles = new List<Projectile.Projectile>();
             newProjectiles.Add(Instantiate( projectile, mouthPosition.position, mouthPosition.rotation));
-
+            m_audioSource.volume = 1f;
+            m_audioSource.clip = shootSound;
+            m_audioSource.Play();
 
             switch (projectile.type)
             {
@@ -381,11 +385,6 @@ namespace Player
 
         public void ConsumeBean(Bean.Bean bean)
         {
-            /*if (!m_fireballTypeAttributes.ContainsKey((int) bean.BeanType))
-            {
-                m_fireballTypeAttributes[(int) bean.BeanType] = new ShotAttributes();
-            }*/
-
             if (m_collectedBeansCount >= 5)
             {
                 Fart();
@@ -396,46 +395,27 @@ namespace Player
                 case Bean.Bean.Type.RED:
                     RedBean.Attributes.ActivatedEffects.Add(((RedBean) bean).effectOrder[RedBean.Attributes.Collected]);
                     RedBean.Attributes.Collected++;
-                    CollectedBeanInfo.Add( new KeyValuePair<int, string>(
-                        (int) Bean.Bean.Type.RED, RedBean.Attributes.EffectInfo[RedBean.Attributes.Collected]));
-                    BeansChanged?.Invoke(CollectedBeanInfo);
+                    CollectedBeanInfo.Add(new KeyValuePair<int, string>(
+                        (int)Bean.Bean.Type.RED, RedBean.Attributes.EffectInfo[RedBean.Attributes.Collected]));
                     break;
                 case Bean.Bean.Type.BLUE:
                     BlueBean.Attributes.ActivatedEffects.Add(((BlueBean) bean).effectOrder[BlueBean.Attributes.Collected]);
                     BlueBean.Attributes.Collected++;
                     CollectedBeanInfo.Add( new KeyValuePair<int, string>(
                         (int) Bean.Bean.Type.BLUE, BlueBean.Attributes.EffectInfo[ BlueBean.Attributes.Collected]));
-                    BeansChanged?.Invoke(CollectedBeanInfo);
                     break;
                 case Bean.Bean.Type.GREEN:
                     GreenBean.Attributes.ActivatedEffects.Add(((GreenBean) bean).effectOrder[GreenBean.Attributes.Collected]);
                     GreenBean.Attributes.Collected++;
                     CollectedBeanInfo.Add( new KeyValuePair<int, string>(
                         (int) Bean.Bean.Type.GREEN, GreenBean.Attributes.EffectInfo[GreenBean.Attributes.Collected]));
-                    BeansChanged?.Invoke(CollectedBeanInfo);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
+            CollectedBeanInfo.Sort((x, y) => x.Key.CompareTo(y.Key));
+            BeansChanged?.Invoke(CollectedBeanInfo);
             beanSpawner.beanProbabilities[(int)bean.BeanType - 1] *= 1.1f;
-            /*switch (bean.BeanEfect)
-            {
-                case Bean.Bean.Effect.EXTRA_SHOTS:
-                    m_fireballTypeAttributes[(int) bean.BeanType].IncreaseExtraShots();
-                    break;
-                case Bean.Bean.Effect.SHOT_DAMAGE:
-                    m_fireballTypeAttributes[(int) bean.BeanType].IncreaseDamageMultiplier(bean.ShotDamageMultiplier);
-                    break;
-                case Bean.Bean.Effect.BONUS_WALKING_SPEED:
-                    //m_fireballTypeAttributes[(int) bean.BeanType].IncreaseWalkSpeedBonus(bean.WalkingSpeedBonus);
-                    m_playerController.BonusSpeed += bean.WalkingSpeedBonus;
-                    break;
-                case Bean.Bean.Effect.SHOT_SLOW:
-                    m_fireballTypeAttributes[(int) bean.BeanType].IncreaseShotSlow(bean.ShotSlow);
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }*/
             m_collectedBeansCount++;
             Debug.Log(m_collectedBeansCount + "/5 Beans collected");
             vacuum.RemoveBean(bean);

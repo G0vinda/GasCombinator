@@ -1,19 +1,34 @@
 using System;
 using System.Collections.Generic;
+using DG.Tweening;
 using Player;
+using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 namespace UI
 {
-    public class BeanIndicator : MonoBehaviour
-    {
+   public class BeanIndicator : MonoBehaviour
+   {
         [SerializeField] private Image[] BeanIndicatorImage;
+        [SerializeField] private TextMeshProUGUI[] BeanInfoTexts;
+        [SerializeField] private GameObject[] BeanInfoCards;
+
+        private bool isBeanInfoShown = false;
 
         [SerializeField] private Sprite redSprite;
         [SerializeField] private Sprite blueSprite;
         [SerializeField] private Sprite greenSprite;
+        
 
+        private void Start()
+        {
+            foreach (var beanInfoTexts in BeanInfoTexts)
+            {
+                beanInfoTexts.enabled = false;
+            }
+        }
 
         private void OnEnable()
         {
@@ -25,13 +40,48 @@ namespace UI
             Dragon.BeansChanged -= UpdateBeanUI;
         }
 
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.Tab))
+            {
+                ToggleBeanInfoManually();
+            }
+        }
+
+        // Temp Solution as new Input system won't work :/ todo: fix
+        private void ToggleBeanInfoManually()
+        {
+            foreach (var beanInfoCard in BeanInfoCards)
+            {
+                beanInfoCard.transform.DOScale(new Vector3(isBeanInfoShown ? 0f : 1f, 1f, 1f), 0.5f);
+            }
+
+            isBeanInfoShown = !isBeanInfoShown;
+        }
+        
+        public void ToggleBeanInfo(InputAction.CallbackContext context)
+        {
+            if (!context.started)
+                return;
+            foreach (var beanInfoCard in BeanInfoCards)
+            {
+                beanInfoCard.transform.DOScale(new Vector3(isBeanInfoShown ? 0f : 1f, 1f, 1f), 0.5f);
+            }
+
+            isBeanInfoShown = !isBeanInfoShown;
+        }
+
         private void UpdateBeanUI(List<KeyValuePair<int, string>> beans)
         {
             foreach (var image in BeanIndicatorImage)
             {
                 ResetBeanImage(image);
             }
-        
+            foreach (var beanInfoTexts in BeanInfoTexts)
+            {
+                beanInfoTexts.enabled = false;
+            }
+            
             int counter = 0;
             foreach (var keyValuePair in beans)
             {
@@ -51,7 +101,9 @@ namespace UI
                     default:
                         throw new ArgumentOutOfRangeException();
                 }
-
+                
+                BeanInfoTexts[counter].text = keyValuePair.Value;
+                BeanInfoTexts[counter].enabled = true;
                 counter++;
             }
         }

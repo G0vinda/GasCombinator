@@ -10,7 +10,8 @@ namespace Player
         [SerializeField] private float rotationSpeed;
         [SerializeField] private Animator animator;
 
-        private Rigidbody m_rigidbody;
+        private CharacterController controller;
+        private float gravityValue = -9.81f;
 
         public float BonusSpeed
         {
@@ -29,7 +30,7 @@ namespace Player
 
         private void Start()
         {
-            m_rigidbody = GetComponent<Rigidbody>();
+            controller = GetComponent<CharacterController>();
             m_movementSpeedHash = Animator.StringToHash("MovementSpeed");
         }
 
@@ -39,6 +40,7 @@ namespace Player
             var move = context.ReadValue<Vector2>();
             m_movement = new Vector3(move.x, 0f, move.y);
 
+            Debug.Log(m_movement);
             if (move != Vector2.zero)
             {
                 UpdateMovementSpeedValue(true);
@@ -69,7 +71,9 @@ namespace Player
         private void MovePlayer()
         {
             transform.rotation = Quaternion.Slerp(transform.rotation, m_moveRotation, rotationSpeed);
-            m_rigidbody.velocity = m_movement * (defaultSpeed + m_bonusSpeed);
+            var movement = m_movement * (defaultSpeed + m_bonusSpeed);
+            movement.y = gravityValue;
+            controller.Move(movement * Time.deltaTime);
         }
     }
 }

@@ -7,11 +7,20 @@ namespace UI
 {
     public class TutorialUI : MonoBehaviour
     {
+        enum State
+        {
+            Page1,
+            Page2,
+            Fading
+        }
+        private State state = State.Page1;
+        
         [SerializeField] private Image page1;
         [SerializeField] private Image page2;
 
         [SerializeField] private float fadeTime;
-    
+        
+
         void Start()
         {
             page2.gameObject.SetActive(false);
@@ -21,12 +30,29 @@ namespace UI
         public void SwitchToPage1()
         {
             Debug.Log("Switch to Page 1 called");
+            if (state == State.Page1)
+            {
+                Debug.Log("Switch to Page 1 cancelled");
+                return;
+            }
+
+            state = State.Fading;
             FadeInPage1();
         }
 
         public void SwitchToPage2()
         {
-            FadeOutPage(page1, () => { page1.gameObject.SetActive(false); });
+            Debug.Log("Switch to Page 2 called");
+            if (state == State.Page2)
+            {
+                Debug.Log("Switch to Page 2 cancelled");
+                return;
+            }
+            
+            state = State.Fading;
+            FadeOutPage(page1, () => { page1.gameObject.SetActive(false);
+                state = State.Page2;
+            });
         }
 
         public void ExitTutorial()
@@ -46,7 +72,12 @@ namespace UI
             {
                 pageColor.a = value;
                 page1.color = pageColor;
-            }).SetEase(Ease.OutSine).OnComplete(() => { page2.gameObject.SetActive(true); });
+            }).SetEase(Ease.OutSine).
+            OnComplete(() => 
+            { 
+                page2.gameObject.SetActive(true);
+                state = State.Page1;
+            });
         }
     
         private void FadeOutPage(Image page, TweenCallback tweenCallback)
