@@ -33,7 +33,7 @@ namespace Bean
             public static float ExtraShotPerBean = 0.5f;
             
             public static Dictionary<int, string> EffectInfo = new Dictionary<int, string>() {{1, "Damage Avoidance Chance"}, 
-                {2, "Farts Heal More"}, {3, "Slow Enemies After Freeze"}, {4, "Triple Blue Shots"}, {5, "Super Freeze Fart"}};
+                {2, "Farts Heal More"}, {3, "Perma-slow after freeze"}, {4, "Triple Blue Shots"}, {5, "Super Freeze Fart"}};
 
             public static List<Effect> ActivatedEffects = new List<Effect>();
 

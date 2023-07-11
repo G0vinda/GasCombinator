@@ -115,6 +115,7 @@ namespace Player
 
         public void OnSpitFire(InputAction.CallbackContext context)
         {
+
             if(!context.ReadValueAsButton())
                 return;
 

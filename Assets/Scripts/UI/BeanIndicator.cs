@@ -20,7 +20,7 @@ namespace UI
         [SerializeField] private Sprite redSprite;
         [SerializeField] private Sprite blueSprite;
         [SerializeField] private Sprite greenSprite;
-
+        
 
         private void Start()
         {
@@ -30,6 +30,16 @@ namespace UI
             }
         }
 
+        private void OnEnable()
+        {
+            Dragon.BeansChanged += UpdateBeanUI;
+        }
+
+        private void OnDisable()
+        {
+            Dragon.BeansChanged -= UpdateBeanUI;
+        }
+        
         public void ToggleBeanInfo(InputAction.CallbackContext context)
         {
             if (!context.started)
@@ -42,15 +52,6 @@ namespace UI
             isBeanInfoShown = !isBeanInfoShown;
         }
 
-        private void OnEnable()
-        {
-            Dragon.BeansChanged += UpdateBeanUI;
-        }
-        private void OnDisable()
-        {
-            Dragon.BeansChanged -= UpdateBeanUI;
-        }
-
         private void UpdateBeanUI(List<KeyValuePair<int, string>> beans)
         {
             foreach (var image in BeanIndicatorImage)
@@ -61,11 +62,7 @@ namespace UI
             {
                 beanInfoTexts.enabled = false;
             }
-
-            BeanInfoTexts[counter].text = keyValuePair.Value;
-            BeanInfoTexts[counter].enabled = true;
-            counter++;
-
+            
             int counter = 0;
             foreach (var keyValuePair in beans)
             {
@@ -85,7 +82,9 @@ namespace UI
                     default:
                         throw new ArgumentOutOfRangeException();
                 }
-
+                
+                BeanInfoTexts[counter].text = keyValuePair.Value;
+                BeanInfoTexts[counter].enabled = true;
                 counter++;
             }
         }
